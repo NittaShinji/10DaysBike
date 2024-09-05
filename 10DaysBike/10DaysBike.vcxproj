@@ -133,11 +133,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IObject2D.cpp" />
+    <ClCompile Include="KeyboardInput.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TrajectoriesManager.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inform.h" />
+    <ClInclude Include="IObject2D.h" />
+    <ClInclude Include="KeyboardInput.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="Trajectory.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="TrajectoriesManager.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

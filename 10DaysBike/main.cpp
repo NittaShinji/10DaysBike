@@ -1,11 +1,14 @@
 #include "DxLib.h" 
 #include "Inform.h" 
+#include "KeyboardInput.h" 
+#include "Player.h" 
+#include "PlayerState.h" 
 
 // ウィンドウのタイトルに表示する文字列
 
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
-                   _In_ int nCmdShow) {
+	_In_ int nCmdShow) {
 	// ウィンドウモードに設定
 	ChangeWindowMode(TRUE);
 
@@ -35,28 +38,24 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
-
-
-	// 最新のキーボード情報用
-	char keys[256] = {0};
-
-	// 1ループ(フレーム)前のキーボード情報
-	char oldkeys[256] = {0};
+	auto player = std::make_unique<Player>();
+	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
 	// ゲームループ
 	while (true) {
-		// 最新のキーボード情報だったものは1フレーム前のキーボード情報として保存
-		// 最新のキーボード情報を取得
-		GetHitKeyStateAll(keys);
+
+		KeyboardInput::GetInstance().Update();
 
 		// 画面クリア
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-
+		player->Update();
 
 		// 描画処理
+		player->Draw();
+
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
