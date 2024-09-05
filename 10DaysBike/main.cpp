@@ -1,13 +1,8 @@
 #include "DxLib.h" 
+#include "Inform.h" 
 
 // ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "xx2x_xx_ナマエ: タイトル";
 
-// ウィンドウ横幅
-const int WIN_WIDTH = 600;
-
-// ウィンドウ縦幅
-const int WIN_HEIGHT = 400;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
                    _In_ int nCmdShow) {
@@ -19,10 +14,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetWindowSizeChangeEnableFlag(FALSE, FALSE);
 
 	// タイトルを変更
-	SetMainWindowText(TITLE);
+	SetMainWindowText(TITLE.c_str());
 
 	// 画面サイズの最大サイズ、カラービット数を設定(モニターの解像度に合わせる)
-	SetGraphMode(WIN_WIDTH, WIN_HEIGHT, 32);
+	SetGraphMode(WINDOW_SIZE.x, WINDOW_SIZE.y, 32);
 
 	// 画面サイズを設定(解像度との比率で設定)
 	SetWindowSizeExtendRate(1.0);
