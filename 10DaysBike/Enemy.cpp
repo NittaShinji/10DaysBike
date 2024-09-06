@@ -86,5 +86,5 @@ void Enemy::OnCollision(const CollisionInfo& info)
 
 void Enemy::ProccesingTurning()
 {
-	trajManag_->ProccesingTurning();
+	//trajManag_->ProccesingTurning();
 }
