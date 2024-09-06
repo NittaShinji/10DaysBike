@@ -16,6 +16,11 @@ void IObject2D::RemoveCollider()
 	}
 }
 
+void IObject2D::Move()
+{
+	pos_ += vec_;
+}
+
 void IObject2D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject(this);

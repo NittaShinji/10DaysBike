@@ -12,7 +12,7 @@ class Player : public IObject2D
 public:
 	static const float AUTO_MOVING_SPEED;
 	static const float SIDE_MOVING_SPEED;
-	static const uint16_t PROT_PLAYER_DRAWING_SIZE = 40;
+	static const uint16_t PROT_PLAYER_DRAWING_SIZE = 30;
 	static const ColorDxLib PROT_PLAYER_COLOR;
 	static const int TURN_KEY = KEY_INPUT_SPACE;
 private:

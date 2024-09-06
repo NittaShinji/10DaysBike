@@ -14,12 +14,14 @@ public:
 
 public:
 	static const uint8_t LINE_TICKNESS = 3;
+	static const uint8_t LIFE_FRAME = 60;
 	static const ColorDxLib PROT_TRAJ_COLOR;
 
 private:
 	TwoPoses twoPoses_;
 	bool isHead_ = false;
 	std::unique_ptr<CircleCollider> trajectoryCollider_ = nullptr;
+	uint16_t lifeFrame_= LIFE_FRAME;
 
 private:
 

@@ -24,6 +24,9 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 public:
+	//vec_‚ðŽg‚Á‚Äpos_‚ð•Ï‰»
+	void Move();
+public:
 	void SetPos(const Vec2& pos) { pos_ = pos; }
 	void SetVec(const Vec2& vec) { vec_ = vec; }
 	void SetRadius(const float radius) { radius_ = radius; }

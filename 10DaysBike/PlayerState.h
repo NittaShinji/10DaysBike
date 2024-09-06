@@ -9,7 +9,7 @@ class IPlayerState
 protected:
 	Player* player_ = nullptr;
 	bool isWaitingTurn_ = false;
-
+	float dirY_ = 0;
 
 protected:
 	void SideMoveUpdate();

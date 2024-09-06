@@ -12,16 +12,23 @@ void IPlayerState::SideMoveUpdate()
 		0
 	};
 
-	player_->SetPos(player_->GetPos() + SIDE_MOVE_VEC * Player::SIDE_MOVING_SPEED);
+	player_->SetVec(SIDE_MOVE_VEC * Player::SIDE_MOVING_SPEED);
 }
 
 void IPlayerState::Update()
 {
 	SideMoveUpdate();
 
-	if(KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY))
+	//縦のベクトルセット
+	const Vec2 VEC = player_->GetVec();
+	player_->SetVec({ VEC.x,dirY_ });
+
+	//移動
+	player_->Move();
+
+	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY))
 	{
-		isWaitingTurn_=true;
+		isWaitingTurn_ = true;
 		player_->ProccesingTurning();
 	}
 }
@@ -31,12 +38,11 @@ void IPlayerState::Update()
 //プレイヤーが上向きの状態
 void PlayerStateUp::Init()
 {
+	dirY_= -Player::AUTO_MOVING_SPEED;
 }
 
 void PlayerStateUp::Update()
 {
-	player_->SetPos(player_->GetPos() - Vec2{ 0, Player::AUTO_MOVING_SPEED });
-
 	IPlayerState::Update();
 
 
@@ -65,12 +71,11 @@ void PlayerStateUp::Draw()
 //した向きの状態
 void PlayerStateDown::Init()
 {
+	dirY_ = Player::AUTO_MOVING_SPEED;
 }
 
 void PlayerStateDown::Update()
 {
-	player_->SetPos(player_->GetPos() + Vec2{ 0, Player::AUTO_MOVING_SPEED });
-
 	IPlayerState::Update();
 
 	if (isWaitingTurn_)

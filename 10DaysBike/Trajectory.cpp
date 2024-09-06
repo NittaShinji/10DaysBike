@@ -3,8 +3,8 @@
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
 
-Trajectory::Trajectory(){}
-Trajectory::~Trajectory(){RemoveCollider();}
+Trajectory::Trajectory() {}
+Trajectory::~Trajectory() { RemoveCollider(); }
 
 void Trajectory::Init()
 {
@@ -40,7 +40,10 @@ void Trajectory::Update()
 
 	collider_->Update();
 
-	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos))
+	lifeFrame_--;
+
+	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos)
+		|| lifeFrame_ < 1)
 	{
 		//‰æ–ÊŠO‚Éo‚½‚çÁ‚µ‚Ä‚à‚ç‚¤‚½‚ß
 		isAlive_ = false;

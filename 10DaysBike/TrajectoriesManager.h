@@ -22,6 +22,7 @@ public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
+	void Update(float dirY);
 	void Draw()override;
 public:
 	void ProccesingTurning();

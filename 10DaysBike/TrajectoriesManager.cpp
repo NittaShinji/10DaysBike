@@ -1,7 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 10.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 16.0f;
 
 
 void TrajectoriesManager::Init()
@@ -26,26 +26,43 @@ void TrajectoriesManager::GenerateUpdate()
 
 void TrajectoriesManager::Update()
 {
+	Update(0);
+}
+
+void TrajectoriesManager::Update(float dirY)
+{
 	//1フレームごとに生成するため
 	GenerateUpdate();
 
-
-	for (auto itr = --trajectories_.end(), end = trajectories_.begin(); itr != end; itr--)
+	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
-		//更新
-		itr->get()->Update();
+		//次(自分より新しい)の軌跡
+		auto nextTrajItr = itr;
+		nextTrajItr++;
 
-		//次の軌跡
-		auto nextItr = itr;
-		nextItr++;
+		if (nextTrajItr == trajectories_.end())
+		{
+			break;
+		}
 
-		if (itr->get()->GetIsHead() == false
-			&& itr != --trajectories_.end())
+		if (nextTrajItr->get()->GetIsHead() == false
+			&& itr != trajectories_.begin())
 		{
 			//一個後に出た軌跡の後ろの点を始点とする
-			itr->get()->SetTwoPoses(nextItr->get()->GetTwoPoses().ePos,
-				itr->get()->GetTwoPoses().sPos);
+			itr->get()->SetTwoPoses(
+				nextTrajItr->get()->GetTwoPoses().ePos,
+				itr->get()->GetTwoPoses().ePos);
 		}
+
+	}
+
+	//移動など更新処理
+	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
+	{
+		//更新
+		itr->get()->SetVec(Vec2(0, dirY).GetNormalize() * TRAJ_SPEED);
+		itr->get()->Update();
+
 	}
 
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
@@ -87,10 +104,6 @@ void TrajectoriesManager::ProccesingTurning()
 //------------------------------------------------------------------------------------
 void TrajectoriesManager::GenerateTrajectory()
 {
-	auto traj = std::make_unique<Trajectory>();
-	//一旦,仮で移動量をそのままベクトルに使う
-	const Vec2 DIR_VEC = oldPos_ - pos_;
-
 	//ターンしたら次の軌跡を先頭にするため
 	bool isHead = false;
 	if (isTurned)
@@ -99,8 +112,13 @@ void TrajectoriesManager::GenerateTrajectory()
 		isTurned = false;
 	}
 
+	auto traj = std::make_unique<Trajectory>();
+
+	//一旦,仮で移動量をそのままベクトルに使う
+	const Vec2 DIR_VEC = oldPos_ - pos_;
+
 	//仮でyだけ動かす
-	traj->Init({ pos_,oldPos_ }, Vec2{ 0,DIR_VEC.GetNormalize().y } * TRAJ_SPEED,
+	traj->Init({ pos_,oldPos_ }, Vec2{ 0,0 },
 		isHead);
 
 
