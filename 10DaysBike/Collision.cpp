@@ -1,4 +1,7 @@
-#include "ICollider.h"
+#include "Collision.h"
+
+Collision::Collision() {}
+Collision::~Collision() {}
 
 bool Collision::CheckCircle2Circle(const Circle& circleA, const Circle& circleB)
 {

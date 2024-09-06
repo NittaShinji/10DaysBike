@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerState.h"
+#include "CollisionAttribute.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
 const float Player::SIDE_MOVING_SPEED = 3.0f;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
@@ -23,10 +24,22 @@ void Player::Init(const Vec2& pos)
 
 	color_ = PROT_PLAYER_COLOR;
 
+	radius_ = PROT_PLAYER_DRAWING_SIZE;
+
 	//軌跡管理クラス
 	trajManag_.reset();
 	trajManag_ = std::make_unique<TrajectoriesManager>();
 	trajManag_->Init(pos_);
+
+	//コライダーの追加
+	const float radius = static_cast<float>(PROT_PLAYER_DRAWING_SIZE);
+	playerCollider_ = std::make_unique<CircleCollider>(pos_, radius);
+
+	//コライダーの登録
+	SetCollider(playerCollider_.get());
+
+	//属性を指定
+	playerCollider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
 	//ステート
 	ChangeState(std::make_unique<PlayerStateDown>());
@@ -38,6 +51,14 @@ void Player::Update()
 
 	trajManag_->SetPos(pos_);
 	trajManag_->Update();
+
+	if (isHit_ == true)
+	{
+		isHit_ = false;
+		color_ = { 255,255,255 };
+	}
+
+	collider_->Update();
 }
 
 void Player::Draw()
@@ -60,4 +81,13 @@ void Player::ChangeState(std::unique_ptr<IPlayerState> state)
 void Player::ProccesingTurning()
 {
 	trajManag_->ProccesingTurning();
+}
+
+void Player::OnCollision(const CollisionInfo& info)
+{
+	if (isHit_ == false)
+	{
+		isHit_ = true;
+		color_ = { 0,0,255 };
+	}
 }

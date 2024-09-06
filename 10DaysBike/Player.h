@@ -1,5 +1,6 @@
 #pragma once
 #include"IObject2D.h"
+#include "CircleCollider.h"
 #include"TrajectoriesManager.h"
 
 //前方宣言
@@ -19,6 +20,10 @@ private:
 	std::unique_ptr<TrajectoriesManager> trajManag_ = nullptr;
 	//ステート
 	std::unique_ptr<IPlayerState>state_ = nullptr;
+	//プレイヤーのコライダー
+	std::unique_ptr<CircleCollider> playerCollider_ = nullptr;
+	//当たったかどうか
+	bool isHit_ = false;
 
 private:
 	void MoveUpdate();
@@ -30,5 +35,7 @@ public:
 public:
 	void ChangeState(std::unique_ptr<IPlayerState> state);
 	void ProccesingTurning();
+	//衝突時に呼び出される関数
+	void OnCollision(const CollisionInfo& info) override;
 };
 

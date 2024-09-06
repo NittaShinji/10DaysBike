@@ -1,5 +1,6 @@
 #pragma once
 #include"IObject2D.h"
+#include "CircleCollider.h"
 
 //前方宣言
 class IEnemyState;
@@ -19,6 +20,10 @@ private:
 	std::unique_ptr<IEnemyState>state_ = nullptr;
 	//死亡フラグ
 	bool isDead_ = false;
+	//当たったかどうか
+	bool isHit_ = false;
+	//敵のコライダー
+	std::unique_ptr<CircleCollider> enemyCollider_ = nullptr;
 
 private:
 	void MoveUpdate();
@@ -29,5 +34,7 @@ public:
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IEnemyState> state);
+	//衝突時に呼び出される関数
+	void OnCollision(const CollisionInfo& info) override;
 };
 

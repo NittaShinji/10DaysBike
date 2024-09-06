@@ -19,7 +19,6 @@ private:
 	TwoPoses twoPoses_;
 	bool isHead_ = false;
 
-
 private:
 
 public:

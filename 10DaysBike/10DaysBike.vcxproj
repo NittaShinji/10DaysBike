@@ -133,23 +133,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
-    <ClCompile Include="ICollider.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="CircleCollider.h" />
+    <ClInclude Include="CollisionAttribute.h" />
+    <ClInclude Include="CollisionInfo.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionPrimitive.h" />
+    <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
-    <ClInclude Include="ICollider.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />

@@ -1,4 +1,21 @@
 #include "IObject2D.h"
+#include "CollisionManager.h"
+#include "BaseCollider.h"
+
+void IObject2D::OnCollision(const CollisionInfo& info)
+{
+	static_cast<void>(info);
+}
+
+void IObject2D::SetCollider(BaseCollider* collider)
+{
+	collider->SetObject(this);
+	collider_ = collider;
+	//コリジョンマネージャーに登録
+	CollisionManager::GetInstance()->AddCollider(collider);
+	//コライダーを更新しておく
+	collider->Update();
+}
 
 bool IObject2D::GetIsOffingScreen()
 {
