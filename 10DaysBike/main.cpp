@@ -3,6 +3,9 @@
 #include "KeyboardInput.h" 
 #include "Player.h" 
 #include "PlayerState.h" 
+#include "Enemy.h" 
+#include "EnemyState.h" 
+
 
 // ウィンドウのタイトルに表示する文字列
 
@@ -41,6 +44,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	auto player = std::make_unique<Player>();
 	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
+	std::unique_ptr <Enemy> enemy = std::make_unique<Enemy>();
+	enemy->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 4 });
+
 	// ゲームループ
 	while (true) {
 
@@ -52,10 +58,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 更新処理
 		player->Update();
+		enemy->Update();
 
 		// 描画処理
 		player->Draw();
-
+		enemy->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

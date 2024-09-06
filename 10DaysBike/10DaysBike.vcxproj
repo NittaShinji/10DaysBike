@@ -133,6 +133,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="ICollider.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -143,6 +146,10 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionPrimitive.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="ICollider.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />
