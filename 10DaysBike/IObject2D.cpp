@@ -7,6 +7,15 @@ void IObject2D::OnCollision(const CollisionInfo& info)
 	static_cast<void>(info);
 }
 
+void IObject2D::RemoveCollider()
+{
+	if (collider_)
+	{
+		//コリジョンマネージャーから登録を解除する
+		CollisionManager::GetInstance()->RemoveCollider(collider_);
+	}
+}
+
 void IObject2D::SetCollider(BaseCollider* collider)
 {
 	collider->SetObject(this);

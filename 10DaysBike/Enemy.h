@@ -1,11 +1,12 @@
 #pragma once
 #include"IObject2D.h"
 #include "CircleCollider.h"
+#include"TrajectoriesManager.h"
 
 //前方宣言
 class IEnemyState;
 
-//プレイヤー
+//敵
 class Enemy : public IObject2D
 {
 public:
@@ -15,7 +16,8 @@ public:
 	static const ColorDxLib PROT_ENEMY_COLOR;
 	static const int TURN_KEY = KEY_INPUT_SPACE;
 private:
-
+	//軌跡の管理クラス
+	//std::unique_ptr<TrajectoriesManager> trajManag_ = nullptr;
 	//ステート
 	std::unique_ptr<IEnemyState>state_ = nullptr;
 	//死亡フラグ
@@ -34,6 +36,7 @@ public:
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IEnemyState> state);
+	void ProccesingTurning();
 	//衝突時に呼び出される関数
 	void OnCollision(const CollisionInfo& info) override;
 };

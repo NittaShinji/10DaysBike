@@ -25,6 +25,10 @@ void Enemy::Init(const Vec2& pos)
 
 	radius_ = PROT_ENEMY_DRAWING_SIZE;
 
+	//trajManag_.reset();
+	//trajManag_ = std::make_unique<TrajectoriesManager>();
+	//trajManag_->Init(pos_);
+
 	//コライダーの追加
 	const float radius = static_cast<float>(PROT_ENEMY_DRAWING_SIZE);
 	enemyCollider_ = std::make_unique<CircleCollider>(pos_, radius);
@@ -35,6 +39,8 @@ void Enemy::Init(const Vec2& pos)
 	//属性を指定
 	enemyCollider_->SetAttribute(COLLISION_ATTR_ENEMYS);
 
+	ProccesingTurning();
+
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
 }
@@ -43,6 +49,10 @@ void Enemy::Update()
 {
 	state_->Update();
 	collider_->Update();
+
+	//trajManag_->SetPos(pos_);
+	//trajManag_->Update();
+
 	if (isHit_ == true)
 	{
 		isHit_ = false;
@@ -52,9 +62,9 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
+	//trajManag_->Draw();
 	state_->Draw();
 }
-
 
 //----------------------------------------------------------------------
 void Enemy::ChangeState(std::unique_ptr<IEnemyState> state)
@@ -67,9 +77,14 @@ void Enemy::ChangeState(std::unique_ptr<IEnemyState> state)
 
 void Enemy::OnCollision(const CollisionInfo& info)
 {
-	if (isHit_ == false)
+ 	if (isHit_ == false)
 	{
 		isHit_ = true;
 		color_ = { 0,255,0 }; 
 	}
+}
+
+void Enemy::ProccesingTurning()
+{
+	trajManag_->ProccesingTurning();
 }

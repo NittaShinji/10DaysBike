@@ -99,7 +99,7 @@ void TrajectoriesManager::GenerateTrajectory()
 		isTurned = false;
 	}
 
-	//‰¼‚Åy‚¾‚¯‰L‚ª‰Û‚·
+	//‰¼‚Åy‚¾‚¯“®‚©‚·
 	traj->Init({ pos_,oldPos_ }, Vec2{ 0,DIR_VEC.GetNormalize().y } * TRAJ_SPEED,
 		isHead);
 

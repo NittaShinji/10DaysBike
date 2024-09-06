@@ -44,7 +44,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
 	std::unique_ptr <Enemy> enemy = std::make_unique<Enemy>();
-	enemy->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 4 });
+	enemy->Init({ 420,236 });
 
 	//衝突マネージャー
 	CollisionManager* collisionManager_ = nullptr;

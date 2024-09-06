@@ -23,6 +23,8 @@ class EnemyStateWait : public IEnemyState
 {
 
 private:
+	const float kWaitTime_ = 20.0f;
+	float waitTimer_ = kWaitTime_;
 
 public:
 	void Init()override;
@@ -36,6 +38,13 @@ class EnemyStateAttack : public IEnemyState
 {
 
 private:
+	const float kAttackTime_ = 120.0f;
+	float attackTimer_ = kAttackTime_;
+	//’†S‚©‚ç‚ÌŠp“x
+	float angle = 0.0f;
+	//‰~‰^“®‚Ì‘¬“x
+	const float circleMoveSpeed = 0.35f;
+
 
 public:
 	void Init()override;

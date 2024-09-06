@@ -1,7 +1,10 @@
 #include "Trajectory.h"
+#include "CollisionAttribute.h"
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
 
+Trajectory::Trajectory(){}
+Trajectory::~Trajectory(){RemoveCollider();}
 
 void Trajectory::Init()
 {
@@ -15,6 +18,14 @@ void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 {
 	color_ = PROT_TRAJ_COLOR;
 
+	//コライダーの追加
+	SetRadius(40.0f);
+	trajectoryCollider_ = std::make_unique<CircleCollider>(twoPoses.sPos, radius_);
+	SetCollider(trajectoryCollider_.get());
+
+	//属性を指定
+	trajectoryCollider_->SetAttribute(COLLISION_ATTR_ALLIES);
+
 	twoPoses_ = twoPoses;
 	vec_ = vec;
 	isHead_ = isHead;
@@ -26,6 +37,8 @@ void Trajectory::Update()
 
 	twoPoses_.sPos += vec_;
 	twoPoses_.ePos += vec_;
+
+	collider_->Update();
 
 	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos))
 	{

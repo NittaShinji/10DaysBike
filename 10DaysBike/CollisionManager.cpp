@@ -25,21 +25,24 @@ void CollisionManager::CheckAllCollisions()
 
 			if (colA->GetShapeType() == COLLISIONSHAPE_CIRCLE && colB->GetShapeType() == COLLISIONSHAPE_CIRCLE)
 			{
-				Circle CircleA;
-				Circle CircleB;
-
-				CircleA.pos = colA->objcet2d_->GetPos();
-				CircleA.radius = colA->objcet2d_->GetRadius();
-
-				CircleB.pos = colB->objcet2d_->GetPos();
-				CircleB.radius = colB->objcet2d_->GetRadius();
-
-				Vec2 inter;
-
-				if (Collision::CheckCircle2Circle(CircleA, CircleB))
+				if (colA->GetAttribute() != colB->GetAttribute())
 				{
-					colA->OnCollison(CollisionInfo(colB->GetObject2d(), colB, inter));
-					colB->OnCollison(CollisionInfo(colA->GetObject2d(), colA, inter));
+					Circle CircleA;
+					Circle CircleB;
+
+					CircleA.pos = colA->objcet2d_->GetPos();
+					CircleA.radius = colA->objcet2d_->GetRadius();
+
+					CircleB.pos = colB->objcet2d_->GetPos();
+					CircleB.radius = colB->objcet2d_->GetRadius();
+
+					Vec2 inter;
+
+					if (Collision::CheckCircle2Circle(CircleA, CircleB))
+					{
+						colA->OnCollison(CollisionInfo(colB->GetObject2d(), colB, inter));
+						colB->OnCollison(CollisionInfo(colA->GetObject2d(), colA, inter));
+					}
 				}
 			}
 		}

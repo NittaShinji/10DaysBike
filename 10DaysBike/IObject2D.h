@@ -23,17 +23,10 @@ public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
-
-	/// <summary>
-	/// 衝突時コールバック関数
-	/// </summary>
-	/// <param name="info">衝突情報</param>
-	virtual void OnCollision(const CollisionInfo& info);
-
 public:
 	void SetPos(const Vec2& pos) { pos_ = pos; }
 	void SetVec(const Vec2& vec) { vec_ = vec; }
-	void SetVec(const float radius) { radius_ = radius; }
+	void SetRadius(const float radius) { radius_ = radius; }
 
 	void SetColor(const ColorDxLib& color) { color_ = color; }
 	/// コライダーのセット
@@ -56,5 +49,16 @@ public:
 	bool GetIsOffingScreen(const Vec2& pos);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3);
+
+public:
+
+	/// <summary>
+	/// 衝突時コールバック関数
+	/// </summary>
+	/// <param name="info">衝突情報</param>
+	virtual void OnCollision(const CollisionInfo& info);
+
+	//コライダーを削除する
+	void RemoveCollider();
 };
 

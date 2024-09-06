@@ -62,6 +62,8 @@ public:
 		objcet2d_->OnCollision(info);
 	}
 
+	unsigned short GetAttribute() { return attribute_; }
+
 protected:
 
 	//オブジェクト

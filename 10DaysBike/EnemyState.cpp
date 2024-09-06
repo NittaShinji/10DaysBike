@@ -37,7 +37,14 @@ void EnemyStateWait::Update()
 
 	IEnemyState::Update();
 
-
+	if (waitTimer_ >= 0) 
+	{
+		waitTimer_--;
+		if (waitTimer_ < 0)
+		{
+			enemy_->ChangeState(std::make_unique<EnemyStateAttack>());
+		}
+	}
 	/*if (isWaitingTurn_)
 	{
 		Enemy_->ChangeState(std::make_unique<EnemyStateDown>());
@@ -63,6 +70,7 @@ void EnemyStateWait::Draw()
 //“G‚ÌUŒ‚ó‘Ô
 void EnemyStateAttack::Init()
 {
+	angle = 0;
 }
 
 void EnemyStateAttack::Update()
@@ -71,10 +79,22 @@ void EnemyStateAttack::Update()
 
 	IEnemyState::Update();
 
-	/*if (isWaitingTurn_)
-	{
-		Enemy_->ChangeState(std::make_unique<EnemyStateUp>());
-	}*/
+	float radius = 100.0f; // ‰~‚Ì”¼Œa
+	float centerX = WINDOW_SIZE.x / 2; // ‰~‚Ì’†S x
+	float centerY = WINDOW_SIZE.y / 4; // ‰~‚Ì’†S y
+	const float PI = 3.14159f;
+	Vec2 pos;
+
+	angle += 2.5f;
+	angle = fmod(angle, 360.0f); // 360“x‚ð’´‚¦‚½‚çƒŠƒZƒbƒg
+
+	//“x”–@‚ÌŠp“x‚ðŒÊ“x–@‚É•ÏŠ·
+	float radians = angle * PI / 180.0f;
+	//‰~‰^“®‚ÌÀ•W‚ðŒvŽZ
+	pos.x = centerX + cos(radians) * radius;
+	pos.y = centerY + sin(radians) * radius;
+
+	enemy_->SetPos(pos);
 }
 
 void EnemyStateAttack::Draw()

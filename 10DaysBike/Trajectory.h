@@ -1,5 +1,6 @@
 #pragma once
 #include"IObject2D.h"
+#include "CircleCollider.h"
 
 //ãOê’ÇÃ1Ç¬
 class Trajectory : public IObject2D
@@ -18,10 +19,13 @@ public:
 private:
 	TwoPoses twoPoses_;
 	bool isHead_ = false;
+	std::unique_ptr<CircleCollider> trajectoryCollider_ = nullptr;
 
 private:
 
 public:
+	Trajectory();
+	~Trajectory();
 	void Init()override;
 	void Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead = false);
 	void Update()override;
