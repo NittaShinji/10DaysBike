@@ -52,6 +52,10 @@ void Player::Update()
 	trajManag_->SetPos(pos_);
 	trajManag_->Update(-vec_.y);
 
+	//‰æ–Ê“à‚ÉŽû‚ß‚é
+	FitTheScreen(PROT_PLAYER_DRAWING_SIZE);
+
+	//--------------------------
 	if (isHit_ == true)
 	{
 		isHit_ = false;

@@ -1,7 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 16.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 19.0f;
 
 
 void TrajectoriesManager::Init()

@@ -52,7 +52,8 @@ public:
 	bool GetIsOffingScreen(const Vec2& pos);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3);
-
+	//‰æ–Ê“à‚ÉŽû‚ß‚é
+	void FitTheScreen(float radius);
 public:
 
 	/// <summary>

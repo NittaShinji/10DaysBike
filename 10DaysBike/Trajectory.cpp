@@ -1,5 +1,7 @@
 #include "Trajectory.h"
 #include "CollisionAttribute.h"
+#include "Easing.h"
+#include "Util.h"
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
 
@@ -55,6 +57,14 @@ void Trajectory::Draw()
 	const Vec2 S_POS = twoPoses_.sPos;
 	const Vec2 E_POS = twoPoses_.ePos;
 
+	const float T = (lifeFrame_ / (float)LIFE_FRAME);
+
+	const float TICKNESS = (float)LINE_TICKNESS * EaseIn(T);
+	const float LENGTH = SHAKING_LENGTH * EaseOut(T);
+	const float SHAKE_TICKNESS = GetRand(TICKNESS - LENGTH, TICKNESS + LENGTH);
+
 	//ê¸ï`âÊ
-	DrawLine(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), LINE_TICKNESS);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, ALPHA_MAX * EaseIn(T));
+	DrawLine(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS));
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

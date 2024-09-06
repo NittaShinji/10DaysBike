@@ -1,6 +1,7 @@
 #include "IObject2D.h"
 #include "CollisionManager.h"
 #include "BaseCollider.h"
+#include <algorithm>
 
 void IObject2D::OnCollision(const CollisionInfo& info)
 {
@@ -52,4 +53,10 @@ bool IObject2D::GetIsOffingScreen(const Vec2& pos, const Vec2& pos2)
 bool IObject2D::GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3)
 {
 	return (GetIsOffingScreen(pos) && GetIsOffingScreen(pos2) && GetIsOffingScreen(pos3));
+}
+
+void IObject2D::FitTheScreen(float radius)
+{
+	pos_.x = min(max(pos_.x, radius), WINDOW_SIZE.x - radius);
+	pos_.y = min(max(pos_.y, radius), WINDOW_SIZE.y - radius);
 }
