@@ -1,6 +1,5 @@
 #pragma once
 
-class vec2;
 class IObject2D;
 class BaseCollider;
 

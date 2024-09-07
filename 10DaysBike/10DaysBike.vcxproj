@@ -147,6 +147,7 @@
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
+    <ClCompile Include="Trajectories.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="Trajectory.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />
+    <ClInclude Include="Trajectories.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>

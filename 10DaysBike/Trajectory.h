@@ -14,16 +14,17 @@ public:
 
 public:
 	static const uint8_t LINE_TICKNESS = 15;
-	static const uint8_t LIFE_FRAME = 60;
+	static const uint8_t LIFE_FRAME = 70;
 	static const ColorDxLib PROT_TRAJ_COLOR;
-	static const uint16_t ALPHA_MAX=255;
+	static const uint16_t ALPHA_MAX = 255;
 	static const uint8_t SHAKING_LENGTH = 3;
 
 private:
 	TwoPoses twoPoses_;
 	bool isHead_ = false;
 	std::unique_ptr<CircleCollider> trajectoryCollider_ = nullptr;
-	uint16_t lifeFrame_= LIFE_FRAME;
+	uint16_t lifeFrame_ = LIFE_FRAME;
+	Vec2 scrollVec_ = { 0,0 };
 
 private:
 
@@ -37,6 +38,7 @@ public:
 
 public:
 	void SetTwoPoses(const Vec2& sPos, const Vec2& ePos) { twoPoses_ = TwoPoses{ sPos, ePos }; }
+	void SetScrollVec(const Vec2& vec) { scrollVec_ = vec; }
 
 	const TwoPoses& GetTwoPoses() { return twoPoses_; }
 	bool GetIsHead() { return isHead_; }

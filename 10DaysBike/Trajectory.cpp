@@ -37,8 +37,8 @@ void Trajectory::Update()
 {
 	pos_ += vec_;
 
-	twoPoses_.sPos += vec_;
-	twoPoses_.ePos += vec_;
+	twoPoses_.sPos += vec_ + scrollVec_;
+	twoPoses_.ePos += vec_ + scrollVec_;
 
 	collider_->Update();
 

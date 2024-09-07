@@ -1,6 +1,5 @@
 #pragma once
-#include"Trajectory.h"
-#include<vector>
+#include"Trajectories.h"
 
 //ü‚ğ‚Ü‚Æ‚ß‚Ä‹OÕ‚ÉŒ©‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX
 class TrajectoriesManager : public IObject2D
@@ -8,16 +7,16 @@ class TrajectoriesManager : public IObject2D
 public:
 	static const float TRAJ_SPEED;
 private:
-	std::vector<std::unique_ptr<Trajectory>> trajectories_;
+	std::vector<std::unique_ptr<Trajectories>> trajectoriesArray_;
 	Vec2 oldPos_ = { 0,0 };
 	const ColorDxLib COLOR_DEBUG = { 255,255,0 };
 	bool isTurned=false;
 
 public:
-	~TrajectoriesManager() { trajectories_.clear(); }
+	~TrajectoriesManager() { trajectoriesArray_.clear(); }
 private:
-	void GenerateTrajectory();
-	void GenerateUpdate();
+	void GenerateTrajectory(float dirY);
+	void GenerateUpdate(float dirY);
 public:
 	void Init()override;
 	void Init(const Vec2& pos);
