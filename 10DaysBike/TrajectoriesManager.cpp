@@ -1,7 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 19.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 18.0f;
 
 
 void TrajectoriesManager::Init()
@@ -14,13 +14,13 @@ void TrajectoriesManager::Init(const Vec2& pos)
 	pos_ = pos;
 	oldPos_ = pos_;
 
-	trajectories_.clear();
+	trajectoriesArray_.clear();
 	color_ = COLOR_DEBUG;
 }
 
-void TrajectoriesManager::GenerateUpdate()
+void TrajectoriesManager::GenerateUpdate(float dirY)
 {
-	GenerateTrajectory();
+	GenerateTrajectory(dirY);
 	oldPos_ = pos_;
 }
 
@@ -31,62 +31,41 @@ void TrajectoriesManager::Update()
 
 void TrajectoriesManager::Update(float dirY)
 {
+	const Vec2 TRAJ_VEC = Vec2(0, dirY).GetNormalize() * TRAJ_SPEED;
+
 	//1フレームごとに生成するため
-	GenerateUpdate();
-
-	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
-	{
-		//次(自分より新しい)の軌跡
-		auto nextTrajItr = itr;
-		nextTrajItr++;
-
-		if (nextTrajItr == trajectories_.end())
-		{
-			break;
-		}
-
-		if (nextTrajItr->get()->GetIsHead() == false
-			&& itr != trajectories_.begin())
-		{
-			//一個後に出た軌跡の後ろの点を始点とする
-			itr->get()->SetTwoPoses(
-				nextTrajItr->get()->GetTwoPoses().ePos,
-				itr->get()->GetTwoPoses().ePos);
-		}
-
-	}
+	GenerateUpdate(TRAJ_VEC.y);
 
 	//移動など更新処理
-	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
+	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
 	{
 		//更新
-		itr->get()->SetVec(Vec2(0, dirY).GetNormalize() * TRAJ_SPEED);
-		itr->get()->Update();
+		itr->get()->Update(TRAJ_VEC.y);
 
 	}
 
-	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
+	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
 	{
-		//生きてるフラグがたってない軌跡を消すため
+		//生きてるフラグがたってない軌跡の配列を消すため
 		if (itr->get()->GetIsAlive() == false)
 		{
-			trajectories_.erase(itr);
+			trajectoriesArray_.erase(itr);
 
-			if (trajectories_.size() < 1)
+			if (trajectoriesArray_.size() < 1)
 			{
 				break;
 			}
 
-			itr = trajectories_.begin();
+			itr = trajectoriesArray_.begin();
 		}
 	}
 }
 
 void TrajectoriesManager::Draw()
 {
-	for (auto& traj : trajectories_)
+	for (auto& trajs : trajectoriesArray_)
 	{
-		traj->Draw();
+		trajs->Draw();
 	}
 
 
@@ -102,25 +81,36 @@ void TrajectoriesManager::ProccesingTurning()
 }
 
 //------------------------------------------------------------------------------------
-void TrajectoriesManager::GenerateTrajectory()
+void TrajectoriesManager::GenerateTrajectory(float dirY)
 {
-	//ターンしたら次の軌跡を先頭にするため
 	bool isHead = false;
-	if (isTurned)
+	std::unique_ptr<Trajectories> trajectories = nullptr;
+	//ターンしたら次の軌跡を先頭にするため新たな配列をつくる
+	if (isTurned || trajectoriesArray_.size() == 0)
 	{
 		isHead = true;
 		isTurned = false;
-	}
 
-	auto traj = std::make_unique<Trajectory>();
+		trajectories = std::make_unique<Trajectories>();
+	}
+	//軌跡の配列がすでにあってターンしてないとき
+	else
+	{
+		trajectories = std::move(trajectoriesArray_.back());
+		trajectoriesArray_.pop_back();
+	}
 
 	//一旦,仮で移動量をそのままベクトルに使う
 	const Vec2 DIR_VEC = oldPos_ - pos_;
 
-	//仮でyだけ動かす
-	traj->Init({ pos_,oldPos_ }, Vec2{ 0,0 },
+	//仮でyだけ動かす軌跡を生成
+	auto traj = std::make_unique<Trajectory>();
+	traj->Init({ pos_,oldPos_ }, Vec2{ 0,dirY },
 		isHead);
 
+	//配列に追加
+	trajectories->PushBackTraj(std::move(traj));
 
-	trajectories_.push_back(std::move(traj));
+	//軌跡配列を配列に追加
+	trajectoriesArray_.push_back(std::move(trajectories));
 }
