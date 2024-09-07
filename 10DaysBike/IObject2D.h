@@ -25,6 +25,9 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 public:
+	//vec_‚ðŽg‚Á‚Äpos_‚ð•Ï‰»
+	void Move();
+public:
 	void SetPos(const Vec2& pos) { pos_ = pos; }
 	void SetVec(const Vec2& vec) { vec_ = vec; }
 	void SetRadius(const float radius) { radius_ = radius; }
@@ -51,7 +54,8 @@ public:
 	bool GetIsOffingScreen(const Vec2& pos);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2);
 	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3);
-
+	//‰æ–Ê“à‚ÉŽû‚ß‚é
+	void FitTheScreen(float radius);
 public:
 
 	/// <summary>

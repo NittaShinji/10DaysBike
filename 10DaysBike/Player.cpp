@@ -2,7 +2,7 @@
 #include "PlayerState.h"
 #include "CollisionAttribute.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
-const float Player::SIDE_MOVING_SPEED = 3.0f;
+const float Player::SIDE_MOVING_SPEED = 6.37f;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
 
 
@@ -50,8 +50,12 @@ void Player::Update()
 	state_->Update();
 
 	trajManag_->SetPos(pos_);
-	trajManag_->Update();
+	trajManag_->Update(-vec_.y);
 
+	//‰æ–Ê“à‚ÉŽû‚ß‚é
+	FitTheScreen(PROT_PLAYER_DRAWING_SIZE);
+
+	//--------------------------
 	if (isHit_ == true)
 	{
 		isHit_ = false;
