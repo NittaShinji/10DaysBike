@@ -1,4 +1,5 @@
 #include "EnemyBullet.h"
+#include "CollisionAttribute.h"
 #include <cassert>
 
 EnemyBullet::EnemyBullet()
@@ -31,6 +32,15 @@ void EnemyBullet::Initialize(const Vec2& position, const Vec2& velocity)
 	//自機の座標を取得
 	pos_ = position;
 
+	//コライダーの追加
+	bulletCollider_ = std::make_unique<CircleCollider>(pos_, radius_);
+
+	//コライダーの登録
+	SetCollider(bulletCollider_.get());
+
+	//属性を指定
+	bulletCollider_->SetAttribute(COLLISION_ATTR_ENEMYS);
+
 	canMoved = true;
 }
 
@@ -50,6 +60,8 @@ void EnemyBullet::Update()
 	{
 		isDead_ = true;
 	}
+
+	coliderPos_ = pos_;
 }
 
 //描画

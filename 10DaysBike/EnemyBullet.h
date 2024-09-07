@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IObject2D.h"
+#include "CircleCollider.h"
 
 class EnemyBullet : public IObject2D
 {
@@ -51,5 +52,10 @@ private:
 	bool isDead_ = false;
 
 	bool canMoved;
+
+	//当たったかどうか
+	bool isHit_ = false;
+	//敵のコライダー
+	std::unique_ptr<CircleCollider> bulletCollider_ = nullptr;
 
 };
