@@ -74,17 +74,30 @@ void Enemy::Update()
 		color_ = { 255,128,128 };
 	}
 
+	if (hp_ <= 0)
+	{
+		isDead_ = true;
+	}
+
 	coliderPos_ = pos_;
 }
 
 void Enemy::Draw()
 {
 	//trajManag_->Draw();
-	state_->Draw();
+	if (hp_ > 0) 
+	{
+		state_->Draw();
+	}
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
 	{
 		bullet->Draw();
 	}
+
+	unsigned int Cr;
+	// 白の色コードを保存
+	Cr = GetColor(255, 255, 255);
+	DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
 }
 
 //----------------------------------------------------------------------
@@ -101,6 +114,7 @@ void Enemy::OnCollision(const CollisionInfo& info)
  	if (isHit_ == false)
 	{
 		isHit_ = true;
+		hp_ -= 1;
 		color_ = { 0,255,0 }; 
 	}
 }

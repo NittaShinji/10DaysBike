@@ -94,6 +94,8 @@ void EnemyStateAttack::Update()
 	//円運動の座標を計算
 	pos.x = centerX + cos(radians) * radius;
 	pos.y = centerY + sin(radians) * radius;
+	/*pos.x = enemy_->GetPos().x  + cos(radians) * radius;
+	pos.y = enemy_->GetPos().y  + sin(radians) * radius;*/
 
 	//発射タイマーをカウントダウン
 	bulletCoolTimer_--;

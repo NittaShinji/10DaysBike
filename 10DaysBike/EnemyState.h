@@ -49,6 +49,8 @@ private:
 	//”­ŽËŽžŠÔ
 	const float kBulletCoolTime_ = 60.0f;
 
+	Vec2 savePopPos;
+
 public:
 	void Init()override;
 	void Update()override;

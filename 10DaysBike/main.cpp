@@ -5,6 +5,7 @@
 #include "PlayerState.h" 
 #include "Enemy.h" 
 #include "EnemyState.h" 
+#include "EnemyManager.h"
 #include "CollisionManager.h"
 
 // ウィンドウのタイトルに表示する文字列
@@ -43,8 +44,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	auto player = std::make_unique<Player>();
 	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
-	std::unique_ptr <Enemy> enemy = std::make_unique<Enemy>();
-	enemy->Init({ 420,236 });
+	/*std::unique_ptr <Enemy> enemy = std::make_unique<Enemy>();
+	enemy->Init({ 420,236 });*/
+
+	std::unique_ptr <EnemyManager> enemyManager = std::make_unique<EnemyManager>();
+	enemyManager->Init();
 
 	//衝突マネージャー
 	CollisionManager* collisionManager_ = nullptr;
@@ -61,14 +65,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 更新処理
 		player->Update();
-		enemy->Update();
+		enemyManager->Update();
+		//enemy->Update();
 
 		//全ての衝突をチェック
 		collisionManager_->CheckAllCollisions();
 
 		// 描画処理
 		player->Draw();
-		enemy->Draw();
+		enemyManager->Draw();
+		//enemy->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

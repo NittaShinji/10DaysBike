@@ -30,6 +30,12 @@ private:
 	std::unique_ptr<CircleCollider> enemyCollider_ = nullptr;
 	//“G‚Ì’e
 	std::list<std::unique_ptr<EnemyBullet>> bullets_;
+	//HP
+	const int32_t kDefaultEnemyHP_ = 30;
+	int32_t hp_ = kDefaultEnemyHP_;
+
+public:
+	~Enemy() { bullets_.clear(); }
 	
 private:
 	void MoveUpdate();
@@ -43,6 +49,10 @@ public:
 	void ProccesingTurning();
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void OnCollision(const CollisionInfo& info) override;
+
+public:
+	int32_t GetEnemyHP() { return hp_; }
+	bool IsDead() const { return isDead_; }
 	std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; };
 };
 
