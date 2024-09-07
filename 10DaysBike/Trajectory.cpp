@@ -50,6 +50,8 @@ void Trajectory::Update()
 		//‰æ–ÊŠO‚Éo‚½‚çÁ‚µ‚Ä‚à‚ç‚¤‚½‚ß
 		isAlive_ = false;
 	}
+
+	coliderPos_ = twoPoses_.sPos;
 }
 
 void Trajectory::Draw()

@@ -48,7 +48,6 @@ void Enemy::Init(const Vec2& pos)
 void Enemy::Update()
 {
 	state_->Update();
-	collider_->Update();
 
 	//trajManag_->SetPos(pos_);
 	//trajManag_->Update();
@@ -58,6 +57,7 @@ void Enemy::Update()
 		isHit_ = false;
 		color_ = { 255,128,128 };
 	}
+	coliderPos_ = pos_;
 }
 
 void Enemy::Draw()

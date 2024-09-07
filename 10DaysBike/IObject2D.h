@@ -11,7 +11,7 @@ class IObject2D
 protected:
 	Vec2 pos_ = { 0,0 };
 	Vec2 vec_ = { 0,0 };
-	Vec2 coliderPos = { 0.0f,0.0f };
+	Vec2 coliderPos_ = { 0.0f,0.0f };
 	float radius_ = 1.0f;
 	ColorDxLib color_ = { 255,255,255 };
 	std::string name_ = "";
@@ -38,7 +38,7 @@ public:
 
 	const Vec2& GetPos() { return pos_; }
 	const Vec2& GetVec() { return vec_; }
-	const Vec2& GetColliderPos() { return coliderPos; }
+	const Vec2& GetColliderPos() { return coliderPos_; }
 	const float GetRadius() { return radius_; }
 
 	//Objectの色を取得(プロジェクト用に作った構造体が返る)

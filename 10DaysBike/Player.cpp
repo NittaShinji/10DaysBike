@@ -62,7 +62,7 @@ void Player::Update()
 		color_ = { 255,255,255 };
 	}
 
-	collider_->Update();
+	coliderPos_ = pos_;
 }
 
 void Player::Draw()
