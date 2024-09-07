@@ -30,10 +30,14 @@ void CollisionManager::CheckAllCollisions()
 					Circle CircleA;
 					Circle CircleB;
 
-					CircleA.pos = colA->objcet2d_->GetPos();
+					//CircleA.pos = colA->objcet2d_->GetPos();
+					CircleA.pos = colA->objcet2d_->GetColliderPos();
 					CircleA.radius = colA->objcet2d_->GetRadius();
 
-					CircleB.pos = colB->objcet2d_->GetPos();
+					//CircleB.pos = colB->objcet2d_->GetPos();
+					CircleB.pos = colB->objcet2d_->GetColliderPos();
+					CircleB.radius = colB->objcet2d_->GetRadius();
+
 					CircleB.radius = colB->objcet2d_->GetRadius();
 
 					Vec2 inter;

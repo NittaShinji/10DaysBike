@@ -29,7 +29,6 @@ void TrajectoriesManager::Update()
 	//1フレームごとに生成するため
 	GenerateUpdate();
 
-
 	for (auto itr = --trajectories_.end(), end = trajectories_.begin(); itr != end; itr--)
 	{
 		//更新
