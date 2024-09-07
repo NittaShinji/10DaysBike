@@ -41,13 +41,29 @@ void Enemy::Init(const Vec2& pos)
 
 	ProccesingTurning();
 
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->IsDead();
+	});
+
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
 }
 
 void Enemy::Update()
 {
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->IsDead();
+	});
+
 	state_->Update();
+
+	//弾更新
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
+	{
+		bullet->Update();
+	}
 
 	//trajManag_->SetPos(pos_);
 	//trajManag_->Update();
@@ -57,6 +73,7 @@ void Enemy::Update()
 		isHit_ = false;
 		color_ = { 255,128,128 };
 	}
+
 	coliderPos_ = pos_;
 }
 
@@ -64,6 +81,10 @@ void Enemy::Draw()
 {
 	//trajManag_->Draw();
 	state_->Draw();
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
+	{
+		bullet->Draw();
+	}
 }
 
 //----------------------------------------------------------------------

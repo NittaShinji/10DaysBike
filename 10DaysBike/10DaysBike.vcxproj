@@ -136,6 +136,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="IObject2D.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Inform.h" />

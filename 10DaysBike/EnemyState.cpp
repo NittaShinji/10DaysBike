@@ -71,6 +71,7 @@ void EnemyStateWait::Draw()
 void EnemyStateAttack::Init()
 {
 	angle = 0;
+	bulletCoolTimer_ = kBulletCoolTime_;
 }
 
 void EnemyStateAttack::Update()
@@ -94,6 +95,17 @@ void EnemyStateAttack::Update()
 	pos.x = centerX + cos(radians) * radius;
 	pos.y = centerY + sin(radians) * radius;
 
+	//発射タイマーをカウントダウン
+	bulletCoolTimer_--;
+	//指定時間に達した
+	if (bulletCoolTimer_ <= 0)
+	{
+		//弾を発射
+		Fire();
+		//発射タイマーを初期化
+		bulletCoolTimer_ = kBulletCoolTime_;
+	}
+
 	enemy_->SetPos(pos);
 }
 
@@ -109,5 +121,22 @@ void EnemyStateAttack::Draw()
 
 	DrawTriangle(TOP.x, TOP.y, RIGHT_BOTTOM.x, RIGHT_BOTTOM.y, LEFT_BOTTOM.x, LEFT_BOTTOM.y,
 		enemy_->GetColorUsedForDrawing(), true);
+}
+
+void EnemyStateAttack::Fire()
+{
+	//　弾の速度
+	const float kBulletSpeed = -10.0f;
+	Vec2 velocity(0, kBulletSpeed);
+
+	// 速度ベクトルを自機の向きに合わせて回転させる
+	//velocity = Root(velocity, rotation_);
+
+	//弾を生成し、初期化
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Initialize(enemy_->GetPos(), velocity);
+
+	//弾を登録する
+	enemy_->GetBullets().push_back(std::move(newBullet));
 }
 

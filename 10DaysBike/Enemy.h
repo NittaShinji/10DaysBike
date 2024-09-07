@@ -2,6 +2,8 @@
 #include"IObject2D.h"
 #include "CircleCollider.h"
 #include"TrajectoriesManager.h"
+#include "EnemyBullet.h"
+#include <list>
 
 //前方宣言
 class IEnemyState;
@@ -26,7 +28,9 @@ private:
 	bool isHit_ = false;
 	//敵のコライダー
 	std::unique_ptr<CircleCollider> enemyCollider_ = nullptr;
-
+	//敵の弾
+	std::list<std::unique_ptr<EnemyBullet>> bullets_;
+	
 private:
 	void MoveUpdate();
 public:
@@ -39,5 +43,6 @@ public:
 	void ProccesingTurning();
 	//衝突時に呼び出される関数
 	void OnCollision(const CollisionInfo& info) override;
+	std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; };
 };
 
