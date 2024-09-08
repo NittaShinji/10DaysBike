@@ -145,6 +145,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Trajectory.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />

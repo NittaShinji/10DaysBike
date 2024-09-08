@@ -33,5 +33,10 @@ private:
 
 	const float kWaitTime_ = 120.0f;
 	float waitTimer_ = kWaitTime_;
+	int enemyDeadNum_ = 0;
+
+public:
+
+	int GetEnemyDeadNum() { return enemyDeadNum_; }
 };
 

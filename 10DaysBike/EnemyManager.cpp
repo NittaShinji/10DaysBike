@@ -4,10 +4,19 @@
 void EnemyManager::Init()
 {
 	waitTimer_ = kWaitTime_;
+	enemyDeadNum_ = 0;
 }
 
 void EnemyManager::Update()
 {
+	for (std::unique_ptr<Enemy>& enemy : enemies_)
+	{
+		if (enemy->IsDead())
+		{
+			enemyDeadNum_++;
+		}
+	}
+
 	//デスフラグの立った弾を削除
 	// 敵の削除（デスフラグの立ったものを削除）
 	enemies_.erase(

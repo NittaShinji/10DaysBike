@@ -7,6 +7,7 @@
 #include "EnemyState.h" 
 #include "EnemyManager.h"
 #include "CollisionManager.h"
+#include "Score.h"
 
 // ウィンドウのタイトルに表示する文字列
 
@@ -50,6 +51,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	std::unique_ptr <EnemyManager> enemyManager = std::make_unique<EnemyManager>();
 	enemyManager->Init();
 
+	std::unique_ptr <Score> score = std::make_unique<Score>();
+	score->Init();
+
 	//衝突マネージャー
 	CollisionManager* collisionManager_ = nullptr;
 	collisionManager_ = CollisionManager::GetInstance();
@@ -66,6 +70,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 更新処理
 		player->Update();
 		enemyManager->Update();
+		score->Update(enemyManager->GetEnemyDeadNum());
+
 		//enemy->Update();
 
 		//全ての衝突をチェック
@@ -74,6 +80,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 描画処理
 		player->Draw();
 		enemyManager->Draw();
+		score->Draw();
 		//enemy->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
