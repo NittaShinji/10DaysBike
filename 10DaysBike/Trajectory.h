@@ -15,7 +15,7 @@ public:
 
 public:
 	static const uint8_t LINE_TICKNESS = 15;
-	static const uint8_t LIFE_FRAME = 70;
+	static const uint8_t LIFE_FRAME = 80;
 	static const ColorDxLib PROT_TRAJ_COLOR;
 	static const uint16_t ALPHA_MAX = 255;
 	static const uint8_t SHAKING_LENGTH = 3;

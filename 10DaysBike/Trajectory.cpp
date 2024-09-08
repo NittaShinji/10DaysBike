@@ -5,7 +5,7 @@
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
 const float Trajectory::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
-const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.0f;
+const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.4f;
 
 
 Trajectory::Trajectory() {}
