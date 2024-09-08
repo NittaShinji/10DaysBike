@@ -2,6 +2,7 @@
 #include"IObject2D.h"
 #include "CircleCollider.h"
 #include"TrajectoriesManager.h"
+#include<functional>
 
 //‘O•ûéŒ¾
 class IPlayerState;
@@ -31,6 +32,7 @@ public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
+	void Update(std::function<bool(float)>shootGaugeFunc);
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IPlayerState> state);

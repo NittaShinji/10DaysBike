@@ -2,7 +2,7 @@
 #include "PlayerState.h"
 #include "CollisionAttribute.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
-const float Player::SIDE_MOVING_SPEED = 6.37f;
+const float Player::SIDE_MOVING_SPEED = 7.37f;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
 
 
@@ -47,10 +47,15 @@ void Player::Init(const Vec2& pos)
 
 void Player::Update()
 {
+	Update(0);
+}
+
+void Player::Update(std::function<bool(float)> shootGaugeFunc)
+{
 	state_->Update();
 
 	trajManag_->SetPos(pos_);
-	trajManag_->Update(-vec_.y);
+	trajManag_->Update(-vec_.y, shootGaugeFunc);
 
 	//‰æ–Ê“à‚ÉŽû‚ß‚é
 	FitTheScreen(PROT_PLAYER_DRAWING_SIZE);

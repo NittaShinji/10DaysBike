@@ -7,6 +7,7 @@
 #include "EnemyState.h" 
 #include "EnemyManager.h"
 #include "CollisionManager.h"
+#include "EnergyGauge.h"
 
 // ウィンドウのタイトルに表示する文字列
 
@@ -44,8 +45,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	auto player = std::make_unique<Player>();
 	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
-	/*std::unique_ptr <Enemy> enemy = std::make_unique<Enemy>();
-	enemy->Init({ 420,236 });*/
+	auto gauge = std::make_unique<EnergyGauge>();
+	gauge->Init();
 
 	std::unique_ptr <EnemyManager> enemyManager = std::make_unique<EnemyManager>();
 	enemyManager->Init();
@@ -64,9 +65,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-		player->Update();
+		player->Update([&](float shootGaugeDecre) { return gauge->DecreGaugeRatio(shootGaugeDecre); });
 		enemyManager->Update();
-		//enemy->Update();
+		gauge->Update();
 
 		//全ての衝突をチェック
 		collisionManager_->CheckAllCollisions();
@@ -74,7 +75,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 描画処理
 		player->Draw();
 		enemyManager->Draw();
-		//enemy->Draw();
+		gauge->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

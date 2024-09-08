@@ -67,6 +67,6 @@ void Trajectory::Draw()
 
 	//ê¸ï`âÊ
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, ALPHA_MAX * EaseIn(T));
-	DrawLine(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS));
+	DrawLineAA(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS));
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

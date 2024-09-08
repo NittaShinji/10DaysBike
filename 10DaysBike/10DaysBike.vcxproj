@@ -140,6 +140,9 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="EnergyGauge.cpp" />
+    <ClCompile Include="Gauge.cpp" />
+    <ClCompile Include="GaugeFrame.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -166,6 +169,9 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="EnergyGauge.h" />
+    <ClInclude Include="Gauge.h" />
+    <ClInclude Include="GaugeFrame.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />
