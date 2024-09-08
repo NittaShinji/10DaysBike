@@ -1,8 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 18.0f;
-const float TrajectoriesManager::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 23.0f;
 
 
 void TrajectoriesManager::Init()
@@ -27,10 +26,11 @@ void TrajectoriesManager::GenerateUpdate(float dirY, std::function<bool(float)> 
 
 void TrajectoriesManager::Update()
 {
-	Update(0, nullptr);
+	Update(0, nullptr, nullptr);
 }
 
-void TrajectoriesManager::Update(float dirY, std::function<bool(float)> shootGaugeFunc)
+void TrajectoriesManager::Update(float dirY, std::function<bool(float)> shootGaugeFunc,
+	std::function<bool(float, float)> chargeGaugeFunc)
 {
 	const Vec2 TRAJ_VEC = Vec2(0, dirY).GetNormalize() * TRAJ_SPEED;
 
@@ -41,7 +41,7 @@ void TrajectoriesManager::Update(float dirY, std::function<bool(float)> shootGau
 	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
 	{
 		//XV
-		itr->get()->Update(TRAJ_VEC.y);
+		itr->get()->Update(TRAJ_VEC.y, chargeGaugeFunc);
 
 	}
 
@@ -84,7 +84,7 @@ void TrajectoriesManager::ProccesingTurning()
 //------------------------------------------------------------------------------------
 void TrajectoriesManager::GenerateTrajectory(float dirY, std::function<bool(float)> shootGaugeFunc)
 {
-	if (shootGaugeFunc(SHOOT_DECREMENT_GAUGE))
+	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE))
 	{
 		bool isHead = false;
 		std::unique_ptr<Trajectories> trajectories = nullptr;

@@ -7,10 +7,10 @@ void Trajectories::Init()
 
 void Trajectories::Update()
 {
-	Update(0);
+	Update(0, nullptr);
 }
 
-void Trajectories::Update(float dirY)
+void Trajectories::Update(float dirY, std::function<bool(float, float)> chargeGaugeFunc)
 {
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
@@ -38,7 +38,7 @@ void Trajectories::Update(float dirY)
 	{
 		//XV
 		itr->get()->SetScrollVec({ 0,-fabsf(dirY) * 0.34f });
-		itr->get()->Update();
+		itr->get()->Update(chargeGaugeFunc);
 
 	}
 

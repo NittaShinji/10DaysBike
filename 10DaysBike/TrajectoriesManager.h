@@ -7,7 +7,6 @@ class TrajectoriesManager : public IObject2D
 {
 public:
 	static const float TRAJ_SPEED;
-	static const float SHOOT_DECREMENT_GAUGE;
 private:
 	std::vector<std::unique_ptr<Trajectories>> trajectoriesArray_;
 	Vec2 oldPos_ = { 0,0 };
@@ -23,7 +22,8 @@ public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
-	void Update(float dirY, std::function<bool(float)> shootGaugeFunc);
+	void Update(float dirY, std::function<bool(float)> shootGaugeFunc,
+		std::function<bool(float, float)> chargeGaugeFunc);
 	void Draw()override;
 public:
 	void ProccesingTurning();

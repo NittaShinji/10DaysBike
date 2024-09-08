@@ -23,6 +23,12 @@ public:
 	const uint16_t GAUGE_LEFT = FRAME_LEFT + FRAME_THICKNESS;
 	//è„ïîÇ©ÇÁÇÃ
 	const uint16_t GAUGE_TOP = FRAME_TOP + FRAME_THICKNESS;
+public:
+	//
+	const float CHARGE_SCALING_MAX = 0.03f;
+	const float CHARGE_SCALING_INCRE = 0.234f;
+	const float CHARGE_SCALING_DECRE = 0.023f;
+
 
 private:
 	Vec2 frameWidthHeight_ = { (float)FRAME_WIDTH, (float)FRAME_HEIGHT };
@@ -30,6 +36,9 @@ private:
 	float frameThickness = FRAME_THICKNESS;
 
 	float gaugeRatio_ = 1.0f;
+
+	float frameScaleRate_ = 0;
+	float frameScaleTime_ = 0;
 
 	std::unique_ptr<Gauge> gauge_ = nullptr;
 	std::unique_ptr<GaugeFrame> frame_ = nullptr;
@@ -44,5 +53,6 @@ public:
 	void Draw();
 public:
 	bool DecreGaugeRatio(float ratio);
+	bool ChargeGaugeRatio(float posY, float ratio);
 };
 

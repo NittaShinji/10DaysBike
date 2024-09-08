@@ -1,6 +1,7 @@
 #pragma once
 #include"IObject2D.h"
 #include "CircleCollider.h"
+#include <functional>
 
 //ãOê’ÇÃ1Ç¬
 class Trajectory : public IObject2D
@@ -18,6 +19,9 @@ public:
 	static const ColorDxLib PROT_TRAJ_COLOR;
 	static const uint16_t ALPHA_MAX = 255;
 	static const uint8_t SHAKING_LENGTH = 3;
+	//
+	static const float CHARGE_GAUGE_RATIO;
+	static const float SHOOT_DECREMENT_GAUGE;
 
 private:
 	TwoPoses twoPoses_;
@@ -34,6 +38,7 @@ public:
 	void Init()override;
 	void Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead = false);
 	void Update()override;
+	void Update(std::function<bool(float, float)> chargeGaugeFunc);
 	void Draw()override;
 
 public:

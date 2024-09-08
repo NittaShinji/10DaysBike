@@ -8,8 +8,6 @@ void EnergyGauge::Init()
 	frame_ = std::make_unique<GaugeFrame>();
 	frame_->Init();
 
-	gauge_->SetPos({ (float)GAUGE_LEFT, (float)GAUGE_TOP });
-
 	frame_->SetPos({ (float)(FRAME_LEFT + FRAME_WIDTH / 2) ,(float)(FRAME_TOP + FRAME_HEIGHT / 2) });
 
 	gaugeRatio_ = 1.0f;
@@ -17,9 +15,16 @@ void EnergyGauge::Init()
 
 void EnergyGauge::Update()
 {
-	gauge_->SetWidthHeight({ gaugeWidthHeight_.x * gaugeRatio_,gaugeWidthHeight_.y });
-	frame_->SetWidthHeight(frameWidthHeight_);
-	frame_->SetThickness(frameThickness);
+	frameScaleRate_ += (0.0f - frameScaleRate_) * CHARGE_SCALING_DECRE;
+
+	Vec2 gaugeWH = Vec2{ gaugeWidthHeight_.x * gaugeRatio_, gaugeWidthHeight_.y };
+	gauge_->SetWidthHeight(gaugeWH + gaugeWH * frameScaleRate_);
+
+	gauge_->SetPos({ (float)GAUGE_LEFT - FRAME_WIDTH / 2.0f * frameScaleRate_
+		, (float)GAUGE_TOP - FRAME_HEIGHT / 2.0f * frameScaleRate_ });
+
+	frame_->SetWidthHeight(frameWidthHeight_ + frameWidthHeight_ * frameScaleRate_);
+	frame_->SetThickness(frameThickness + frameThickness * frameScaleRate_);
 
 	gauge_->Update();
 	frame_->Update();
@@ -37,9 +42,22 @@ bool EnergyGauge::DecreGaugeRatio(float ratio)
 
 	if (gaugeRatio_ > 0.0f)
 	{
-		gaugeRatio_ -= (ratio);
+		gaugeRatio_ = max(gaugeRatio_ - ratio, 0);
 		ans = true;
 	}
 
 	return ans;
+}
+
+bool EnergyGauge::ChargeGaugeRatio(float posY, float ratio)
+{
+	if (posY >= FRAME_TOP)
+	{
+		gaugeRatio_ = min(gaugeRatio_ + ratio, 1.0f);
+
+		frameScaleTime_ += CHARGE_SCALING_INCRE;
+		frameScaleRate_ = sinf(frameScaleTime_) * CHARGE_SCALING_MAX;
+		return true;
+	}
+	return false;
 }

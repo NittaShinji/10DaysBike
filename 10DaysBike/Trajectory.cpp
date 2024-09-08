@@ -4,6 +4,9 @@
 #include "Util.h"
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
+const float Trajectory::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
+const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.0f;
+
 
 Trajectory::Trajectory() {}
 Trajectory::~Trajectory() { RemoveCollider(); }
@@ -35,6 +38,11 @@ void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 
 void Trajectory::Update()
 {
+	Update(nullptr);
+}
+
+void Trajectory::Update(std::function<bool(float, float)> chargeGaugeFunc)
+{
 	pos_ += vec_;
 
 	twoPoses_.sPos += vec_ + scrollVec_;
@@ -43,6 +51,12 @@ void Trajectory::Update()
 	collider_->Update();
 
 	lifeFrame_--;
+
+	//ゲージをチャージするため
+	if (chargeGaugeFunc(twoPoses_.sPos.y, CHARGE_GAUGE_RATIO))
+	{
+		isAlive_ = false;
+	}
 
 	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos)
 		|| lifeFrame_ < 1)

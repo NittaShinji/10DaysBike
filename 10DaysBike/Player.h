@@ -32,7 +32,9 @@ public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
-	void Update(std::function<bool(float)>shootGaugeFunc);
+	void Update(std::function<bool(float)>shootGaugeFunc,
+		std::function<bool(float, float)> chargeGaugeFunc,
+		float rimitY);
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IPlayerState> state);

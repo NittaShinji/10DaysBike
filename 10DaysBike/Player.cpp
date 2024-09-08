@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "PlayerState.h"
 #include "CollisionAttribute.h"
+#include "EnergyGauge.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
 const float Player::SIDE_MOVING_SPEED = 7.37f;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
@@ -47,18 +48,22 @@ void Player::Init(const Vec2& pos)
 
 void Player::Update()
 {
-	Update(0);
+	Update(nullptr, nullptr, 0);
 }
 
-void Player::Update(std::function<bool(float)> shootGaugeFunc)
+void Player::Update(std::function<bool(float)> shootGaugeFunc,
+	std::function<bool(float, float)> chargeGaugeFunc,
+	float rimitY)
 {
 	state_->Update();
 
 	trajManag_->SetPos(pos_);
-	trajManag_->Update(-vec_.y, shootGaugeFunc);
+	trajManag_->Update(-vec_.y, shootGaugeFunc, chargeGaugeFunc);
 
 	//âÊñ ì‡Ç…é˚ÇﬂÇÈ
 	FitTheScreen(PROT_PLAYER_DRAWING_SIZE);
+	//ÉQÅ[ÉWÇ‡ä‹ÇﬂÇΩâÊñ ì‡Ç…é˚ÇﬂÇÈ
+	pos_.y = min(pos_.y, rimitY - PROT_PLAYER_DRAWING_SIZE);
 
 	//--------------------------
 	if (isHit_ == true)
