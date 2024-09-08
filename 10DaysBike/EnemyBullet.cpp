@@ -41,6 +41,8 @@ void EnemyBullet::Initialize(const Vec2& position, const Vec2& velocity)
 	//‘®«‚ðŽw’è
 	bulletCollider_->SetAttribute(COLLISION_ATTR_ENEMYS);
 
+	coliderPos_ = pos_;
+
 	canMoved = true;
 }
 

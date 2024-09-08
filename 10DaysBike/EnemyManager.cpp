@@ -59,7 +59,7 @@ void EnemyManager::GenerateEnemy()
 	{
 		enemyPopPos = kEnemyPopUP;
 	}
-	else if (randomValue == Up)
+	else if (randomValue == Left)
 	{
 		enemyPopPos = kEnemyPopLeft;
 	}

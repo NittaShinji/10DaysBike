@@ -41,6 +41,8 @@ void Enemy::Init(const Vec2& pos)
 
 	ProccesingTurning();
 
+	coliderPos_ = pos_;
+
 	//デスフラグの立った弾を削除
 	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
 		return bullet->IsDead();

@@ -39,6 +39,8 @@ class EnemyStateAttack : public IEnemyState
 
 private:
 	const float kAttackTime_ = 120.0f;
+	const float kMoveCircleRadius_ = 100.0f;
+
 	float attackTimer_ = kAttackTime_;
 	//中心からの角度
 	float angle = 0.0f;
@@ -48,8 +50,16 @@ private:
 	int32_t bulletCoolTimer_;
 	//発射時間
 	const float kBulletCoolTime_ = 60.0f;
-
-	Vec2 savePopPos;
+	//出現位置を保存
+	Vec2 savePopPos_;
+	//中心点
+	Vec2 centerPos_;
+	// 円周上への移動中かどうか
+	bool inTransition; 
+	//移動速度
+	float moveSpeed_;
+	//角速度
+	float radianSpeed_;
 
 public:
 	void Init()override;

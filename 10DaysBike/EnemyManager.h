@@ -14,8 +14,8 @@ public:
 		Left,	// ç∂
 	};
 
-	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, 100.0f);
-	const Vec2 kEnemyPopLeft = Vec2(100, 100.0f);
+	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);
+	const Vec2 kEnemyPopLeft = Vec2(-300, 100.0f);
 	const Vec2 kEnemyPopRight = Vec2(900, 100.0f);
 
 private:

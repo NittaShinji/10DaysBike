@@ -41,6 +41,8 @@ void Player::Init(const Vec2& pos)
 	//属性を指定
 	playerCollider_->SetAttribute(COLLISION_ATTR_ALLIES);
 
+	coliderPos_ = pos_;
+
 	//ステート
 	ChangeState(std::make_unique<PlayerStateDown>());
 }
