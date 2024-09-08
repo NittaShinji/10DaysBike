@@ -175,13 +175,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
-		// 更新処理
-		//player->Update();
-		//enemyManager->Update();
-		//score->Update(enemyManager->GetEnemyDeadNum());
-		//全ての衝突をチェック
-		//collisionManager_->CheckAllCollisions();
-
 		//---------------------------------------------------------------------------------
 
 		switch (gameFlow_)
@@ -192,7 +185,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 			// 入力処理
 			if (!isLoggedIn) {
-				if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_Q)) {
+				if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_SPACE)) {
 					if (!isConnectingToAPI) {
 						isConnectingToAPI = true;
 					}
@@ -236,11 +229,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//ゲーム中
 		case InGame:
 
-			//if (isStart == false) {
-			//	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_E)) {
-			//		isStart = true;
-			//	}
-			//}
+			// 更新処理
+			player->Update();
+			enemyManager->Update();
+			score->Update(enemyManager->GetEnemyDeadNum());
+			scoreNum = score->GetScore();
+			//全ての衝突をチェック
+			collisionManager_->CheckAllCollisions();
+
 			if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 				gameFlow_ = RegistScore;
 			}
@@ -302,15 +298,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------------------------------------------------------------------------------
 
 		// 描画処理
-		//player->Draw();
-		//enemyManager->Draw();
-		//score->Draw();
-
+		
 		switch (gameFlow_)
 		{
 		case BeforeGame:
 
-			DrawString(1000, 100, "TITLE", stringCr);
+			DrawString(200, 100, "TITLE", stringCr);
+			DrawString(250, 500, "Push SPACE", stringCr);
+
 
 			break;
 
@@ -318,6 +313,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 			DrawString(1000, 100, "GAME", stringCr);
 			DrawFormatString(100, 360, stringCr,"Score : %d", scoreNum);
+			player->Draw();
+			enemyManager->Draw();
+			score->Draw();
 
 			break;
 
@@ -343,8 +341,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		for (int i = 0; i < kRankNum; i++) {
 			DrawFormatString(100, i * 20 + 100, stringCr,"%drank : %d", i + 1, ranking[i]);
 		}
-
-
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
