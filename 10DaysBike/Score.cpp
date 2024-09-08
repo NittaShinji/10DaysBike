@@ -1,5 +1,4 @@
 #include "Score.h"
-#include "DxLib.h"
 
 void Score::Init()
 {
@@ -14,8 +13,8 @@ void Score::Update(int enemyDeadNum)
 void Score::Draw()
 {
 	unsigned int color;
-	color = GetColor(255, 255, 255);
-	DrawFormatString(0, 0, color, "スコア %d",scoreNum_);
+	//color = GetColor(255, 255, 255);
+	//DrawFormatString(0, 0, color, "スコア %d",scoreNum_);
 }
 
 void Score::AddScore()
