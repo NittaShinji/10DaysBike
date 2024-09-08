@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "EnemyState.h"
+#include "BulletManager.h"
 #include<vector>
 
 class EnemyManager
@@ -20,6 +21,7 @@ public:
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies_;
+	std::unique_ptr<BulletManager> bulletManager_;
 public:
 	//~EnemyManager() { enemies_.clear(); }
 private:

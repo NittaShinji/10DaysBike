@@ -1,9 +1,15 @@
 #include "Enemy.h"
 #include "EnemyState.h"
+#include "BulletManager.h"
 #include "CollisionAttribute.h"
 const float Enemy::AUTO_MOVING_SPEED = 3.0f;
 const float Enemy::SIDE_MOVING_SPEED = 3.0f;
 const ColorDxLib Enemy::PROT_ENEMY_COLOR = { 255,128,128 };
+
+Enemy::~Enemy()
+{
+	bulletManager_ = nullptr;
+}
 
 void Enemy::MoveUpdate()
 {
@@ -41,29 +47,13 @@ void Enemy::Init(const Vec2& pos)
 
 	ProccesingTurning();
 
-	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->IsDead();
-	});
-
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
 }
 
 void Enemy::Update()
 {
-	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->IsDead();
-	});
-
 	state_->Update();
-
-	//弾更新
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
-	{
-		bullet->Update();
-	}
 
 	//trajManag_->SetPos(pos_);
 	//trajManag_->Update();

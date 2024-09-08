@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "EnemyState.h"
+#include "BulletManager.h"
 
 //----------------------------------------------------
 //Šî’êƒNƒ‰ƒX
@@ -138,7 +139,9 @@ void EnemyStateAttack::Fire()
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
 	newBullet->Initialize(enemy_->GetPos(), velocity);
 
-	//’e‚ð“o˜^‚·‚é
-	enemy_->GetBullets().push_back(std::move(newBullet));
+	//’e‚ð’eƒ}ƒl[ƒWƒƒ[‚É“o˜^‚·‚é
+	enemy_->GetBullletManager()->GetBullets().push_back(std::move(newBullet));
+	
+	//enemy_->GetBullets().push_back(std::move(newBullet));
 }
 
