@@ -285,7 +285,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			}
 
 			count = 0;
-			score = 0;
 			isLoggedIn = false;
 
 			break;
