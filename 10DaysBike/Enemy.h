@@ -47,7 +47,7 @@ public:
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IEnemyState> state);
-	void ProccesingTurning();
+	void ProccesingNewTrajs();
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void OnCollision(const CollisionInfo& info) override;
 	BulletManager* bulletManager_ = nullptr;

@@ -45,7 +45,7 @@ void Enemy::Init(const Vec2& pos)
 	//属性を指定
 	enemyCollider_->SetAttribute(COLLISION_ATTR_ENEMYS);
 
-	ProccesingTurning();
+	ProccesingNewTrajs();
 
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
@@ -109,7 +109,7 @@ void Enemy::OnCollision(const CollisionInfo& info)
 	}
 }
 
-void Enemy::ProccesingTurning()
+void Enemy::ProccesingNewTrajs()
 {
 	//trajManag_->ProccesingTurning();
 }

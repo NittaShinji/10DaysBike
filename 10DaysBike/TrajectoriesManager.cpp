@@ -1,7 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 21.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 24.0f;
 
 
 void TrajectoriesManager::Init()
@@ -18,24 +18,34 @@ void TrajectoriesManager::Init(const Vec2& pos)
 	color_ = COLOR_DEBUG;
 }
 
-void TrajectoriesManager::GenerateUpdate(float dirY, std::function<bool(float)> shootGaugeFunc)
+void TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc)
 {
-	GenerateTrajectory(dirY, shootGaugeFunc);
+	GenerateTrajectory(geneInfo, shootGaugeFunc);
 	oldPos_ = pos_;
+}
+
+void TrajectoriesManager::SetNewestTrajPos()
+{
+	auto& newTrajs = trajectoriesArray_.back();
+	if (newTrajs)
+	{
+		newTrajs->SetNewestTrajSPos(pos_);
+	}
 }
 
 void TrajectoriesManager::Update()
 {
-	Update(0, nullptr, nullptr);
+	TrajGenerateInform info;
+	Update(info, nullptr, nullptr);
 }
 
-void TrajectoriesManager::Update(float dirY, std::function<bool(float)> shootGaugeFunc,
-	std::function<bool(float, float)> chargeGaugeFunc)
+void TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+	std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
-	const Vec2 TRAJ_VEC = Vec2(0, dirY).GetNormalize() * TRAJ_SPEED;
+	const Vec2 TRAJ_VEC = Vec2(0, geneInfo.dirY).GetNormalize() * TRAJ_SPEED;
 
 	//1フレームごとに生成するため
-	GenerateUpdate(TRAJ_VEC.y, shootGaugeFunc);
+	GenerateUpdate(geneInfo, shootGaugeFunc);
 
 	//移動など更新処理
 	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
@@ -44,6 +54,9 @@ void TrajectoriesManager::Update(float dirY, std::function<bool(float)> shootGau
 		itr->get()->Update(TRAJ_VEC.y, chargeGaugeFunc);
 
 	}
+
+	//一番新しい軌跡の位置を管理クラスと一緒にする
+	SetNewestTrajPos();
 
 	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
 	{
@@ -76,23 +89,24 @@ void TrajectoriesManager::Draw()
 
 }
 
-void TrajectoriesManager::ProccesingTurning()
+void TrajectoriesManager::ProccesingNewTrajs()
 {
-	isTurned = true;
+	isNewTrajs_ = true;
 }
 
 //------------------------------------------------------------------------------------
-void TrajectoriesManager::GenerateTrajectory(float dirY, std::function<bool(float)> shootGaugeFunc)
+void TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
+	std::function<bool(float decreGauge)> shootGaugeFunc)
 {
-	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE))
+	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE * geneInfo.trajCostRate))
 	{
 		bool isHead = false;
 		std::unique_ptr<Trajectories> trajectories = nullptr;
 		//ターンしたら次の軌跡を先頭にするため新たな配列をつくる
-		if (isTurned || trajectoriesArray_.size() == 0)
+		if (isNewTrajs_ || trajectoriesArray_.size() == 0)
 		{
 			isHead = true;
-			isTurned = false;
+			isNewTrajs_ = false;
 
 			trajectories = std::make_unique<Trajectories>();
 		}
@@ -108,8 +122,11 @@ void TrajectoriesManager::GenerateTrajectory(float dirY, std::function<bool(floa
 
 		//仮でyだけ動かす軌跡を生成
 		auto traj = std::make_unique<Trajectory>();
-		traj->Init({ pos_,oldPos_ }, Vec2{ 0,dirY },
+		traj->Init({ pos_,oldPos_ }, Vec2{ 0,geneInfo.dirY },
 			isHead);
+		//太さや消費ゲージをセット
+		traj->SetThickNessRate(geneInfo.trajThickRate);
+		traj->SetChargeGaugeRate(geneInfo.trajCostRate);
 
 		//配列に追加
 		trajectories->PushBackTraj(std::move(traj));

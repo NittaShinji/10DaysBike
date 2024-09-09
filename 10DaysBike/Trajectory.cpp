@@ -41,7 +41,7 @@ void Trajectory::Update()
 	Update(nullptr);
 }
 
-void Trajectory::Update(std::function<bool(float, float)> chargeGaugeFunc)
+void Trajectory::Update(std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
 	pos_ += vec_;
 
@@ -53,7 +53,7 @@ void Trajectory::Update(std::function<bool(float, float)> chargeGaugeFunc)
 	lifeFrame_--;
 
 	//ゲージをチャージするため
-	if (chargeGaugeFunc(twoPoses_.sPos.y, CHARGE_GAUGE_RATIO))
+	if (chargeGaugeFunc(twoPoses_.ePos.y, CHARGE_GAUGE_RATIO * chargeGaugeRate_))
 	{
 		isAlive_ = false;
 	}
@@ -81,6 +81,6 @@ void Trajectory::Draw()
 
 	//線描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, ALPHA_MAX * EaseIn(T));
-	DrawLineAA(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS));
+	DrawLineAA(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS * lineThicknessRate_));
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

@@ -3,7 +3,7 @@
 #include "CollisionAttribute.h"
 #include "EnergyGauge.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
-const float Player::SIDE_MOVING_SPEED = 7.37f;
+const float Player::SIDE_MOVING_SPEED = 9.37f;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
 
 
@@ -52,13 +52,16 @@ void Player::Update()
 }
 
 void Player::Update(std::function<bool(float)> shootGaugeFunc,
-	std::function<bool(float, float)> chargeGaugeFunc,
+	std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc,
 	float rimitY)
 {
-	state_->Update();
-
-	trajManag_->SetPos(pos_);
-	trajManag_->Update(-vec_.y, shootGaugeFunc, chargeGaugeFunc);
+	//ステート更新
+	state_->Update(
+		[=](float thickRate, float costRate)
+		{
+			trajManag_->Update({ -vec_.y * moveSpeedRate_, thickRate, costRate }, shootGaugeFunc, chargeGaugeFunc);
+		}
+	);
 
 	//画面内に収める
 	FitTheScreen(PROT_PLAYER_DRAWING_SIZE);
@@ -92,9 +95,14 @@ void Player::ChangeState(std::unique_ptr<IPlayerState> state)
 	state_->Init();
 }
 
-void Player::ProccesingTurning()
+void Player::ProccesingNewTrajs()
 {
-	trajManag_->ProccesingTurning();
+	trajManag_->ProccesingNewTrajs();
+}
+
+void Player::TrajManagerPosUpdate()
+{
+	trajManag_->SetPos(pos_);
 }
 
 void Player::OnCollision(const CollisionInfo& info)

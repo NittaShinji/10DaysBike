@@ -15,7 +15,8 @@ public:
 	static const float SIDE_MOVING_SPEED;
 	static const uint16_t PROT_PLAYER_DRAWING_SIZE = 30;
 	static const ColorDxLib PROT_PLAYER_COLOR;
-	static const int TURN_KEY = KEY_INPUT_SPACE;
+	static const int TURN_KEY = KEY_INPUT_Z;
+	static const int BURST_KEY = KEY_INPUT_X;
 private:
 	//軌跡の管理クラス
 	std::unique_ptr<TrajectoriesManager> trajManag_ = nullptr;
@@ -25,6 +26,8 @@ private:
 	std::unique_ptr<CircleCollider> playerCollider_ = nullptr;
 	//当たったかどうか
 	bool isHit_ = false;
+	//移動スピードの倍率(バースト用に)
+	float moveSpeedRate_ = 1.0f;
 
 private:
 	void MoveUpdate();
@@ -33,12 +36,18 @@ public:
 	void Init(const Vec2& pos);
 	void Update()override;
 	void Update(std::function<bool(float)>shootGaugeFunc,
-		std::function<bool(float, float)> chargeGaugeFunc,
+		std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc,
 		float rimitY);
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IPlayerState> state);
-	void ProccesingTurning();
+	void ProccesingNewTrajs();
+	void TrajManagerPosUpdate();
+public:
+	void SetMoveSpeedRate(float rate) { moveSpeedRate_ = rate; }
+	float GetMoveSpeedRate() { return moveSpeedRate_; }
+
+public:
 	//衝突時に呼び出される関数
 	void OnCollision(const CollisionInfo& info) override;
 };

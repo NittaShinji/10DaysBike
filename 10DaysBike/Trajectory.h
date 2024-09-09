@@ -29,6 +29,8 @@ private:
 	std::unique_ptr<CircleCollider> trajectoryCollider_ = nullptr;
 	uint16_t lifeFrame_ = LIFE_FRAME;
 	Vec2 scrollVec_ = { 0,0 };
+	float lineThicknessRate_ = 1.0f;
+	float chargeGaugeRate_ = 1.0f;
 
 private:
 
@@ -38,12 +40,14 @@ public:
 	void Init()override;
 	void Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead = false);
 	void Update()override;
-	void Update(std::function<bool(float, float)> chargeGaugeFunc);
+	void Update(std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
 	void Draw()override;
 
 public:
 	void SetTwoPoses(const Vec2& sPos, const Vec2& ePos) { twoPoses_ = TwoPoses{ sPos, ePos }; }
 	void SetScrollVec(const Vec2& vec) { scrollVec_ = vec; }
+	void SetThickNessRate(float thickRate) { lineThicknessRate_ = thickRate; }
+	void SetChargeGaugeRate(float chargeRate) { chargeGaugeRate_ = chargeRate; }
 
 	const TwoPoses& GetTwoPoses() { return twoPoses_; }
 	bool GetIsHead() { return isHead_; }

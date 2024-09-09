@@ -6,26 +6,37 @@
 class TrajectoriesManager : public IObject2D
 {
 public:
+	//ãOê’Çê∂ê¨Ç∑ÇÈÇ∆Ç´Ç…ïKóvÇ»èÓïÒ
+	struct TrajGenerateInform
+	{
+		float dirY = 0;
+		float trajThickRate = 1.0f;
+		float trajCostRate = 1.0f;
+	};
+
+public:
 	static const float TRAJ_SPEED;
 private:
 	std::vector<std::unique_ptr<Trajectories>> trajectoriesArray_;
 	Vec2 oldPos_ = { 0,0 };
 	const ColorDxLib COLOR_DEBUG = { 255,255,0 };
-	bool isTurned = false;
+	bool isNewTrajs_ = false;
 
 public:
 	~TrajectoriesManager() { trajectoriesArray_.clear(); }
 private:
-	void GenerateTrajectory(float dirY, std::function<bool(float)> shootGaugeFunc);
-	void GenerateUpdate(float dirY, std::function<bool(float)> shootGaugeFunc);
+	void GenerateTrajectory(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
+	void GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
+private:
+	void SetNewestTrajPos();
 public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
-	void Update(float dirY, std::function<bool(float)> shootGaugeFunc,
-		std::function<bool(float, float)> chargeGaugeFunc);
+	void Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+		std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
 	void Draw()override;
 public:
-	void ProccesingTurning();
+	void ProccesingNewTrajs();
 };
 
