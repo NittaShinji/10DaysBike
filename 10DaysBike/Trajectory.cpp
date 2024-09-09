@@ -9,7 +9,9 @@ const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.4f;
 
 
 Trajectory::Trajectory() {}
-Trajectory::~Trajectory() { RemoveCollider(); }
+Trajectory::~Trajectory() {
+	RemoveCollider(); 
+}
 
 void Trajectory::Init()
 {
@@ -22,6 +24,8 @@ void Trajectory::Init()
 void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 {
 	color_ = PROT_TRAJ_COLOR;
+
+	name_ = "trajectory";
 
 	//コライダーの追加
 	SetRadius(32.5f);

@@ -32,6 +32,7 @@ private:
 private:
 	void MoveUpdate();
 public:
+	~Player();
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;

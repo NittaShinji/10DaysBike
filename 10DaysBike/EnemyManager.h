@@ -18,12 +18,13 @@ public:
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, 100.0f);
 	const Vec2 kEnemyPopLeft = Vec2(100, 100.0f);
 	const Vec2 kEnemyPopRight = Vec2(900, 100.0f);
+	const int kMaxEnemyNum = 20;
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies_;
 	std::unique_ptr<BulletManager> bulletManager_;
 public:
-	//~EnemyManager() { enemies_.clear(); }
+	~EnemyManager() { enemies_.clear(); }
 private:
 	void GenerateEnemy();
 public:

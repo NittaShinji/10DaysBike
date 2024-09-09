@@ -4,6 +4,7 @@
 void EnemyManager::Init()
 {
 	waitTimer_ = kWaitTime_;
+	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
 }
 
@@ -23,8 +24,11 @@ void EnemyManager::Update()
 		waitTimer_--;
 		if (waitTimer_ < 0)
 		{
-			GenerateEnemy();
-			waitTimer_ = kWaitTime_;
+			if (enemies_.size() < kMaxEnemyNum)
+			{
+				GenerateEnemy();
+				waitTimer_ = kWaitTime_;
+			}
 		}
 	}
 

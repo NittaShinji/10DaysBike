@@ -12,6 +12,11 @@ void Player::MoveUpdate()
 
 }
 
+Player::~Player()
+{
+	RemoveCollider();
+}
+
 void Player::Init()
 {
 	Init({ 0,0 });
