@@ -13,7 +13,7 @@ Enemy::~Enemy()
 
 void Enemy::MoveUpdate()
 {
-
+	
 }
 
 void Enemy::Init()
@@ -67,6 +67,7 @@ void Enemy::Update()
 	if (hp_ <= 0)
 	{
 		isDead_ = true;
+		isDeleteCollider_ = true;
 	}
 
 	coliderPos_ = pos_;

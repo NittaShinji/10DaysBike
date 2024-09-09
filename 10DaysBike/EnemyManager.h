@@ -24,7 +24,7 @@ private:
 	std::vector<std::unique_ptr<Enemy>> enemies_;
 	std::unique_ptr<BulletManager> bulletManager_;
 public:
-	//~EnemyManager() { enemies_.clear(); }
+	~EnemyManager() { enemies_.clear(); }
 private:
 	void GenerateEnemy();
 public:

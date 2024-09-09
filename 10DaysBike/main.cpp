@@ -72,7 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		gauge->Update();
 
 		//全ての衝突をチェック
-		collisionManager_->CheckAllCollisions();
+		collisionManager_->CheckAllCollisions(player->GetPos(),30.0f);
 
 		// 描画処理
 		player->Draw();

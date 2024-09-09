@@ -17,6 +17,8 @@ protected:
 	std::string name_ = "";
 	bool isAlive_ = true;
 	BaseCollider* collider_ = nullptr;
+	//コライダーを削除する
+	bool isDeleteCollider_ = false;
 
 protected:
 
@@ -47,6 +49,7 @@ public:
 	unsigned int GetColorUsedForDrawing() { return GetColor(color_.r, color_.g, color_.b); }
 	bool GetIsAlive() { return isAlive_; }
 	const std::string& GetName() { return name_; }
+	const bool GetIsDeleteCollider() { return isDeleteCollider_; };
 
 public:
 	//画面外にあるか
