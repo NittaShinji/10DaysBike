@@ -25,7 +25,7 @@ void BulletFlyEnemy::Init(const Vec2& pos,float bulletSpeed)
 	hp_ = 1000;
 
 	//ステート
-	ChangeState(std::make_unique<EnemyStateWait>());
+	ChangeState(std::make_unique<EnemyStateFireBullet>());
 }
 
 void BulletFlyEnemy::Update()

@@ -18,6 +18,15 @@ public:
 	virtual void Draw() = 0;
 };
 
+//何もしないステート
+class EnemyStateNonAction : public IBulletEnemyState
+{
+public:
+	void Init()override;
+	void Update()override;
+	void Draw()override;
+};
+
 //待機状態
 class EnemyStateWait : public IBulletEnemyState
 {
@@ -32,8 +41,24 @@ public:
 	void Draw()override;
 };
 
-//攻撃状態
-class EnemyStateAttack : public IBulletEnemyState
+//弾撃つだけ
+class EnemyStateFireBullet : public IBulletEnemyState
+{
+
+private:
+	//発射タイマー
+	int32_t bulletCoolTimer_;
+	//発射時間
+	const float kBulletCoolTime_ = 60.0f;
+
+public:
+	void Init()override;
+	void Update()override;
+	void Draw()override;
+};
+
+//円攻撃状態
+class EnemyStateCircleAttack : public IBulletEnemyState
 {
 
 private:

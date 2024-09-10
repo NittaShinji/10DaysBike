@@ -26,7 +26,7 @@ void EnemyStateWait::Update()
 		waitTimer_--;
 		if (waitTimer_ < 0)
 		{
-			enemy_->ChangeState(std::make_unique<EnemyStateAttack>());
+			enemy_->ChangeState(std::make_unique<EnemyStateCircleAttack>());
 		}
 	}
 }
@@ -48,7 +48,7 @@ void EnemyStateWait::Draw()
 
 //----------------------------------------------------
 //敵の攻撃状態
-void EnemyStateAttack::Init()
+void EnemyStateCircleAttack::Init()
 {
 	angle = 0;
 	bulletCoolTimer_ = kBulletCoolTime_;
@@ -73,7 +73,7 @@ void EnemyStateAttack::Init()
 	inTransition = (fabs(currentDistance - kMoveCircleRadius_) > 0.01f);
 }
 
-void EnemyStateAttack::Update()
+void EnemyStateCircleAttack::Update()
 {
 	IBulletEnemyState::Update();
 
@@ -134,7 +134,7 @@ void EnemyStateAttack::Update()
 	enemy_->SetPos(pos);
 }
 
-void EnemyStateAttack::Draw()
+void EnemyStateCircleAttack::Draw()
 {
 	const Vec2 pos = enemy_->GetPos();
 
@@ -147,3 +147,31 @@ void EnemyStateAttack::Draw()
 	DrawTriangle(TOP.x, TOP.y, RIGHT_BOTTOM.x, RIGHT_BOTTOM.y, LEFT_BOTTOM.x, LEFT_BOTTOM.y,
 		enemy_->GetColorUsedForDrawing(), true);
 }
+
+void EnemyStateNonAction::Init(){}
+
+void EnemyStateNonAction::Update(){}
+
+void EnemyStateNonAction::Draw(){}
+
+void EnemyStateFireBullet::Init()
+{
+	bulletCoolTimer_ = kBulletCoolTime_;
+}
+
+void EnemyStateFireBullet::Update()
+{
+	//発射タイマーをカウントダウン
+	bulletCoolTimer_--;
+	//指定時間に達した
+	if (bulletCoolTimer_ <= 0)
+	{
+		//弾を発射
+		enemy_->Fire(enemy_->GetBulletSpeed());
+		//発射タイマーを初期化
+		bulletCoolTimer_ = kBulletCoolTime_;
+	}
+}
+
+void EnemyStateFireBullet::Draw(){}
+
