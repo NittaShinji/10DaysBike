@@ -7,11 +7,20 @@ void Trajectories::Init()
 
 void Trajectories::Update()
 {
-	Update(0);
+	Update(0, nullptr);
 }
 
-void Trajectories::Update(float dirY)
+void Trajectories::Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
+	//移動など更新処理
+	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
+	{
+		//更新
+		itr->get()->SetScrollVec({ 0,(dirY) * 0.34f });
+		itr->get()->Update(chargeGaugeFunc);
+
+	}
+
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
 		//次(自分より新しい)の軌跡
@@ -30,15 +39,6 @@ void Trajectories::Update(float dirY)
 				nextTrajItr->get()->GetTwoPoses().ePos,
 				itr->get()->GetTwoPoses().ePos);
 		}
-
-	}
-
-	//移動など更新処理
-	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
-	{
-		//更新
-		itr->get()->SetScrollVec({ 0,-fabsf(dirY) * 0.34f });
-		itr->get()->Update();
 
 	}
 
@@ -66,5 +66,18 @@ void Trajectories::Draw()
 	for (auto& trajs : trajectories_)
 	{
 		trajs->Draw();
+	}
+}
+
+void Trajectories::SetNewestTrajSPos(const Vec2& pos)
+{
+	if (trajectories_.size())
+	{
+		auto& newestTraj = trajectories_.back();
+
+		if (newestTraj)
+		{
+			newestTraj->SetTwoPoses(pos, newestTraj->GetTwoPoses().ePos);
+		}
 	}
 }

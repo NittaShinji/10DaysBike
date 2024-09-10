@@ -4,10 +4,16 @@
 
 EnemyBullet::EnemyBullet()
 {
+
 }
 
 EnemyBullet::~EnemyBullet()
 {
+	// 削除フラグが立っている場合にのみコライダーを削除
+	/*if (markedForDeletion_) {
+		RemoveCollider();
+	}*/
+	RemoveCollider();
 }
 
 void EnemyBullet::Reset(Vec2 position)
@@ -25,6 +31,9 @@ void EnemyBullet::Initialize(const Vec2& position, const Vec2& velocity)
 
 	//引数で受け取った速度をメンバ変数に代入
 	velocity_ = velocity;
+
+	//名前
+	name_ = "enemyBullet";
 
 	//回転角
 	radian_ = 0;
@@ -80,6 +89,8 @@ void EnemyBullet::OnCollision()
 {
 	//デスフラグを立てる
 	isDead_ = true;
+	isDeleteCollider_ = true;
+	//RemoveCollider();
 }
 
 void EnemyBullet::OnCollisionStop()

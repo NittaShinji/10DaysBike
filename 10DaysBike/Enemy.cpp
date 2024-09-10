@@ -1,13 +1,19 @@
 #include "Enemy.h"
 #include "EnemyState.h"
+#include "BulletManager.h"
 #include "CollisionAttribute.h"
 const float Enemy::AUTO_MOVING_SPEED = 3.0f;
 const float Enemy::SIDE_MOVING_SPEED = 3.0f;
 const ColorDxLib Enemy::PROT_ENEMY_COLOR = { 255,128,128 };
 
+Enemy::~Enemy()
+{
+	bulletManager_ = nullptr;
+}
+
 void Enemy::MoveUpdate()
 {
-
+	
 }
 
 void Enemy::Init()
@@ -39,14 +45,7 @@ void Enemy::Init(const Vec2& pos)
 	//属性を指定
 	enemyCollider_->SetAttribute(COLLISION_ATTR_ENEMYS);
 
-	ProccesingTurning();
-
-	coliderPos_ = pos_;
-
-	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->IsDead();
-	});
+	ProccesingNewTrajs();
 
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
@@ -54,18 +53,7 @@ void Enemy::Init(const Vec2& pos)
 
 void Enemy::Update()
 {
-	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
-		return bullet->IsDead();
-	});
-
 	state_->Update();
-
-	//弾更新
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
-	{
-		bullet->Update();
-	}
 
 	//trajManag_->SetPos(pos_);
 	//trajManag_->Update();
@@ -79,6 +67,7 @@ void Enemy::Update()
 	if (hp_ <= 0)
 	{
 		isDead_ = true;
+		isDeleteCollider_ = true;
 	}
 
 	coliderPos_ = pos_;
@@ -121,7 +110,7 @@ void Enemy::OnCollision(const CollisionInfo& info)
 	}
 }
 
-void Enemy::ProccesingTurning()
+void Enemy::ProccesingNewTrajs()
 {
 	//trajManag_->ProccesingTurning();
 }

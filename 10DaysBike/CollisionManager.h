@@ -2,6 +2,7 @@
 #include "CollisionPrimitive.h"
 #include "BaseCollider.h"
 #include <forward_list>
+#include <vector>
 
 class CollisionManager
 {
@@ -38,14 +39,25 @@ public: //メンバ関数
 		colliders.remove(collider);
 	}
 
+	//void RemoveCollider(BaseCollider* collider)
+	//{
+	//	// 削除予定リストに追加
+	//	collidersToRemove.push_back(collider);
+	//}
+
 	/// <summary>
 	/// 全ての衝突をチェック
 	/// </summary>
-	void CheckAllCollisions();
+	void CheckAllCollisions(const Vec2& playerPos, float range);
+
+	void FinalizeCollisions();  // 遅延削除を行うメソッド
+
+	float DistanceSquared(const Vec2& a, const Vec2& b);
 
 private:
 
 	//コライダーのリスト
 	std::forward_list<BaseCollider*> colliders;
+	std::vector<BaseCollider*> collidersToRemove;  // 削除予定のコライダー
 };
 

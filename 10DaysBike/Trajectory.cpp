@@ -4,9 +4,14 @@
 #include "Util.h"
 
 const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
+const float Trajectory::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
+const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.4f;
+
 
 Trajectory::Trajectory() {}
-Trajectory::~Trajectory() { RemoveCollider(); }
+Trajectory::~Trajectory() {
+	RemoveCollider(); 
+}
 
 void Trajectory::Init()
 {
@@ -19,6 +24,8 @@ void Trajectory::Init()
 void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 {
 	color_ = PROT_TRAJ_COLOR;
+
+	name_ = "trajectory";
 
 	//コライダーの追加
 	SetRadius(32.5f);
@@ -35,6 +42,11 @@ void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 
 void Trajectory::Update()
 {
+	Update(nullptr);
+}
+
+void Trajectory::Update(std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
+{
 	pos_ += vec_;
 
 	twoPoses_.sPos += vec_ + scrollVec_;
@@ -43,6 +55,12 @@ void Trajectory::Update()
 	collider_->Update();
 
 	lifeFrame_--;
+
+	//ゲージをチャージするため
+	if (chargeGaugeFunc(twoPoses_.ePos.y, CHARGE_GAUGE_RATIO * chargeGaugeRate_))
+	{
+		isAlive_ = false;
+	}
 
 	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos)
 		|| lifeFrame_ < 1)
@@ -67,6 +85,6 @@ void Trajectory::Draw()
 
 	//線描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, ALPHA_MAX * EaseIn(T));
-	DrawLine(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS));
+	DrawLineAA(S_POS.x, S_POS.y, E_POS.x, E_POS.y, GetColorUsedForDrawing(), (int)(SHAKE_TICKNESS * lineThicknessRate_));
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

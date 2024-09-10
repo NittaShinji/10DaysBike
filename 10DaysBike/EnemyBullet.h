@@ -55,6 +55,9 @@ private:
 
 	//当たったかどうか
 	bool isHit_ = false;
+
+	bool markedForDeletion_ = false;
+
 	//敵のコライダー
 	std::unique_ptr<CircleCollider> bulletCollider_ = nullptr;
 

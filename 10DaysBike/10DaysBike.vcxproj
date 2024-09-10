@@ -69,7 +69,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.\x64\Release</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -133,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -140,6 +143,9 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="EnergyGauge.cpp" />
+    <ClCompile Include="Gauge.cpp" />
+    <ClCompile Include="GaugeFrame.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -154,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="CollisionAttribute.h" />
     <ClInclude Include="CollisionInfo.h" />
@@ -166,6 +173,9 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="EnergyGauge.h" />
+    <ClInclude Include="Gauge.h" />
+    <ClInclude Include="GaugeFrame.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />

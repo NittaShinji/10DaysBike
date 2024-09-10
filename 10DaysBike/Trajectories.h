@@ -1,6 +1,7 @@
 #pragma once
 #include"Trajectory.h"
 #include<vector>
+#include<functional>
 
 class Trajectories :public IObject2D
 {
@@ -13,9 +14,10 @@ private:
 public:
 	void Init()override;
 	void Update()override;
-	void Update(float dirY);
+	void Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
 	void Draw()override;
 public:
 	void PushBackTraj(std::unique_ptr<Trajectory> traj) { trajectories_.push_back(std::move(traj)); }
+	void SetNewestTrajSPos(const Vec2& pos);
 };
 

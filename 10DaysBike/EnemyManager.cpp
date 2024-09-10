@@ -4,11 +4,13 @@
 void EnemyManager::Init()
 {
 	waitTimer_ = kWaitTime_;
+	enemies_.clear();
+	bulletManager_ = std::make_unique<BulletManager>();
 }
 
 void EnemyManager::Update()
 {
-	//ƒfƒXƒtƒ‰ƒO‚Ì—§‚Á‚½’e‚ğíœ
+	//ƒfƒXƒtƒ‰ƒO‚Ì—§‚Á‚½“G‚ğíœ
 	// “G‚ÌíœiƒfƒXƒtƒ‰ƒO‚Ì—§‚Á‚½‚à‚Ì‚ğíœj
 	enemies_.erase(
 		std::remove_if(enemies_.begin(), enemies_.end(),
@@ -22,8 +24,11 @@ void EnemyManager::Update()
 		waitTimer_--;
 		if (waitTimer_ < 0)
 		{
-			GenerateEnemy();
-			waitTimer_ = kWaitTime_;
+			if (enemies_.size() < kMaxEnemyNum)
+			{
+				GenerateEnemy();
+				waitTimer_ = kWaitTime_;
+			}
 		}
 	}
 
@@ -31,6 +36,8 @@ void EnemyManager::Update()
 	{
 		enemy->Update();
 	}
+
+	bulletManager_->Update();
 }
 
 void EnemyManager::Draw()
@@ -39,6 +46,8 @@ void EnemyManager::Draw()
 	{
 		enemy->Draw();
 	}
+
+	bulletManager_->Draw();
 }
 
 void EnemyManager::GenerateEnemy()
@@ -68,10 +77,12 @@ void EnemyManager::GenerateEnemy()
 		enemyPopPos = kEnemyPopRight;
 	}
 
-	//’e‚ğ¶¬‚µA‰Šú‰»
+	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 	newEnemy->Init(enemyPopPos);
 
-	//’e‚ğ“o˜^‚·‚é
+	newEnemy->SetBullletManger(bulletManager_.get());
+
+	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
 }

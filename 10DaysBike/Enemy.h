@@ -7,6 +7,7 @@
 
 //‘O•ûéŒ¾
 class IEnemyState;
+class BulletManager;
 
 //“G
 class Enemy : public IObject2D
@@ -35,7 +36,7 @@ private:
 	int32_t hp_ = kDefaultEnemyHP_;
 
 public:
-	~Enemy() { bullets_.clear(); }
+	~Enemy();
 	
 private:
 	void MoveUpdate();
@@ -46,13 +47,17 @@ public:
 	void Draw()override;
 public:
 	void ChangeState(std::unique_ptr<IEnemyState> state);
-	void ProccesingTurning();
+	void ProccesingNewTrajs();
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void OnCollision(const CollisionInfo& info) override;
+	BulletManager* bulletManager_ = nullptr;
 
 public:
 	int32_t GetEnemyHP() { return hp_; }
 	bool IsDead() const { return isDead_; }
 	std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; };
+	void SetBullletManger(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
+	BulletManager* GetBullletManager() { return bulletManager_; }
+
 };
 
