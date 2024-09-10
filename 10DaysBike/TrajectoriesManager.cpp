@@ -26,10 +26,13 @@ void TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std
 
 void TrajectoriesManager::SetNewestTrajPos()
 {
-	auto& newTrajs = trajectoriesArray_.back();
-	if (newTrajs)
+	if (trajectoriesArray_.size())
 	{
-		newTrajs->SetNewestTrajSPos(pos_);
+		auto& newTrajs = trajectoriesArray_.back();
+		if (newTrajs)
+		{
+			newTrajs->SetNewestTrajSPos(pos_);
+		}
 	}
 }
 
