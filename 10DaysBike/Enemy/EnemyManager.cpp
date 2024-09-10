@@ -221,3 +221,13 @@ void EnemyManager::GenerateBulletFlyEnemy()
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
 }
+
+void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos)
+{
+	//“G‚ğ¶¬‚µA‰Šú‰»
+	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
+	newEnemy->Init(GeneratePos, PlayerPos);
+
+	//“G‚ğ“o˜^‚·‚é
+	enemies_.push_back(std::move(newEnemy));
+}

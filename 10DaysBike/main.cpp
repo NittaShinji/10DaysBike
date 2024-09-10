@@ -3,8 +3,6 @@
 #include "KeyboardInput.h" 
 #include "Player.h" 
 #include "PlayerState.h" 
-#include "Enemy.h" 
-#include "EnemyState.h" 
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "EnergyGauge.h"

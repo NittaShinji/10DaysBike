@@ -1,6 +1,7 @@
 #pragma once
 #include "BadEnemy.h"
 #include "BulletFlyEnemy.h"
+#include "WanderEnemy.h"
 #include "BulletEnemyState.h"
 #include "BulletManager.h"
 #include <vector>
@@ -43,6 +44,7 @@ private:
 	void GenerateBulletFlyEnemy();
 	/*void GenerateBadEnemy(Vec2 pos);
 	void GenerateBulletFlyEnemy(Vec2 pos);*/
+	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
 
 
 public:

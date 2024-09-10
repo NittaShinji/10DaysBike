@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir);$(ProjectDir)Enemy\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -135,19 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IBulletEnemy.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="Enemy\IBulletEnemy.cpp" />
+    <ClCompile Include="Enemy\BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Easing.cpp" />
-    <ClCompile Include="BulletFlyEnemy.cpp" />
-    <ClCompile Include="EnemyBullet.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="BulletEnemyState.cpp" />
+    <ClCompile Include="Enemy\BulletFlyEnemy.cpp" />
+    <ClCompile Include="Enemy\EnemyBullet.cpp" />
+    <ClCompile Include="Enemy\EnemyManager.cpp" />
+    <ClCompile Include="Enemy\BulletEnemyState.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Enemy\WanderEnemy.cpp" />
     <ClCompile Include="EnergyGauge.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="GaugeFrame.cpp" />
-    <ClCompile Include="IEnemy.cpp" />
+    <ClCompile Include="Enemy\IEnemy.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -157,14 +158,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
     <ClCompile Include="Trajectories.cpp" />
-    <ClCompile Include="BadEnemy.cpp" />
+    <ClCompile Include="Enemy\BadEnemy.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCollider.h" />
-    <ClInclude Include="IBulletEnemy.h" />
-    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="Enemy\IBulletEnemy.h" />
+    <ClInclude Include="Enemy\BulletManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="CollisionAttribute.h" />
     <ClInclude Include="CollisionInfo.h" />
@@ -172,15 +173,16 @@
     <ClInclude Include="CollisionPrimitive.h" />
     <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Easing.h" />
-    <ClInclude Include="BulletFlyEnemy.h" />
-    <ClInclude Include="EnemyBullet.h" />
-    <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="BulletEnemyState.h" />
+    <ClInclude Include="Enemy\BulletFlyEnemy.h" />
+    <ClInclude Include="Enemy\EnemyBullet.h" />
+    <ClInclude Include="Enemy\EnemyManager.h" />
+    <ClInclude Include="Enemy\BulletEnemyState.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Enemy\WanderEnemy.h" />
     <ClInclude Include="EnergyGauge.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="GaugeFrame.h" />
-    <ClInclude Include="IEnemy.h" />
+    <ClInclude Include="Enemy\IEnemy.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />
@@ -190,7 +192,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />
     <ClInclude Include="Trajectories.h" />
-    <ClInclude Include="BadEnemy.h" />
+    <ClInclude Include="Enemy\BadEnemy.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
