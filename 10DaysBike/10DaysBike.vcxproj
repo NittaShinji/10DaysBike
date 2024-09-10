@@ -146,6 +146,7 @@
     <ClCompile Include="EnergyGauge.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="GaugeFrame.cpp" />
+    <ClCompile Include="IEnemy.cpp" />
     <ClCompile Include="IObject2D.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="EnergyGauge.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="GaugeFrame.h" />
+    <ClInclude Include="IEnemy.h" />
     <ClInclude Include="Inform.h" />
     <ClInclude Include="IObject2D.h" />
     <ClInclude Include="KeyboardInput.h" />
