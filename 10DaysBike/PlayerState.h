@@ -1,5 +1,6 @@
 #pragma once
 #include<functional>
+#include<string>
 
 //ëOï˚êÈåæ
 class Player;
@@ -13,6 +14,13 @@ protected:
 	bool isWaitingBurst_ = false;
 	float dirY_ = 0;
 
+	int animeTimer_ = 0;
+	bool isUsingCurveImage_ = false;
+	bool isSideTurnImage_ = false;
+	std::string useImageName_ = "";
+
+protected:
+	void AnimationUpdate(bool isUp);
 protected:
 	void SideMoveUpdate();
 	void TurnPlayerUpdate();
@@ -23,6 +31,7 @@ public:
 public:
 	virtual void Init() = 0;
 	virtual void Update(std::function<void(float thickRate, float costRate)> shootFunc);
+	void Update(std::function<void(float thickRate, float costRate)> shootFunc, bool isUp);
 	virtual void Draw() = 0;
 };
 

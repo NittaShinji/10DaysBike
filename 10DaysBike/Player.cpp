@@ -2,15 +2,16 @@
 #include "PlayerState.h"
 #include "CollisionAttribute.h"
 #include "EnergyGauge.h"
+#include "Inform.h"
 const float Player::AUTO_MOVING_SPEED = 3.0f;
 const float Player::SIDE_MOVING_SPEED = 9.37f;
+const float  Player::DOWN_IMAGE_ANGLE = 3.1415f;
+const float Player::IMAGE_EXTEND = PROT_PLAYER_DRAWING_SIZE * 2.0f / (float)IMAGE_SIZE;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
 
+const std::string Player::NORMAL_IMAGE_NAME = "BikeRun.png";
+const std::string Player::CURVE_IMAGE_NAME = "BikeCurve.png";
 
-void Player::MoveUpdate()
-{
-
-}
 
 Player::~Player()
 {
@@ -27,6 +28,12 @@ void Player::Init(const Vec2& pos)
 	name_ = "player";
 
 	pos_ = pos;
+
+	//‰æ‘œ
+	LoadDivGraph((RESOUCE_PATH + NORMAL_IMAGE_NAME).c_str(), NORMAL_IMAGE_NUM, NORMAL_IMAGE_NUM,
+		1, IMAGE_SIZE, IMAGE_SIZE, normalImageHandles_);
+	LoadDivGraph((RESOUCE_PATH + CURVE_IMAGE_NAME).c_str(), CURVE_IMAGE_NUM, CURVE_IMAGE_NUM,
+		1, IMAGE_SIZE, IMAGE_SIZE, curveImageHandles_);
 
 	color_ = PROT_PLAYER_COLOR;
 
@@ -92,6 +99,24 @@ void Player::Draw()
 	state_->Draw();
 }
 
+void Player::DrawImage(const std::string& imageName, float angle, bool imageSideTurn)
+{
+	const int* handles = nullptr;
+	if (imageName == NORMAL_IMAGE_NAME)
+	{
+		handles = normalImageHandles_;
+	}
+	else if (imageName == CURVE_IMAGE_NAME)
+	{
+		handles = curveImageHandles_;
+	}
+
+	if (handles)
+	{
+		DrawRotaGraph(pos_.x, pos_.y, IMAGE_EXTEND, angle, handles[imageIndex_], true, imageSideTurn);
+	}
+}
+
 
 //----------------------------------------------------------------------
 void Player::ChangeState(std::unique_ptr<IPlayerState> state)
@@ -110,6 +135,22 @@ void Player::ProccesingNewTrajs()
 void Player::TrajManagerPosUpdate()
 {
 	trajManag_->SetPos(pos_);
+}
+
+void Player::IncrementImageIndex(const std::string& imageName)
+{
+	if (imageName == NORMAL_IMAGE_NAME)
+	{
+		imageIndex_ ++;
+		if (imageIndex_ == NORMAL_IMAGE_NUM)
+		{
+			imageIndex_ = 0;
+		}
+	}
+	else if (imageName == CURVE_IMAGE_NAME)
+	{
+		imageIndex_ = min(imageIndex_ + 1, CURVE_IMAGE_NUM - 1);
+	}
 }
 
 void Player::OnCollision(const CollisionInfo& info)

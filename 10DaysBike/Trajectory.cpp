@@ -57,7 +57,7 @@ void Trajectory::Update(std::function<bool(float trajPos, float chargeGaugeRatio
 	lifeFrame_--;
 
 	//ゲージをチャージするため
-	if (chargeGaugeFunc(twoPoses_.ePos.y, CHARGE_GAUGE_RATIO * chargeGaugeRate_))
+	if (chargeGaugeFunc(twoPoses_.sPos.y, CHARGE_GAUGE_RATIO * chargeGaugeRate_))
 	{
 		isAlive_ = false;
 	}

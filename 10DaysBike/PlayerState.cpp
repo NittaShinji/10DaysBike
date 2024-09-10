@@ -2,11 +2,13 @@
 #include "Player.h"
 #include "KeyboardInput.h"
 #include "Easing.h"
+#include "Easing.h"
 
 
 const float IBurstState::BURST_THICK_RATE = 3.0f;
 const float IBurstState::BURST_COST_RATE = 8.0f;
 const float IBurstState::BURST_SPEED_RATE = 11.5f;
+
 
 
 //----------------------------------------------------
@@ -38,33 +40,20 @@ void IPlayerState::TurnPlayerUpdate()
 
 void IPlayerState::UpDraw()
 {
-	const Vec2 pos = player_->GetPos();
-
-	const Vec2 BOTTOM = pos - Vec2{ 0, -Player::PROT_PLAYER_DRAWING_SIZE };
-	const Vec2 RIGHT_TOP = pos -
-		Vec2{ Player::PROT_PLAYER_DRAWING_SIZE, Player::PROT_PLAYER_DRAWING_SIZE };
-	const Vec2 LEFT_TOP = pos -
-		Vec2{ -Player::PROT_PLAYER_DRAWING_SIZE, Player::PROT_PLAYER_DRAWING_SIZE };
-
-	DrawTriangle(BOTTOM.x, BOTTOM.y, RIGHT_TOP.x, RIGHT_TOP.y, LEFT_TOP.x, LEFT_TOP.y,
-		player_->GetColorUsedForDrawing(), true);
+	player_->DrawImage(useImageName_, 0, isSideTurnImage_);
 }
 
 void IPlayerState::DownDraw()
 {
-	const Vec2 pos = player_->GetPos();
-
-	const Vec2 TOP = pos + Vec2{ 0, -Player::PROT_PLAYER_DRAWING_SIZE };
-	const Vec2 RIGHT_BOTTOM = pos +
-		Vec2{ Player::PROT_PLAYER_DRAWING_SIZE, Player::PROT_PLAYER_DRAWING_SIZE };
-	const Vec2 LEFT_BOTTOM = pos +
-		Vec2{ -Player::PROT_PLAYER_DRAWING_SIZE, Player::PROT_PLAYER_DRAWING_SIZE };
-
-	DrawTriangle(TOP.x, TOP.y, RIGHT_BOTTOM.x, RIGHT_BOTTOM.y, LEFT_BOTTOM.x, LEFT_BOTTOM.y,
-		player_->GetColorUsedForDrawing(), true);
+	player_->DrawImage(useImageName_, Player::DOWN_IMAGE_ANGLE, isSideTurnImage_);
 }
 
 void IPlayerState::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+{
+
+}
+
+void IPlayerState::Update(std::function<void(float thickRate, float costRate)> shootFunc, bool isUp)
 {
 	SideMoveUpdate();
 
@@ -78,10 +67,66 @@ void IPlayerState::Update(std::function<void(float thickRate, float costRate)> s
 	//軌跡管理クラスの位置も更新
 	player_->TrajManagerPosUpdate();
 
+	//アニメーション更新
+	AnimationUpdate(isUp);
+
 	//エラー回避
 	shootFunc;
 }
 
+void IPlayerState::AnimationUpdate(bool isUp)
+{
+	//アニメーション用
+	animeTimer_++;
+
+	//横に傾く
+	if (KeyboardInput::GetInstance().GetHitSideKey())
+	{
+		useImageName_ = Player::CURVE_IMAGE_NAME;
+
+		bool isTurnKey = false;
+
+		if (isUp)
+		{
+			isTurnKey = KeyboardInput::GetInstance().GetHitLeftKey();
+		}
+		else
+		{
+			isTurnKey = KeyboardInput::GetInstance().GetHitRightKey();
+		}
+
+		//画像反転するため
+		if (isTurnKey)
+		{
+			isSideTurnImage_ = true;
+		}
+		else
+		{
+			isSideTurnImage_ = false;
+		}
+
+		//移動キーを押した瞬間アニメーションを最初からにするため
+		if (KeyboardInput::GetInstance().GetTriggerSideKey())
+		{
+			player_->ImageIndexReset();
+		}
+
+		if (animeTimer_ % Player::CURVE_ANIME_INTERVAL == 0)
+		{
+			player_->IncrementImageIndex(Player::CURVE_IMAGE_NAME);
+		}
+	}
+	//走ってるとき
+	else
+	{
+		useImageName_ = Player::NORMAL_IMAGE_NAME;
+
+		if (animeTimer_ % Player::NORMAL_ANIME_INTERVAL == 0)
+		{
+			player_->IncrementImageIndex(Player::NORMAL_IMAGE_NAME);
+		}
+	}
+}
 
 //----------------------------------------------------
 //プレイヤーが上向きの状態
@@ -94,7 +139,7 @@ void PlayerStateUp::Init()
 
 void PlayerStateUp::Update(std::function<void(float thickRate, float costRate)> shootFunc)
 {
-	IPlayerState::Update(nullptr);
+	IPlayerState::Update(nullptr, true);
 
 	//軌跡の太さとかコストをセットして生成
 	shootFunc(1.0f, 1.0f);
@@ -128,7 +173,7 @@ void PlayerStateDown::Init()
 
 void PlayerStateDown::Update(std::function<void(float thickRate, float costRate)> shootFunc)
 {
-	IPlayerState::Update(nullptr);
+	IPlayerState::Update(nullptr, false);
 
 	//軌跡の太さとかコストをセットして生成
 	shootFunc(1.0f, 1.0f);
@@ -164,8 +209,6 @@ void IBurstState::Update(std::function<void(float thickRate, float costRate)> sh
 		Lerp(1.0f, BURST_SPEED_RATE, EaseOut(t))
 	);
 
-	IPlayerState::Update(nullptr);
-
 	//軌跡の太さとかコストをセットして生成
 	shootFunc(Lerp(1.0f, BURST_THICK_RATE, EaseOut(t))
 		, Lerp(1.0f, BURST_COST_RATE, EaseOut(t))
@@ -185,6 +228,7 @@ void PlayerStateBurstUp::Init()
 void PlayerStateBurstUp::Update(std::function<void(float thickRate, float costRate)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
+	IPlayerState::Update(nullptr, true);
 
 	if (timer_ < 1)
 	{
@@ -210,6 +254,7 @@ void PlayerStateBurstDown::Init()
 void PlayerStateBurstDown::Update(std::function<void(float thickRate, float costRate)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
+	IPlayerState::Update(nullptr, false);
 
 	if (timer_ < 1)
 	{

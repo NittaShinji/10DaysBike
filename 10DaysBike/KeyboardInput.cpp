@@ -28,7 +28,7 @@ bool KeyboardInput::GetTriggerReleaseKey(int key)
 Vec2 KeyboardInput::GetSideVerticalKey()
 {
 	const Vec2 VEC = {
-		
+
 		(float)(
 			KeyboardInput::GetInstance().GetHitKey(KEY_INPUT_RIGHT) ||
 			KeyboardInput::GetInstance().GetHitKey(KEY_INPUT_D)
@@ -51,4 +51,26 @@ Vec2 KeyboardInput::GetSideVerticalKey()
 	};
 
 	return Vec2(VEC);
+}
+
+bool KeyboardInput::GetTriggerSideKey()
+{
+	return GetTriggerKey(KEY_INPUT_RIGHT) || GetTriggerKey(KEY_INPUT_D)
+		|| GetTriggerKey(KEY_INPUT_LEFT) || GetTriggerKey(KEY_INPUT_A);
+}
+
+bool KeyboardInput::GetHitSideKey()
+{
+	return GetHitRightKey()
+		|| GetHitLeftKey();
+}
+
+bool KeyboardInput::GetHitRightKey()
+{
+	return GetHitKey(KEY_INPUT_RIGHT) || GetHitKey(KEY_INPUT_D);
+}
+
+bool KeyboardInput::GetHitLeftKey()
+{
+	return  GetHitKey(KEY_INPUT_LEFT) || GetHitKey(KEY_INPUT_A);
 }

@@ -29,5 +29,9 @@ public:
 	bool GetTriggerReleaseKey(int key);
 public:
 	Vec2 GetSideVerticalKey();
+	bool GetTriggerSideKey();
+	bool GetHitSideKey();
+	bool GetHitRightKey();
+	bool GetHitLeftKey();
 };
 
