@@ -1,16 +1,16 @@
 #pragma once
 
 //前方宣言
-class Enemy;
+class IBulletEnemy;
 
 //敵のステートの基底クラス
-class IEnemyState
+class IBulletEnemyState
 {
 protected:
-	Enemy* enemy_ = nullptr;
+	IBulletEnemy* enemy_ = nullptr;
 
 public:
-	void SetEnemyPtr(Enemy* enemy) { enemy_ = enemy; }
+	void SetEnemyPtr(IBulletEnemy* enemy) { enemy_ = enemy; }
 
 public:
 	virtual void Init() = 0;
@@ -19,7 +19,7 @@ public:
 };
 
 //待機状態
-class EnemyStateWait : public IEnemyState
+class EnemyStateWait : public IBulletEnemyState
 {
 
 private:
@@ -30,11 +30,10 @@ public:
 	void Init()override;
 	void Update()override;
 	void Draw()override;
-
 };
 
 //攻撃状態
-class EnemyStateAttack : public IEnemyState
+class EnemyStateAttack : public IBulletEnemyState
 {
 
 private:
@@ -65,8 +64,4 @@ public:
 	void Init()override;
 	void Update()override;
 	void Draw()override;
-
-public:
-	void Fire();
-
 };

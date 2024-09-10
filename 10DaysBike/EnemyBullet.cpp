@@ -85,11 +85,12 @@ void EnemyBullet::Dead()
 	isDead_ = true;
 }
 
-void EnemyBullet::OnCollision()
+void EnemyBullet::OnCollision(const CollisionInfo& info)
 {
 	//デスフラグを立てる
 	isDead_ = true;
 	isDeleteCollider_ = true;
+	color_ = { 255,0,0 };
 	//RemoveCollider();
 }
 

@@ -1,21 +1,13 @@
-#include "Enemy.h"
-#include "EnemyState.h"
+#include "IBulletEnemy.h"
+#include "BulletEnemyState.h"
 #include "BulletManager.h"
 
 //----------------------------------------------------
 //基底クラス
 
-void IEnemyState::Update()
+void IBulletEnemyState::Update()
 {
-	/*SideMoveUpdate();
-
-	if (KeyboardInput::GetInstance().GetTriggerKey(Enemy::TURN_KEY))
-	{
-		isWaitingTurn_ = true;
-		enemy_->ProccesingTurning();
-	}*/
 }
-
 
 //----------------------------------------------------
 //敵の待機状態
@@ -27,7 +19,7 @@ void EnemyStateWait::Update()
 {
 	enemy_->SetPos(enemy_->GetPos());
 
-	IEnemyState::Update();
+	IBulletEnemyState::Update();
 
 	if (waitTimer_ >= 0) 
 	{
@@ -43,11 +35,11 @@ void EnemyStateWait::Draw()
 {
 	const Vec2 pos = enemy_->GetPos();
 
-	const Vec2 BOTTOM = pos - Vec2{ 0, -Enemy::PROT_ENEMY_DRAWING_SIZE };
+	const Vec2 BOTTOM = pos - Vec2{ 0, -IEnemy::PROT_ENEMY_DRAWING_SIZE };
 	const Vec2 RIGHT_TOP = pos -
-		Vec2{ Enemy::PROT_ENEMY_DRAWING_SIZE, Enemy::PROT_ENEMY_DRAWING_SIZE };
+		Vec2{ IEnemy::PROT_ENEMY_DRAWING_SIZE, IEnemy::PROT_ENEMY_DRAWING_SIZE };
 	const Vec2 LEFT_TOP = pos -
-		Vec2{ -Enemy::PROT_ENEMY_DRAWING_SIZE, Enemy::PROT_ENEMY_DRAWING_SIZE };
+		Vec2{ -IEnemy::PROT_ENEMY_DRAWING_SIZE, IEnemy::PROT_ENEMY_DRAWING_SIZE };
 
 	DrawTriangle(BOTTOM.x, BOTTOM.y, RIGHT_TOP.x, RIGHT_TOP.y, LEFT_TOP.x, LEFT_TOP.y,
 		enemy_->GetColorUsedForDrawing(), true);
@@ -83,7 +75,7 @@ void EnemyStateAttack::Init()
 
 void EnemyStateAttack::Update()
 {
-	IEnemyState::Update();
+	IBulletEnemyState::Update();
 
 	//-----------------------
 	Vec2 pos = enemy_->GetPos();
@@ -134,7 +126,7 @@ void EnemyStateAttack::Update()
 	if (bulletCoolTimer_ <= 0)
 	{
 		//弾を発射
-		Fire();
+		enemy_->Fire(enemy_->GetBulletSpeed());
 		//発射タイマーを初期化
 		bulletCoolTimer_ = kBulletCoolTime_;
 	}
@@ -146,32 +138,12 @@ void EnemyStateAttack::Draw()
 {
 	const Vec2 pos = enemy_->GetPos();
 
-	const Vec2 TOP = pos + Vec2{ 0, -Enemy::PROT_ENEMY_DRAWING_SIZE };
+	const Vec2 TOP = pos + Vec2{ 0, -IEnemy::PROT_ENEMY_DRAWING_SIZE };
 	const Vec2 RIGHT_BOTTOM = pos +
-		Vec2{ Enemy::PROT_ENEMY_DRAWING_SIZE, Enemy::PROT_ENEMY_DRAWING_SIZE };
+		Vec2{ IEnemy::PROT_ENEMY_DRAWING_SIZE, IEnemy::PROT_ENEMY_DRAWING_SIZE };
 	const Vec2 LEFT_BOTTOM = pos +
-		Vec2{ -Enemy::PROT_ENEMY_DRAWING_SIZE, Enemy::PROT_ENEMY_DRAWING_SIZE };
+		Vec2{ -IEnemy::PROT_ENEMY_DRAWING_SIZE, IEnemy::PROT_ENEMY_DRAWING_SIZE };
 
 	DrawTriangle(TOP.x, TOP.y, RIGHT_BOTTOM.x, RIGHT_BOTTOM.y, LEFT_BOTTOM.x, LEFT_BOTTOM.y,
 		enemy_->GetColorUsedForDrawing(), true);
 }
-
-void EnemyStateAttack::Fire()
-{
-	//　弾の速度
-	const float kBulletSpeed = -10.0f;
-	Vec2 velocity(0, kBulletSpeed);
-
-	// 速度ベクトルを自機の向きに合わせて回転させる
-	//velocity = Root(velocity, rotation_);
-
-	//弾を生成し、初期化
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(enemy_->GetPos(), velocity);
-
-	//弾を弾マネージャーに登録する
-	enemy_->GetBullletManager()->GetBullets().push_back(std::move(newBullet));
-	
-	//enemy_->GetBullets().push_back(std::move(newBullet));
-}
-

@@ -21,7 +21,7 @@ public:
 	void Draw()override;
 
 	// 衝突を検知したら呼び出されるコールバック関数
-	void OnCollision();
+	void OnCollision(const CollisionInfo& info) override;
 
 	void OnCollisionStop();
 

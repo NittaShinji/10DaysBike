@@ -135,13 +135,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IBulletEnemy.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Easing.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="BulletFlyEnemy.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="BulletEnemyState.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="EnergyGauge.cpp" />
     <ClCompile Include="Gauge.cpp" />
@@ -156,12 +157,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
     <ClCompile Include="Trajectories.cpp" />
-    <ClCompile Include="TriangleEnemy.cpp" />
+    <ClCompile Include="BadEnemy.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="IBulletEnemy.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="CollisionAttribute.h" />
@@ -170,10 +172,10 @@
     <ClInclude Include="CollisionPrimitive.h" />
     <ClInclude Include="CollisionTypes.h" />
     <ClInclude Include="Easing.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="BulletFlyEnemy.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="BulletEnemyState.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EnergyGauge.h" />
     <ClInclude Include="Gauge.h" />
@@ -188,7 +190,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />
     <ClInclude Include="Trajectories.h" />
-    <ClInclude Include="TriangleEnemy.h" />
+    <ClInclude Include="BadEnemy.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>

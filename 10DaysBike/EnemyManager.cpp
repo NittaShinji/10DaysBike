@@ -7,7 +7,7 @@ void EnemyManager::Init()
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
-	GenerateTriangleEnemy();
+	GenerateBulletFlyEnemy();
 }
 
 void EnemyManager::Update()
@@ -28,7 +28,7 @@ void EnemyManager::Update()
 		{
 			if (enemies_.size() < kMaxEnemyNum)
 			{
-				GenerateBulletEnemy();
+				GenerateBadEnemy();
 				waitTimer_ = kWaitTime_;
 			}
 		}
@@ -68,9 +68,22 @@ void EnemyManager::LoadEnemyPopDate()
 
 void EnemyManager::UpdateEnemyPopComands()
 {
+	//待機処理
+	if (isWaitEnemy_)
+	{
+		enemyWaitTimer_--;
+		if (enemyWaitTimer_ <= 0)
+		{
+			//待機完了
+			isWaitEnemy_ = false;
+		}
+		return;
+	}
+
 	//1行分の文字列を入れる変数
 	std::string line;
 
+	//コマンド実行ループ
 	//コマンド実行ループ
 	while (getline(enemyPopComands, line))
 	{
@@ -81,24 +94,55 @@ void EnemyManager::UpdateEnemyPopComands()
 		//,区切りで行の先頭文字列を取得
 		getline(line_stream, word, ',');
 
-		//"//"から始まる行はコメント
+		// "//"から始まる行はコメント
 		if (word.find("//") == 0)
 		{
-			//コメント行は飛ばす
+			//コメント行を飛ばす
 			continue;
 		}
 
 		//POPコマンド
 		if (word.find("POP") == 0)
 		{
-			//x座標
+			//X座標
+			getline(line_stream, word, ',');
+			float x = (float)std::atof(word.c_str());
+			//Y座標
+			getline(line_stream, word, ',');
+			float y = (float)std::atof(word.c_str());
+			//敵の名前
+			getline(line_stream, word, ',');
+			int enemyNum = atoi(word.c_str());
 
+			//敵を発生させる
+			if (enemyNum == 5)
+			{
+				//GenerateBadEnemy(Vec2(x, y));
+			}
+			else if (enemyNum == 6)
+			{
+				//GenerateBulletFlyEnemy(Vec2(x, y));
+			}
 		}
-		
+		//WAITコマンド
+		else if (word.find("WAIT") == 0)
+		{
+			getline(line_stream, word, ',');
+
+			//待ち時間
+			int32_t waitTime = atoi(word.c_str());
+
+			//待機開始
+			isWaitEnemy_ = true;
+			enemyWaitTimer_ = waitTime;
+
+			//コマンドループを抜ける
+			break;
+		}
 	}
 }
 
-void EnemyManager::GenerateBulletEnemy()
+void EnemyManager::GenerateBadEnemy()
 {
 	//乱数シード生成器
 	std::random_device seed_gen;
@@ -126,16 +170,14 @@ void EnemyManager::GenerateBulletEnemy()
 	}
 
 	//敵を生成し、初期化
-	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
 	newEnemy->Init(enemyPopPos);
-
-	newEnemy->SetBullletManger(bulletManager_.get());
 
 	//敵を登録する
 	enemies_.push_back(std::move(newEnemy));
 }
 
-void EnemyManager::GenerateTriangleEnemy()
+void EnemyManager::GenerateBulletFlyEnemy()
 {
 	//乱数シード生成器
 	std::random_device seed_gen;
@@ -163,9 +205,11 @@ void EnemyManager::GenerateTriangleEnemy()
 		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 - 250 };
 	}
 
+	const float bulletSpeed = 12.5f;
+
 	//敵を生成し、初期化
-	std::unique_ptr<TriangleEnemy> newEnemy = std::make_unique<TriangleEnemy>();
-	newEnemy->Init(popPos);
+	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
+	newEnemy->Init(popPos, bulletSpeed);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 

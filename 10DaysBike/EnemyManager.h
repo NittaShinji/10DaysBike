@@ -1,7 +1,7 @@
 #pragma once
-#include "Enemy.h"
-#include "TriangleEnemy.h"
-#include "EnemyState.h"
+#include "BadEnemy.h"
+#include "BulletFlyEnemy.h"
+#include "BulletEnemyState.h"
 #include "BulletManager.h"
 #include <vector>
 #include <sstream>
@@ -15,6 +15,11 @@ public:
 		Up = 0,		// 上
 		Right,	// 右
 		Left,	// 左
+	};
+
+	enum EnmeyNameNum {
+		BAT = 5,
+		BULLET_FLY,
 	};
 
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);
@@ -34,8 +39,11 @@ private:
 	//敵発生コマンドの更新
 	void UpdateEnemyPopComands();
 	//敵発生関数
-	void GenerateBulletEnemy();
-	void GenerateTriangleEnemy();
+	void GenerateBadEnemy();
+	void GenerateBulletFlyEnemy();
+	/*void GenerateBadEnemy(Vec2 pos);
+	void GenerateBulletFlyEnemy(Vec2 pos);*/
+
 
 public:
 	void Init();
@@ -48,5 +56,11 @@ private:
 	float waitTimer_ = kWaitTime_;
 	//敵発生コマンド
 	std::stringstream enemyPopComands;
+
+	//敵待機中フラグ
+	bool isWaitEnemy_;
+
+	//敵待機中タイマー
+	int32_t enemyWaitTimer_;
 };
 

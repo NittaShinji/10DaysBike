@@ -1,19 +1,20 @@
 #include "IEnemy.h"
 #include "CollisionAttribute.h"
 
+const float IEnemy::AUTO_MOVING_SPEED = 3.0f;
+const float IEnemy::SIDE_MOVING_SPEED = 3.0f;
+const ColorDxLib IEnemy::PROT_ENEMY_COLOR = { 255,128,128 };
+
 IEnemy::~IEnemy()
 {
 
 }
 
-void IEnemy::Init()
-{
-	Init({ 0,0 });
-}
+void IEnemy::Init(){}
 
-void IEnemy::Init(const Vec2& pos)
+void IEnemy::Init(const Vec2& pos, std::string name)
 {
-	name_ = "IEnemy";
+	name_ = name;
 
 	pos_ = pos;
 

@@ -35,7 +35,7 @@ public:
 
 public:
 	void Init()override;
-	void Init(const Vec2& pos);
+	virtual void Init(const Vec2& pos, std::string name);
 	void Update()override;
 	void Draw()override;
 
