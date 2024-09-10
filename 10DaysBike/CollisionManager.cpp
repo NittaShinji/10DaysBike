@@ -10,47 +10,6 @@ CollisionManager* CollisionManager::GetInstance()
 
 void CollisionManager::CheckAllCollisions(const Vec2& playerPos, float range)
 {
-	//std::forward_list<BaseCollider*>::iterator itA;
-	//std::forward_list<BaseCollider*>::iterator itB;
-
-	////全ての組み合わせについて総当たりチェック
-	//itA = colliders.begin();
-	//for (; itA != colliders.end(); ++itA)
-	//{
-	//	itB = itA;
-	//	++itB;
-	//	for (; itB != colliders.end(); ++itB)
-	//	{
-	//		BaseCollider* colA = *itA;
-	//		BaseCollider* colB = *itB;
-
-	//		if (colA->GetShapeType() == COLLISIONSHAPE_CIRCLE && colB->GetShapeType() == COLLISIONSHAPE_CIRCLE)
-	//		{
-	//			if (colA->GetAttribute() != colB->GetAttribute())
-	//			{
-	//				Circle CircleA;
-	//				Circle CircleB;
-
-	//				CircleA.pos = colA->objcet2d_->GetColliderPos();
-	//				CircleA.radius = colA->objcet2d_->GetRadius();
-
-	//				CircleB.pos = colB->objcet2d_->GetColliderPos();
-	//				CircleB.radius = colB->objcet2d_->GetRadius();
-
-	//				CircleB.radius = colB->objcet2d_->GetRadius();
-
-	//				Vec2 inter;
-
-	//				if (Collision::CheckCircle2Circle(CircleA, CircleB))
-	//				{
-	//					colA->OnCollison(CollisionInfo(colB->GetObject2d(), colB, inter));
-	//					colB->OnCollison(CollisionInfo(colA->GetObject2d(), colA, inter));
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-
 	std::forward_list<BaseCollider*>::iterator itA;
 	std::forward_list<BaseCollider*>::iterator itB;
 
@@ -85,11 +44,6 @@ void CollisionManager::CheckAllCollisions(const Vec2& playerPos, float range)
 		for (; itB != colliders.end(); ++itB)
 		{
 			BaseCollider* colB = *itB;
-
-			// 同じく、プレイヤーから一定範囲内かどうかをチェック
-			/*if (DistanceSquared(playerPos, colB->objcet2d_->GetColliderPos()) > range * range) {
-				continue;
-			}*/
 
 			// 両方のコライダーが円であるかチェック
 			if (colA->GetShapeType() == COLLISIONSHAPE_CIRCLE && colB->GetShapeType() == COLLISIONSHAPE_CIRCLE)
@@ -139,19 +93,6 @@ void CollisionManager::CheckAllCollisions(const Vec2& playerPos, float range)
 		it = next;
 		++next;
 	}
-
-	// 削除フラグの立っているコライダーを一括削除
-	//for (auto& collider : colliders)
-	//{
-	//	if (collider->objcet2d_->GetIsDeleteCollider())
-	//	{
-	//		RemoveCollider(collider);
-	//	}
-
-	//	// イテレーターを正しく更新して要素を削除
-	//	next = colliders.erase_after(it);
-	//	continue;  // erase_after 後にイテレーターを更新して次のループへ
-	//}
 }
 
 void CollisionManager::FinalizeCollisions()
