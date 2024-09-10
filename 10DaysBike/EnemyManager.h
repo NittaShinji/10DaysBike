@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "TriangleEnemy.h"
 #include "EnemyState.h"
 #include "BulletManager.h"
 #include<vector>
@@ -21,12 +22,14 @@ public:
 	const int kMaxEnemyNum = 20;
 
 private:
-	std::vector<std::unique_ptr<Enemy>> enemies_;
+	std::vector<std::unique_ptr<IEnemy>> enemies_;
 	std::unique_ptr<BulletManager> bulletManager_;
 public:
 	~EnemyManager() { enemies_.clear(); }
 private:
-	void GenerateEnemy();
+	void GenerateBulletEnemy();
+	void GenerateTriangleEnemy();
+
 public:
 	void Init();
 	void Update();

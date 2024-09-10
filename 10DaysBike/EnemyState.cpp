@@ -4,15 +4,6 @@
 
 //----------------------------------------------------
 //Šî’êƒNƒ‰ƒX
-//void IEnemyState::SideMoveUpdate()
-//{
-//	const Vec2 SIDE_MOVE_VEC = {
-//		KeyboardInput::GetInstance().GetSideVerticalKey().x,
-//		0
-//	};
-//
-//	enemy_->SetPos(enemy_->GetPos() + SIDE_MOVE_VEC * Enemy::SIDE_MOVING_SPEED);
-//}
 
 void IEnemyState::Update()
 {
@@ -46,10 +37,6 @@ void EnemyStateWait::Update()
 			enemy_->ChangeState(std::make_unique<EnemyStateAttack>());
 		}
 	}
-	/*if (isWaitingTurn_)
-	{
-		Enemy_->ChangeState(std::make_unique<EnemyStateDown>());
-	}*/
 }
 
 void EnemyStateWait::Draw()
@@ -73,10 +60,6 @@ void EnemyStateAttack::Init()
 {
 	angle = 0;
 	bulletCoolTimer_ = kBulletCoolTime_;
-	//radius_ = sqrt(pow(enemy_->GetPos().x - centerX, 2) + pow(enemy_->GetPos().y - centerY, 2)); // ‰ŠúˆÊ’u‚©‚ç”¼Œa‚ðŒvŽZ
-
-	//savePopPos_.x = enemy_->GetPos().x + cos(0) * kMoveCircleRadius_;
-	//savePopPos_.y = enemy_->GetPos().y + sin(0) * kMoveCircleRadius_;
 
 	moveSpeed_ = 3.0f;
 
@@ -101,26 +84,6 @@ void EnemyStateAttack::Init()
 void EnemyStateAttack::Update()
 {
 	IEnemyState::Update();
-
-	//enemy_->SetPos(enemy_->GetPos() + Vec2{ 0, Enemy::AUTO_MOVING_SPEED });
-
-	//float radius = 100.0f; // ‰~‚Ì”¼Œa
-	//float centerX = savePopPos_.x; // ‰~‚Ì’†S x
-	//float centerY = savePopPos_.y; // ‰~‚Ì’†S y
-	////float centerX = WINDOW_SIZE.x / 2; // ‰~‚Ì’†S x
-	////float centerY = WINDOW_SIZE.y / 4; // ‰~‚Ì’†S y
-
-	//const float PI = 3.14159f;
-	//Vec2 pos;
-
-	//angle += 2.5f;
-	//angle = fmod(angle, 360.0f); // 360“x‚ð’´‚¦‚½‚çƒŠƒZƒbƒg
-
-	////“x”–@‚ÌŠp“x‚ðŒÊ“x–@‚É•ÏŠ·
-	//float radians = angle * PI / 180.0f;
-	////‰~‰^“®‚ÌÀ•W‚ðŒvŽZ
-	//pos.x = savePopPos_.x + cos(radians) * radius;
-	//pos.y = savePopPos_.y + sin(radians) * radius;
 
 	//-----------------------
 	Vec2 pos = enemy_->GetPos();

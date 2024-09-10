@@ -54,28 +54,11 @@ void Enemy::Init(const Vec2& pos)
 void Enemy::Update()
 {
 	state_->Update();
-
-	//trajManag_->SetPos(pos_);
-	//trajManag_->Update();
-
-	if (isHit_ == true)
-	{
-		isHit_ = false;
-		color_ = { 255,128,128 };
-	}
-
-	if (hp_ <= 0)
-	{
-		isDead_ = true;
-		isDeleteCollider_ = true;
-	}
-
-	coliderPos_ = pos_;
+	IEnemy::Update();
 }
 
 void Enemy::Draw()
 {
-	//trajManag_->Draw();
 	if (hp_ > 0) 
 	{
 		state_->Draw();
@@ -102,12 +85,7 @@ void Enemy::ChangeState(std::unique_ptr<IEnemyState> state)
 
 void Enemy::OnCollision(const CollisionInfo& info)
 {
- 	if (isHit_ == false)
-	{
-		isHit_ = true;
-		hp_ -= 1;
-		color_ = { 0,255,0 }; 
-	}
+	IEnemy::OnCollision(info);
 }
 
 void Enemy::ProccesingNewTrajs()
