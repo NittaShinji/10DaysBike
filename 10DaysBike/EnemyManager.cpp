@@ -156,22 +156,27 @@ void EnemyManager::GenerateBadEnemy()
 
 	// “G‚ÌˆÊ’u‚ğƒ‰ƒ“ƒ_ƒ€‚Å¶¬
 	Vec2 enemyPopPos;
+	Vec2 targetPos;
+
 	if (randomValue == Up)
 	{
 		enemyPopPos = kEnemyPopUP;
+		targetPos = Vec2(kEnemyPopUP.x, 1200);
 	}
 	else if (randomValue == Left)
 	{
 		enemyPopPos = kEnemyPopLeft;
+		targetPos = Vec2(1200, kEnemyPopUP.y + 300);
 	}
 	else
 	{
 		enemyPopPos = kEnemyPopRight;
+		targetPos = Vec2(-300, kEnemyPopRight.y + 300);
 	}
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
-	newEnemy->Init(enemyPopPos);
+	newEnemy->Init(enemyPopPos,targetPos);
 
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));

@@ -18,12 +18,17 @@ private:
 
 	int graphHandle_;
 
+	//–Ú“I’n
+	Vec2 targetPos_;     
+	//ˆÚ“®‘¬“x
+	const float moveSpeed_ = 3.0f;   
+
 public:
 	~BadEnemy();
 
 public:
 
-	void Init(const Vec2& pos);
+	void Init(const Vec2& pos, const Vec2& targetPos);
 	void Update()override;
 	void Draw()override;
 public:
