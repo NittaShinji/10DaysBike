@@ -39,7 +39,7 @@ class EnemyStateAttack : public IEnemyState
 
 private:
 	const float kAttackTime_ = 120.0f;
-	const float kMoveCircleRadius_ = 100.0f;
+	const float kMoveCircleRadius_ = 175.0f;
 
 	float attackTimer_ = kAttackTime_;
 	//’†S‚©‚ç‚ÌŠp“x

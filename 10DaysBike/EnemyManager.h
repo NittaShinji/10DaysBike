@@ -3,7 +3,8 @@
 #include "TriangleEnemy.h"
 #include "EnemyState.h"
 #include "BulletManager.h"
-#include<vector>
+#include <vector>
+#include <sstream>
 
 class EnemyManager
 {
@@ -27,6 +28,12 @@ private:
 public:
 	~EnemyManager() { enemies_.clear(); }
 private:
+
+	//敵発生データの読み込み
+	void LoadEnemyPopDate();
+	//敵発生コマンドの更新
+	void UpdateEnemyPopComands();
+	//敵発生関数
 	void GenerateBulletEnemy();
 	void GenerateTriangleEnemy();
 
@@ -39,5 +46,7 @@ private:
 
 	const float kWaitTime_ = 120.0f;
 	float waitTimer_ = kWaitTime_;
+	//敵発生コマンド
+	std::stringstream enemyPopComands;
 };
 

@@ -14,6 +14,7 @@ class Enemy : public IEnemy
 {
 public:
 	static const uint16_t PROT_ENEMY_DAMEGE_NUM = 1;
+	static const uint16_t PROT_ENEMY_IMGAE_NUM = 4;
 
 private:
 
@@ -39,6 +40,11 @@ public:
 	void ProccesingNewTrajs();
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
 	void OnCollision(const CollisionInfo& info) override;
+	
+private:
+	//int graphHandle_[PROT_ENEMY_IMGAE_NUM];
+	int graphHandle_;
+
 	BulletManager* bulletManager_ = nullptr;
 
 public:

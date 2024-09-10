@@ -22,6 +22,10 @@ private:
 	int32_t bulletCoolTimer_;
 	//”­ŽËŽžŠÔ
 	const float kBulletCoolTime_ = 60.0f;
+	static const uint16_t kBulletFlyEnemyImageNum_ = 4;
+	static const double kBulletFlyEnemyImageScale_;
+
+	int graphHandle_[kBulletFlyEnemyImageNum_];
 
 public:
 	~TriangleEnemy();

@@ -2,9 +2,17 @@
 #include "BulletManager.h"
 #include "CollisionAttribute.h"
 
+const double TriangleEnemy::kBulletFlyEnemyImageScale_ = 1.0f;
+
 TriangleEnemy::~TriangleEnemy()
 {
 	bulletManager_ = nullptr;
+
+	// 読み込んだ画像のグラフィックハンドルを削除
+	for (int i = 0; i < kBulletFlyEnemyImageNum_; i++)
+	{
+		DeleteGraph(graphHandle_[i]);
+	}
 }
 
 void TriangleEnemy::Init()
@@ -21,6 +29,11 @@ void TriangleEnemy::Init(const Vec2& pos)
 	color_ = PROT_ENEMY_COLOR;
 
 	radius_ = PROT_ENEMY_DRAWING_SIZE;
+
+	hp_ = 300;
+
+	//画像読み込み
+	LoadDivGraph((RESOUCE_PATH + "bulletFlyEnemy.png").c_str(), 4, 4, 1, 128, 128, graphHandle_);
 
 	IEnemy::AddCollider();
 }
@@ -46,17 +59,23 @@ void TriangleEnemy::Draw()
 	if (hp_ > 0)
 	{
 		// 円を描画
-		const Vec2 BOTTOM = pos_ - Vec2{ 0, -radius_ };
-		const Vec2 RIGHT_TOP = pos_ -
-			Vec2{ radius_, radius_ };
-		const Vec2 LEFT_TOP = pos_ -
-			Vec2{ -radius_, radius_ };
+		//const Vec2 BOTTOM = pos_ - Vec2{ 0, -radius_ };
+		//const Vec2 RIGHT_TOP = pos_ -
+		//	Vec2{ radius_, radius_ };
+		//const Vec2 LEFT_TOP = pos_ -
+		//	Vec2{ -radius_, radius_ };
 
-		color_ = { 255,0,0 };
+		//color_ = { 255,0,0 };
 
-		DrawTriangle(BOTTOM.x, BOTTOM.y, RIGHT_TOP.x, RIGHT_TOP.y, LEFT_TOP.x, LEFT_TOP.y,
-			GetColorUsedForDrawing(), true);
+		//DrawTriangle(BOTTOM.x, BOTTOM.y, RIGHT_TOP.x, RIGHT_TOP.y, LEFT_TOP.x, LEFT_TOP.y,
+		//	GetColorUsedForDrawing(), true);
+
+		//画像読み込み
+		//DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_[0], FALSE);
+		const int* handles = nullptr;
+		DrawRotaGraph(pos_.x, pos_.y, kBulletFlyEnemyImageScale_, angle_, graphHandle_[0], TRUE, FALSE);
 	}
+
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
 	{
 		bullet->Draw();
@@ -65,7 +84,7 @@ void TriangleEnemy::Draw()
 	unsigned int Cr;
 	// 白の色コードを保存
 	Cr = GetColor(255, 255, 255);
-	DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
+	DrawFormatString(100, 320, Cr, "circle敵HP : %d", hp_);
 }
 
 //----------------------------------------------------------------------

@@ -72,6 +72,6 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 	{
 		isHit_ = true;
 		hp_ -= damageNum_;
-		color_ = { 0,255,0 };
+		color_ = { 255,0,0 };
 	}
 }

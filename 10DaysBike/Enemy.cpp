@@ -9,6 +9,14 @@ const ColorDxLib Enemy::PROT_ENEMY_COLOR = { 255,128,128 };
 Enemy::~Enemy()
 {
 	bulletManager_ = nullptr;
+
+	// 読み込んだ画像のグラフィックハンドルを削除
+	//for (int i = 0; i < PROT_ENEMY_IMGAE_NUM; i++)
+	//{
+	//	DeleteGraph(graphHandle_[i]);
+	//}
+
+	DeleteGraph(graphHandle_);
 }
 
 void Enemy::MoveUpdate()
@@ -47,6 +55,11 @@ void Enemy::Init(const Vec2& pos)
 
 	ProccesingNewTrajs();
 
+	//画像読み込み
+	graphHandle_ = LoadGraph((RESOUCE_PATH + "batEnemy.png").c_str());
+
+	//LoadDivGraph((RESOUCE_PATH + "bulletFlyEnemy.png").c_str(), 4, 4, 1, 128, 128, graphHandle_);
+
 	//ステート
 	ChangeState(std::make_unique<EnemyStateWait>());
 }
@@ -61,7 +74,7 @@ void Enemy::Draw()
 {
 	if (hp_ > 0) 
 	{
-		state_->Draw();
+		//state_->Draw();
 	}
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_)
 	{
@@ -72,6 +85,9 @@ void Enemy::Draw()
 	// 白の色コードを保存
 	Cr = GetColor(255, 255, 255);
 	DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
+
+	//DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_[0], FALSE);
+	DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_, FALSE);
 }
 
 //----------------------------------------------------------------------

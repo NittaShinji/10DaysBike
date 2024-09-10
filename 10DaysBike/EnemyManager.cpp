@@ -1,11 +1,13 @@
 #include "EnemyManager.h"
 #include <random>
+#include <fstream>
 
 void EnemyManager::Init()
 {
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
+	GenerateTriangleEnemy();
 }
 
 void EnemyManager::Update()
@@ -26,7 +28,6 @@ void EnemyManager::Update()
 		{
 			if (enemies_.size() < kMaxEnemyNum)
 			{
-				GenerateTriangleEnemy();
 				GenerateBulletEnemy();
 				waitTimer_ = kWaitTime_;
 			}
@@ -49,6 +50,52 @@ void EnemyManager::Draw()
 	}
 
 	bulletManager_->Draw();
+}
+
+void EnemyManager::LoadEnemyPopDate()
+{
+	//ファイルを開く
+	std::ifstream file;
+	file.open("//CSVのファイルパス");
+	assert(file.is_open());
+
+	//ファイルの内容を文字列ストリームにコピー
+	enemyPopComands << file.rdbuf();
+
+	//ファイルを閉じる
+	file.close();
+}
+
+void EnemyManager::UpdateEnemyPopComands()
+{
+	//1行分の文字列を入れる変数
+	std::string line;
+
+	//コマンド実行ループ
+	while (getline(enemyPopComands, line))
+	{
+		//1行分の文字列をストリームに変換して解析しやすくする
+		std::istringstream line_stream(line);
+
+		std::string word;
+		//,区切りで行の先頭文字列を取得
+		getline(line_stream, word, ',');
+
+		//"//"から始まる行はコメント
+		if (word.find("//") == 0)
+		{
+			//コメント行は飛ばす
+			continue;
+		}
+
+		//POPコマンド
+		if (word.find("POP") == 0)
+		{
+			//x座標
+
+		}
+		
+	}
 }
 
 void EnemyManager::GenerateBulletEnemy()
@@ -105,15 +152,15 @@ void EnemyManager::GenerateTriangleEnemy()
 
 	if (randomValue == Up)
 	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE .y / 2};
+		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE .y / 2 - 250};
 	}
 	else if (randomValue == Left)
 	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 };
+		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 - 250 };
 	}
 	else
 	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 };
+		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 - 250 };
 	}
 
 	//敵を生成し、初期化

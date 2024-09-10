@@ -1,6 +1,7 @@
 #pragma once
 #include"IObject2D.h"
 #include "CircleCollider.h"
+#include "Inform.h"
 #include <list>
 
 class IEnemy : public IObject2D
@@ -26,6 +27,8 @@ protected:
 	//HP
 	const int32_t kDefaultEnemyHP_ = 30;
 	int32_t hp_ = kDefaultEnemyHP_;
+	//Šp“x
+	double angle_ = 0.0;
 
 public:
 	~IEnemy();
