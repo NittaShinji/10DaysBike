@@ -3,7 +3,7 @@
 #include "Easing.h"
 #include "Util.h"
 
-const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,0 };
+const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 0,220,220 };
 const float Trajectory::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
 const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.4f;
 
