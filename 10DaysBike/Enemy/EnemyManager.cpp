@@ -28,7 +28,8 @@ void EnemyManager::Update()
 		{
 			if (enemies_.size() < kMaxEnemyNum)
 			{
-				GenerateBadEnemy();
+				//GenerateBadEnemy();
+				GenerateWanderEnemy(playerPosPtr_,{30,30});
 				waitTimer_ = kWaitTime_;
 			}
 		}
@@ -50,6 +51,11 @@ void EnemyManager::Draw()
 	}
 
 	bulletManager_->Draw();
+}
+
+void EnemyManager::SetPlayerPosPtr(Vec2* pPosPtr)
+{
+	playerPosPtr_ = pPosPtr;
 }
 
 void EnemyManager::LoadEnemyPopDate()

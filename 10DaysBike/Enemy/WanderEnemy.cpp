@@ -52,6 +52,8 @@ void WanderEnemy::Update()
 		moveVec_ *= moveVelocity_;
 	}
 
+	pos_ += moveVec_;
+
 
 	IEnemy::Update();
 }
