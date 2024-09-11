@@ -26,15 +26,15 @@ private:
 public:
 	~TrajectoriesManager() { trajectoriesArray_.clear(); }
 private:
-	void GenerateTrajectory(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
-	void GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
+	bool GenerateTrajectory(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
+	bool GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
 private:
 	void SetNewestTrajPos();
 public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
-	void Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+	bool Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
 		std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
 	void Draw()override;
 public:
