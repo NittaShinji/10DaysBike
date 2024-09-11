@@ -11,17 +11,10 @@ class EnemyManager
 {
 public:
 
-	// ê}å`ÇÃå`
-	enum EnmeyPopInfo {
-		Up = 0,		// è„
-		Right,	// âE
-		Left,	// ç∂
-	};
-
 	enum EnmeyNameNum {
-		BAT = 5,
-		BULLET_FLY,
-		WANDER,
+		BAT = 0,
+		BULLET_FLY = 1,
+		WANDER = 2,
 	};
 
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);
