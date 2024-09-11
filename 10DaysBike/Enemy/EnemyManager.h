@@ -53,6 +53,8 @@ public:
 	void Update();
 	void Draw();
 
+	void SetPlayerPosPtr(Vec2* pPosPtr);
+
 private:
 
 	const float kWaitTime_ = 120.0f;
@@ -65,5 +67,8 @@ private:
 
 	//敵待機中タイマー
 	int32_t enemyWaitTimer_;
+
+	//プレイヤーの位置取得
+	Vec2* playerPosPtr_ = nullptr;
 };
 

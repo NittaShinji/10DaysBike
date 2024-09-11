@@ -68,6 +68,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	std::unique_ptr <EnemyManager> enemyManager = std::make_unique<EnemyManager>();
 	enemyManager->Init();
+	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
 
 	//衝突マネージャー
 	CollisionManager* collisionManager_ = nullptr;
