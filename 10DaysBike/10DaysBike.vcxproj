@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseCollider.h" />
     <ClInclude Include="Enemy\IBulletEnemy.h" />
     <ClInclude Include="Enemy\BulletManager.h" />
