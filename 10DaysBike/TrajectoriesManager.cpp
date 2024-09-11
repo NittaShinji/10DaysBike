@@ -31,7 +31,7 @@ void TrajectoriesManager::SetNewestTrajPos()
 		auto& newTrajs = trajectoriesArray_.back();
 		if (newTrajs)
 		{
-			newTrajs->SetNewestTrajSPos(pos_);
+			newTrajs->SetNewestTrajStartPos(pos_);
 		}
 	}
 }
@@ -111,7 +111,15 @@ void TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 			isHead = true;
 			isNewTrajs_ = false;
 
-			trajectories = std::make_unique<Trajectories>();
+			//下向いてるときはチャージ用の
+			if (geneInfo.dirY > 0)
+			{
+				trajectories = std::make_unique<ChargeTrajectories>();
+			}
+			else
+			{
+				trajectories = std::make_unique<Trajectories>();
+			}
 		}
 		//軌跡の配列がすでにあってターンしてないとき
 		else

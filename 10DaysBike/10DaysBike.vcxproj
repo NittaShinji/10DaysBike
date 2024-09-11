@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="ChargeTrajectories.h" />
     <ClInclude Include="Enemy\IBulletEnemy.h" />
     <ClInclude Include="Enemy\BulletManager.h" />
     <ClInclude Include="CircleCollider.h" />

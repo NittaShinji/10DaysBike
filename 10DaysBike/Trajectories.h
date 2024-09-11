@@ -5,19 +5,21 @@
 
 class Trajectories :public IObject2D
 {
-private:
+protected:
 	std::vector<std::unique_ptr<Trajectory>> trajectories_;
 
 
-private:
-
+protected:
+	void UpdatePos(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
+	void StartPosProcess();
+	void DeleteDeadTrajectories();
 public:
-	void Init()override;
-	void Update()override;
-	void Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
-	void Draw()override;
+	virtual void Init()override;
+	virtual void Update()override;
+	virtual void Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
+	virtual void Draw()override;
 public:
 	void PushBackTraj(std::unique_ptr<Trajectory> traj) { trajectories_.push_back(std::move(traj)); }
-	void SetNewestTrajSPos(const Vec2& pos);
+	void SetNewestTrajStartPos(const Vec2& pos);
 };
 

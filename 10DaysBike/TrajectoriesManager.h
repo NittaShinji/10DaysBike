@@ -1,5 +1,6 @@
 #pragma once
 #include"Trajectories.h"
+#include"ChargeTrajectories.h"
 #include<functional>
 
 //ü‚ğ‚Ü‚Æ‚ß‚Ä‹OÕ‚ÉŒ©‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX
