@@ -21,6 +21,7 @@ public:
 	enum EnmeyNameNum {
 		BAT = 5,
 		BULLET_FLY,
+		WANDER,
 	};
 
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);

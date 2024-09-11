@@ -1,4 +1,5 @@
 #include "EnemyManager.h"
+#include "Inform.h"
 #include <random>
 #include <fstream>
 
@@ -7,7 +8,8 @@ void EnemyManager::Init()
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
-	GenerateBulletFlyEnemy();
+	LoadEnemyPopDate();
+	//GenerateBulletFlyEnemy();
 }
 
 void EnemyManager::Update()
@@ -21,18 +23,20 @@ void EnemyManager::Update()
 	}),
 	enemies_.end());
 
-	if (waitTimer_ >= 0)
-	{
-		waitTimer_--;
-		if (waitTimer_ < 0)
-		{
-			if (enemies_.size() < kMaxEnemyNum)
-			{
-				GenerateBadEnemy();
-				waitTimer_ = kWaitTime_;
-			}
-		}
-	}
+	//if (waitTimer_ >= 0)
+	//{
+	//	waitTimer_--;
+	//	if (waitTimer_ < 0)
+	//	{
+	//		if (enemies_.size() < kMaxEnemyNum)
+	//		{
+	//			//GenerateBadEnemy();
+	//			waitTimer_ = kWaitTime_;
+	//		}
+	//	}
+	//}
+
+	UpdateEnemyPopComands();
 
 	for (std::unique_ptr<IEnemy>& enemy : enemies_)
 	{
@@ -56,7 +60,7 @@ void EnemyManager::LoadEnemyPopDate()
 {
 	//ファイルを開く
 	std::ifstream file;
-	file.open("//CSVのファイルパス");
+	file.open((RESOUCE_PATH + "enemyPop.csv").c_str());
 	assert(file.is_open());
 
 	//ファイルの内容を文字列ストリームにコピー
@@ -117,11 +121,11 @@ void EnemyManager::UpdateEnemyPopComands()
 			//敵を発生させる
 			if (enemyNum == 5)
 			{
-				//GenerateBadEnemy(Vec2(x, y));
+				GenerateBadEnemy();
 			}
 			else if (enemyNum == 6)
 			{
-				//GenerateBulletFlyEnemy(Vec2(x, y));
+				GenerateBulletFlyEnemy();
 			}
 		}
 		//WAITコマンド
