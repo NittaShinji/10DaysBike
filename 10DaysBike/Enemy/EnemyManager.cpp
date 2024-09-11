@@ -31,23 +31,11 @@ void EnemyManager::Update()
 			if (enemies_.size() < kMaxEnemyNum)
 			{
 				//GenerateBadEnemy();
-				GenerateWanderEnemy(playerPosPtr_,{30,30});
+				//GenerateWanderEnemy(playerPosPtr_,{630,30});
 				waitTimer_ = kWaitTime_;
 			}
 		}
 	}
-	//if (waitTimer_ >= 0)
-	//{
-	//	waitTimer_--;
-	//	if (waitTimer_ < 0)
-	//	{
-	//		if (enemies_.size() < kMaxEnemyNum)
-	//		{
-	//			//GenerateBadEnemy();
-	//			waitTimer_ = kWaitTime_;
-	//		}
-	//	}
-	//}
 
 	UpdateEnemyPopComands();
 
@@ -137,13 +125,17 @@ void EnemyManager::UpdateEnemyPopComands()
 			int enemyNum = atoi(word.c_str());
 
 			//敵を発生させる
-			if (enemyNum == 5)
+			if (enemyNum == BAT)
 			{
-				GenerateBadEnemy();
+				GenerateBadEnemy(Vec2(x,y));
 			}
-			else if (enemyNum == 6)
+			else if (enemyNum == BULLET_FLY)
 			{
-				GenerateBulletFlyEnemy();
+				GenerateBulletFlyEnemy(Vec2(x, y));
+			}
+			else if (enemyNum == WANDER)
+			{
+				GenerateWanderEnemy(playerPosPtr_, Vec2(x, y));
 			}
 		}
 		//WAITコマンド
@@ -164,79 +156,28 @@ void EnemyManager::UpdateEnemyPopComands()
 	}
 }
 
-void EnemyManager::GenerateBadEnemy()
+void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos)
 {
-	//乱数シード生成器
-	std::random_device seed_gen;
-	//メルセンヌツイスターの乱数エンジン
-	std::mt19937_64 engine(seed_gen());
-	//乱数範囲の指定
-	std::uniform_int_distribution<int> dist(0, 2);
-
-	// ランダムな値を取得
-	int randomValue = dist(engine);
-
 	// 敵の位置をランダムで生成
-	Vec2 enemyPopPos;
 	Vec2 targetPos;
 
-	if (randomValue == Up)
-	{
-		enemyPopPos = kEnemyPopUP;
-		targetPos = Vec2(kEnemyPopUP.x, 1200);
-	}
-	else if (randomValue == Left)
-	{
-		enemyPopPos = kEnemyPopLeft;
-		targetPos = Vec2(1200, kEnemyPopUP.y + 300);
-	}
-	else
-	{
-		enemyPopPos = kEnemyPopRight;
-		targetPos = Vec2(-300, kEnemyPopRight.y + 300);
-	}
+	targetPos = Vec2(GeneratePos.x, 1200);
 
 	//敵を生成し、初期化
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
-	newEnemy->Init(enemyPopPos,targetPos);
+	newEnemy->Init(GeneratePos,targetPos);
 
 	//敵を登録する
 	enemies_.push_back(std::move(newEnemy));
 }
 
-void EnemyManager::GenerateBulletFlyEnemy()
+void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos)
 {
-	//乱数シード生成器
-	std::random_device seed_gen;
-	//メルセンヌツイスターの乱数エンジン
-	std::mt19937_64 engine(seed_gen());
-	//乱数範囲の指定
-	std::uniform_int_distribution<int> dist(0, 2);
-
-	// ランダムな値を取得
-	int randomValue = dist(engine);
-
-	// 敵の位置をランダムで生成
-	Vec2 popPos;
-
-	if (randomValue == Up)
-	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE .y / 2 - 250};
-	}
-	else if (randomValue == Left)
-	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 - 250 };
-	}
-	else
-	{
-		popPos = { WINDOW_SIZE.x / 2 ,WINDOW_SIZE.y / 2 - 250 };
-	}
-
 	const float bulletSpeed = 12.5f;
 
 	//敵を生成し、初期化
 	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
-	newEnemy->Init(popPos, bulletSpeed);
+	newEnemy->Init(GeneratePos, bulletSpeed);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
