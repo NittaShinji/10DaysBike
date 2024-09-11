@@ -10,6 +10,7 @@ public:
 	static const int backGroundGraphNum = 3;
 	static const int kBackGroundGraphWidth = 640;
 	static const int kBackGroundGraphHeight = 940;
+	static const int kBackGroundScllolNum = 4.0f;
 
 public:
 	struct BackGroundObj

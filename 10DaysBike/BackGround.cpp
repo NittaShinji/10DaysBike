@@ -21,7 +21,7 @@ void BackGround::Init()
 void BackGround::Update(int playerSpeed)
 {
 	// プレイヤーのスピードに応じてスクロール値を増加
-	scrollValue_ += -(std::abs(playerSpeed) * 2.0f);
+	scrollValue_ += -(std::abs(playerSpeed) * kBackGroundScllolNum);
 
 	// 画像の高さに基づいてループさせるための変数
 	int backgroundHeight = kBackGroundGraphHeight;
@@ -30,7 +30,7 @@ void BackGround::Update(int playerSpeed)
 	for (int i = 0; i < backGroundGraphNum; i++)
 	{
 		// スクロール値を背景のY座標に反映
-		backGroundObj[i].pos.y += -(std::abs(playerSpeed) * 2.0f);
+		backGroundObj[i].pos.y += -(std::abs(playerSpeed) * kBackGroundScllolNum);
 
 		// 背景が画面外（上）に出た場合、画面下に再配置
 		if (backGroundObj[i].pos.y <= -backgroundHeight)
