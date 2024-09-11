@@ -1,8 +1,8 @@
 #include "ChargeTrajectories.h"
 #include "Easing.h"
 
-const float ChargeTrajectories::CHARGE_MOVE_RATE = 0.23f;
-const float ChargeTrajectories::CHARGE_MOVE_WIDTH = WINDOW_SIZE.x / 30.0f;
+const float ChargeTrajectories::CHARGE_MOVE_RATE = 0.33f;
+const float ChargeTrajectories::CHARGE_MOVE_WIDTH = WINDOW_SIZE.x / 80.0f;
 
 
 void ChargeTrajectories::Init()
@@ -39,7 +39,7 @@ void ChargeTrajectories::ChargeMoveProcess()
 		const float POS_Y_RATIO = (POS_Y / WINDOW_SIZE.y) * 2.0f;
 
 		traj->SetVec({
-			(sinf(timer_ * POS_Y_RATIO)) /** CHARGE_MOVE_RATE*/ * CHARGE_MOVE_WIDTH * POS_Y_RATIO
+			(sinf(timer_ * POS_Y_RATIO)) /** CHARGE_MOVE_RATE*/ * CHARGE_MOVE_WIDTH + POS_Y_RATIO
 			,traj->GetScrollVec().y
 			});
 	}

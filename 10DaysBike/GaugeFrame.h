@@ -6,7 +6,7 @@ class GaugeFrame :
 	public IObject2D
 {
 public:
-	static const ColorDxLib PROT_COLOR;
+	static const ColorDxLib COLOR;
 private:
 	Vec2 widthHeight_ = { 0,0 };
 	float thickness_ = 1.0f;
