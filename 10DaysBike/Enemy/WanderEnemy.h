@@ -24,12 +24,12 @@ private:
 	//移動速度
 	float moveSpeed_ = 3.0f;
 	float moveVelocity_ = 0;
-	const float kAddVelocity_ = 0.1f;
-	Vec2 moveVec_ = {};
+	const float kAddVelocity_ = 0.2f;
+	Vec2 moveVec_ = {0,1};
 
 	Vec2 oldMoveVec_ = {}; //移動ベクトル保存
 	int32_t homingCount_ = 0;
-	const int32_t kMaxHomingCount_ = 120;
+	const int32_t kMaxHomingCount_ = 40;
 
 	bool isHoming_ = true;
 

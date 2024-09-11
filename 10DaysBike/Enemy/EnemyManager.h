@@ -11,16 +11,10 @@ class EnemyManager
 {
 public:
 
-	// 図形の形
-	enum EnmeyPopInfo {
-		Up = 0,		// 上
-		Right,	// 右
-		Left,	// 左
-	};
-
 	enum EnmeyNameNum {
-		BAT = 5,
-		BULLET_FLY,
+		BAT = 0,
+		BULLET_FLY = 1,
+		WANDER = 2,
 	};
 
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);
@@ -40,17 +34,16 @@ private:
 	//敵発生コマンドの更新
 	void UpdateEnemyPopComands();
 	//敵発生関数
-	void GenerateBadEnemy();
-	void GenerateBulletFlyEnemy();
-	/*void GenerateBadEnemy(Vec2 pos);
-	void GenerateBulletFlyEnemy(Vec2 pos);*/
+	void GenerateBadEnemy(const Vec2& GeneratePos);
+	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
-
 
 public:
 	void Init();
 	void Update();
 	void Draw();
+
+	void SetPlayerPosPtr(Vec2* pPosPtr);
 
 private:
 
@@ -64,5 +57,8 @@ private:
 
 	//敵待機中タイマー
 	int32_t enemyWaitTimer_;
+
+	//プレイヤーの位置取得
+	Vec2* playerPosPtr_ = nullptr;
 };
 
