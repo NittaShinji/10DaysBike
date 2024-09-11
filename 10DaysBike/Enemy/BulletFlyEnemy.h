@@ -36,5 +36,6 @@ private:
 	static const uint16_t kBulletFlyEnemyImageNum_ = 4;
 	static const double kBulletFlyEnemyImageScale_;
 	int graphHandle_[kBulletFlyEnemyImageNum_];
+	int imageNum_ = 0;
 };
 

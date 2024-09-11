@@ -2,6 +2,8 @@
 #include "BulletEnemyState.h"
 #include "BulletManager.h"
 
+const float EnemyStateFireBullet::kBulletCoolTime_ = 60.0f;
+
 //----------------------------------------------------
 //Šî’êƒNƒ‰ƒX
 
