@@ -1,26 +1,22 @@
 #include "Trajectories.h"
 
+
 void Trajectories::Init()
 {
 }
 
-
-void Trajectories::Update()
+void Trajectories::UpdatePos(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
-	Update(0, nullptr);
-}
-
-void Trajectories::Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
-{
-	//移動など更新処理
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
 		//更新
-		itr->get()->SetScrollVec({ 0,(dirY) * 0.34f });
+		itr->get()->SetScrollVec({ itr->get()->GetScrollVec().x,(dirY) * 0.34f });
 		itr->get()->Update(chargeGaugeFunc);
-
 	}
+}
 
+void Trajectories::StartPosProcess()
+{
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
 		//次(自分より新しい)の軌跡
@@ -41,7 +37,10 @@ void Trajectories::Update(float dirY, std::function<bool(float trajPos, float ch
 		}
 
 	}
+}
 
+void Trajectories::DeleteDeadTrajectories()
+{
 	for (auto itr = trajectories_.begin(); itr != trajectories_.end(); itr++)
 	{
 		//生きてるフラグがたってない軌跡を消すため
@@ -61,6 +60,23 @@ void Trajectories::Update(float dirY, std::function<bool(float trajPos, float ch
 	}
 }
 
+void Trajectories::Update()
+{
+	Update(0, nullptr);
+}
+
+void Trajectories::Update(float dirY, std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
+{
+	//移動など更新処理
+	UpdatePos(dirY, chargeGaugeFunc);
+
+	//後に出た線の終点を始点に
+	StartPosProcess();
+
+	//削除
+	DeleteDeadTrajectories();
+}
+
 void Trajectories::Draw()
 {
 	for (auto& trajs : trajectories_)
@@ -69,7 +85,7 @@ void Trajectories::Draw()
 	}
 }
 
-void Trajectories::SetNewestTrajSPos(const Vec2& pos)
+void Trajectories::SetNewestTrajStartPos(const Vec2& pos)
 {
 	if (trajectories_.size())
 	{

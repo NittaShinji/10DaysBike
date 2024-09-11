@@ -18,10 +18,12 @@ void TrajectoriesManager::Init(const Vec2& pos)
 	color_ = COLOR_DEBUG;
 }
 
-void TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc)
+bool TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc)
 {
-	GenerateTrajectory(geneInfo, shootGaugeFunc);
+	bool isDanger = GenerateTrajectory(geneInfo, shootGaugeFunc);
 	oldPos_ = pos_;
+
+	return isDanger;
 }
 
 void TrajectoriesManager::SetNewestTrajPos()
@@ -31,7 +33,7 @@ void TrajectoriesManager::SetNewestTrajPos()
 		auto& newTrajs = trajectoriesArray_.back();
 		if (newTrajs)
 		{
-			newTrajs->SetNewestTrajSPos(pos_);
+			newTrajs->SetNewestTrajStartPos(pos_);
 		}
 	}
 }
@@ -42,13 +44,13 @@ void TrajectoriesManager::Update()
 	Update(info, nullptr, nullptr);
 }
 
-void TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+bool TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
 	std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
 	const Vec2 TRAJ_VEC = Vec2(0, geneInfo.dirY).GetNormalize() * TRAJ_SPEED;
 
 	//1フレームごとに生成するため
-	GenerateUpdate(geneInfo, shootGaugeFunc);
+	bool isDanger = GenerateUpdate(geneInfo, shootGaugeFunc);
 
 	//移動など更新処理
 	for (auto itr = trajectoriesArray_.begin(); itr != trajectoriesArray_.end(); itr++)
@@ -76,6 +78,9 @@ void TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::functi
 			itr = trajectoriesArray_.begin();
 		}
 	}
+
+
+	return isDanger;
 }
 
 void TrajectoriesManager::Draw()
@@ -98,7 +103,7 @@ void TrajectoriesManager::ProccesingNewTrajs()
 }
 
 //------------------------------------------------------------------------------------
-void TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
+bool TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 	std::function<bool(float decreGauge)> shootGaugeFunc)
 {
 	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE * geneInfo.trajCostRate))
@@ -111,7 +116,15 @@ void TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 			isHead = true;
 			isNewTrajs_ = false;
 
-			trajectories = std::make_unique<Trajectories>();
+			//下向いてるときはチャージ用の
+			if (geneInfo.dirY > 0)
+			{
+				trajectories = std::make_unique<ChargeTrajectories>();
+			}
+			else
+			{
+				trajectories = std::make_unique<Trajectories>();
+			}
 		}
 		//軌跡の配列がすでにあってターンしてないとき
 		else
@@ -136,5 +149,9 @@ void TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 
 		//軌跡配列を配列に追加
 		trajectoriesArray_.push_back(std::move(trajectories));
+
+		return true;
 	}
+
+	return false;
 }

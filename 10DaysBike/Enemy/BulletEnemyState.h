@@ -44,17 +44,21 @@ public:
 //弾撃つだけ
 class EnemyStateFireBullet : public IBulletEnemyState
 {
+public:
+	//発射時間
+	static const float kBulletCoolTime_;
 
 private:
 	//発射タイマー
 	int32_t bulletCoolTimer_;
-	//発射時間
-	const float kBulletCoolTime_ = 60.0f;
-
+	
 public:
 	void Init()override;
 	void Update()override;
 	void Draw()override;
+
+	// bulletCoolTimer_のゲッター
+	int32_t GetBulletCoolTimer() const { return bulletCoolTimer_; }
 };
 
 //円攻撃状態

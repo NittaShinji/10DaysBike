@@ -19,6 +19,7 @@ void EnergyGauge::Update()
 
 	Vec2 gaugeWH = Vec2{ gaugeWidthHeight_.x * gaugeRatio_, gaugeWidthHeight_.y };
 	gauge_->SetWidthHeight(gaugeWH + gaugeWH * frameScaleRate_);
+	gauge_->SetRatio(gaugeRatio_);
 
 	gauge_->SetPos({ (float)GAUGE_LEFT - FRAME_WIDTH / 2.0f * frameScaleRate_
 		, (float)GAUGE_TOP - FRAME_HEIGHT / 2.0f * frameScaleRate_ });

@@ -6,6 +6,7 @@
 #include "EnemyManager.h"
 #include "CollisionManager.h"
 #include "EnergyGauge.h"
+#include "BackGround.h"
 
 // スクリーン変数
 #define SCREEN_W		WINDOW_SIZE.x				// 画面の横幅
@@ -74,6 +75,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	CollisionManager* collisionManager_ = nullptr;
 	collisionManager_ = CollisionManager::GetInstance();
 
+	//背景クラス
+	std::unique_ptr <BackGround> backGround = std::make_unique<BackGround>();
+	backGround->Init();
+
 	// ゲームループ
 	while (true) {
 
@@ -89,6 +94,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			gauge->FRAME_TOP);
 		enemyManager->Update();
 		gauge->Update();
+		backGround->Update(player->GetVec().y);
 
 		//全ての衝突をチェック
 		collisionManager_->CheckAllCollisions(player->GetPos(),30.0f);
@@ -105,9 +111,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 #pragma endregion ブルーム前処理
 
 		// ブルーム描画処理
+		backGround->Draw();
 		player->Draw();
 		enemyManager->Draw();
-
 
 #pragma region ブルーム後処理
 		//// 左右キーが押されたらカメラを回転する
