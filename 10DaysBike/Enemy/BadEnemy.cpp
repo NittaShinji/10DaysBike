@@ -2,6 +2,8 @@
 #include "BulletManager.h"
 #include "CollisionAttribute.h"
 
+const double BadEnemy::kBadEnemyImageScale_ = 1.0f;
+
 BadEnemy::~BadEnemy()
 {
 	DeleteGraph(graphHandle_);
@@ -63,7 +65,7 @@ void BadEnemy::Draw()
 {
 	IEnemy::Draw();
 	const int* handles = nullptr;
-	DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_, FALSE);
+	DrawRotaGraph(pos_.x, pos_.y, kBadEnemyImageScale_, angle_, graphHandle_, TRUE, FALSE);
 }
 
 //----------------------------------------------------------------------

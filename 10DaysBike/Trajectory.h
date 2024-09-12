@@ -52,5 +52,6 @@ public:
 	const TwoPoses& GetTwoPoses() { return twoPoses_; }
 	bool GetIsHead() { return isHead_; }
 	const Vec2& GetScrollVec() { return scrollVec_; }
+	float GetThicknessRate() { return lineThicknessRate_; }
 };
 

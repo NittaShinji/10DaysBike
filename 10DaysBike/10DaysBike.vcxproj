@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Enemy\ShotBulletEnemy.cpp" />
     <ClCompile Include="Enemy\WanderEnemy.cpp" />
     <ClCompile Include="EnergyGauge.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="GaugeFrame.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
@@ -158,6 +160,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
+    <ClCompile Include="SceneFactory.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
@@ -167,9 +172,12 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractSceneFactory.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseCollider.h" />
+    <ClInclude Include="BaseScene.h" />
     <ClInclude Include="ChargeTrajectories.h" />
+    <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Enemy\IBulletEnemy.h" />
     <ClInclude Include="Enemy\BulletManager.h" />
     <ClInclude Include="CircleCollider.h" />
@@ -188,6 +196,7 @@
     <ClInclude Include="Enemy\ShotBulletEnemy.h" />
     <ClInclude Include="Enemy\WanderEnemy.h" />
     <ClInclude Include="EnergyGauge.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="GaugeFrame.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
@@ -196,6 +205,9 @@
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="SceneFactory.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Trajectory.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />

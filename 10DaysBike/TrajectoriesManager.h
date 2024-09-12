@@ -13,7 +13,11 @@ public:
 		float dirY = 0;
 		float trajThickRate = 1.0f;
 		float trajCostRate = 1.0f;
+		std::string name;
 	};
+public:
+	static const std::string NORMAL_TRAJ_NAME;
+	static const std::string BURST_TRAJ_NAME;
 
 public:
 	static const float TRAJ_SPEED;

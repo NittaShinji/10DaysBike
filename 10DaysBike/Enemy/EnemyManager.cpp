@@ -8,6 +8,7 @@ void EnemyManager::Init()
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
+	isWaitEnemy_ = false;
 	LoadEnemyPopDate();
 	//GenerateBulletFlyEnemy();
 }
@@ -158,14 +159,16 @@ void EnemyManager::UpdateEnemyPopComands()
 
 void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos)
 {
-	// “G‚ÌˆÊ’u‚ğƒ‰ƒ“ƒ_ƒ€‚Å¶¬
+	// “G‚Ì–Ú•W’n“_‚ğİ’è
 	Vec2 targetPos;
+	targetPos = Vec2(GeneratePos.x + UI_SIZE.x, 1200);
 
-	targetPos = Vec2(GeneratePos.x, 1200);
+	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
-	newEnemy->Init(GeneratePos,targetPos);
+	newEnemy->Init(generatePos,targetPos);
 
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
@@ -175,9 +178,12 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos)
 {
 	const float bulletSpeed = 12.5f;
 
+	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
-	newEnemy->Init(GeneratePos, bulletSpeed);
+	newEnemy->Init(generatePos, bulletSpeed);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
@@ -187,9 +193,12 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos)
 
 void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos)
 {
+	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
-	newEnemy->Init(GeneratePos, PlayerPos);
+	newEnemy->Init(generatePos, PlayerPos);
 
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
