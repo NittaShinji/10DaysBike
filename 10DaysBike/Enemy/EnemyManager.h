@@ -2,6 +2,7 @@
 #include "BadEnemy.h"
 #include "BulletFlyEnemy.h"
 #include "WanderEnemy.h"
+#include "BeamEnemy.h"
 #include "BulletEnemyState.h"
 #include "BulletManager.h"
 #include <vector>
@@ -37,6 +38,7 @@ private:
 	void GenerateBadEnemy(const Vec2& GeneratePos);
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
+	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos);
 
 public:
 	void Init();

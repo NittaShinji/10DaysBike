@@ -138,6 +138,7 @@
     <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="Enemy\BeamEnemy.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BaseCollider.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Enemy\BeamEnemy.h" />
     <ClInclude Include="ChargeTrajectories.h" />
     <ClInclude Include="ClearScene.h" />
     <ClInclude Include="Enemy\IBulletEnemy.h" />

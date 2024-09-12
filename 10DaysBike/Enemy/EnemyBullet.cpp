@@ -78,7 +78,12 @@ void EnemyBullet::Update()
 //•`‰æ
 void EnemyBullet::Draw()
 {
-	DrawCircle(pos_.x, pos_.y, radius_, GetColorUsedForDrawing(), true);
+	if (isDrawGraph_ == false) {
+		DrawCircle(pos_.x, pos_.y, radius_, GetColorUsedForDrawing(), true);
+	}
+	else {
+		DrawRotaGraph(pos_.x ,pos_.y + radius_,1,radian_,graph_,FALSE);
+	}
 }
 void EnemyBullet::Dead()
 {

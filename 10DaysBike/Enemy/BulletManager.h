@@ -5,7 +5,7 @@
 class BulletManager
 {
 public:
-
+	BulletManager();
 	~BulletManager();
 	void Init();
 	void Update();
@@ -16,6 +16,10 @@ public:
 		bullets_.splice(bullets_.end(), bullets); // ƒŠƒXƒg‚ð’Ç‰Á
 	}
 
+	int normalBulletGraph_;
+	int normalBulletAnmGraph_[3];
+	int beamTopGraph_;
+	int beamLineGraph_;
 private:
 
 	//“G‚Ì’e

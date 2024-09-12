@@ -33,6 +33,9 @@ public:
 
 	void SetDead() { isDead_ = true; };
 
+	void SetGraph(int graph) { graph_ = graph; isDrawGraph_ = true; };
+	
+
 private:
 
 	const float kBulletRadius_ = 5.0f;
@@ -42,6 +45,8 @@ private:
 
 	//速度
 	Vec2 velocity_;
+
+	float size_ = 5;
 
 	//寿命
 	static const int32_t kLifeTime = 60 * 5;
@@ -57,6 +62,10 @@ private:
 	bool isHit_ = false;
 
 	bool markedForDeletion_ = false;
+
+	int graph_ = 0;
+
+	bool isDrawGraph_ = false;
 
 	//敵のコライダー
 	std::unique_ptr<CircleCollider> bulletCollider_ = nullptr;
