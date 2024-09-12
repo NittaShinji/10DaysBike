@@ -6,6 +6,7 @@
 #include "CollisionManager.h"
 #include "EnergyGauge.h"
 #include "BackGround.h"
+#include "Score.h"
 
 /// <summary>
 /// ゲームシーン
@@ -41,7 +42,8 @@ private:
 	std::unique_ptr <Player> player = nullptr;
 	std::unique_ptr <EnergyGauge> gauge = nullptr;
 	std::unique_ptr <EnemyManager> enemyManager = nullptr;
-	
+	std::unique_ptr <Score> score_ = nullptr;
+
 	//衝突マネージャー
 	static CollisionManager* collisionManager_;
 	//背景クラス

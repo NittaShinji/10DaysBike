@@ -60,5 +60,8 @@ private:
 
 	//プレイヤーの位置取得
 	Vec2* playerPosPtr_ = nullptr;
+
+	//敵の数
+	int32_t enemyTotalNum = 0;
 };
 
