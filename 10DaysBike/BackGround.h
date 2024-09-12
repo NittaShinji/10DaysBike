@@ -3,6 +3,7 @@
 
 //‘O•ûéŒ¾
 class Player;
+class IPlayerState;
 
 class BackGround
 {
@@ -24,11 +25,12 @@ private:
 
 	BackGroundObj backGroundObj[backGroundGraphNum];
 	int scrollValue_;
+	int saveScrollValue_;
 
 public:
 
 	void Init();
-	void Update(int playerSpeed);
+	void Update(int playerSpeed, IPlayerState* playerState);
 	void Draw();
 };
 

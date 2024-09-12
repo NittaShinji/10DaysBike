@@ -94,7 +94,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			gauge->FRAME_TOP);
 		enemyManager->Update();
 		gauge->Update();
-		backGround->Update(player->GetVec().y);
+		backGround->Update(player->GetVec().y,player->GetPlayerState());
 
 		//全ての衝突をチェック
 		collisionManager_->CheckAllCollisions(player->GetPos(),30.0f);

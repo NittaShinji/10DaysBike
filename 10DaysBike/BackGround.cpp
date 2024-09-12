@@ -1,6 +1,7 @@
 #include "BackGround.h"
 #include "DxLib.h"
 #include "Inform.h"
+#include "PlayerState.h"
 
 void BackGround::Init()
 {
@@ -18,24 +19,57 @@ void BackGround::Init()
 	scrollValue_ = 0;
 }
 
-void BackGround::Update(int playerSpeed)
+void BackGround::Update(int playerSpeed, IPlayerState* playerState)
 {
-	// プレイヤーのスピードに応じてスクロール値を増加
-	scrollValue_ += -(std::abs(playerSpeed) * kBackGroundScllolNum);
+	PlayerStateBurstUp* fireBulletStateUp = dynamic_cast<PlayerStateBurstUp*>(playerState);
+	PlayerStateBurstDown* fireBulletStateDown = dynamic_cast<PlayerStateBurstDown*>(playerState);
 
-	// 画像の高さに基づいてループさせるための変数
-	int backgroundHeight = kBackGroundGraphHeight;
-
-	// 背景画像が画面外に出たら再配置する
-	for (int i = 0; i < backGroundGraphNum; i++)
+	if (!fireBulletStateUp)
 	{
-		// スクロール値を背景のY座標に反映
-		backGroundObj[i].pos.y += -(std::abs(playerSpeed) * kBackGroundScllolNum);
-
-		// 背景が画面外（上）に出た場合、画面下に再配置
-		if (backGroundObj[i].pos.y <= -backgroundHeight)
+		//
+		if (!fireBulletStateDown)
 		{
-			backGroundObj[i].pos.y += backgroundHeight * backGroundGraphNum;
+			saveScrollValue_ = playerSpeed;
+		}
+
+		// プレイヤーのスピードに応じてスクロール値を増加
+		scrollValue_ += -(std::abs(playerSpeed) * kBackGroundScllolNum);
+
+		// 画像の高さに基づいてループさせるための変数
+		int backgroundHeight = kBackGroundGraphHeight;
+
+		// 背景画像が画面外に出たら再配置する
+		for (int i = 0; i < backGroundGraphNum; i++)
+		{
+			// スクロール値を背景のY座標に反映
+			backGroundObj[i].pos.y += -(std::abs(playerSpeed) * kBackGroundScllolNum);
+
+			// 背景が画面外（上）に出た場合、画面下に再配置
+			if (backGroundObj[i].pos.y <= -backgroundHeight)
+			{
+				backGroundObj[i].pos.y += backgroundHeight * backGroundGraphNum;
+			}
+		}
+	}
+	else
+	{
+		// プレイヤーのスピードに応じてスクロール値を増加
+		scrollValue_ += -(std::abs(saveScrollValue_) * kBackGroundScllolNum);
+
+		// 画像の高さに基づいてループさせるための変数
+		int backgroundHeight = kBackGroundGraphHeight;
+
+		// 背景画像が画面外に出たら再配置する
+		for (int i = 0; i < backGroundGraphNum; i++)
+		{
+			// スクロール値を背景のY座標に反映
+			backGroundObj[i].pos.y += -(std::abs(saveScrollValue_) * kBackGroundScllolNum);
+
+			// 背景が画面外（上）に出た場合、画面下に再配置
+			if (backGroundObj[i].pos.y <= -backgroundHeight)
+			{
+				backGroundObj[i].pos.y += backgroundHeight * backGroundGraphNum;
+			}
 		}
 	}
 }
