@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir);$(ProjectDir)Enemy\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Collision;$(ProjectDir)Scene;$(ProjectDir);$(ProjectDir)Enemy\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Collision;$(ProjectDir)Scene;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -137,21 +137,21 @@
   <ItemGroup>
     <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="BackGround.cpp" />
-    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="Scene\ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Collision\CollisionManager.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Enemy\BulletFlyEnemy.cpp" />
     <ClCompile Include="Enemy\EnemyBullet.cpp" />
     <ClCompile Include="Enemy\EnemyManager.cpp" />
     <ClCompile Include="Enemy\BulletEnemyState.cpp" />
-    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Collision\Collision.cpp" />
     <ClCompile Include="Enemy\MathFunc.cpp" />
     <ClCompile Include="Enemy\ShotBulletEnemy.cpp" />
     <ClCompile Include="Enemy\WanderEnemy.cpp" />
     <ClCompile Include="EnergyGauge.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Gauge.cpp" />
     <ClCompile Include="GaugeFrame.cpp" />
     <ClCompile Include="Enemy\IEnemy.cpp" />
@@ -160,9 +160,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
-    <ClCompile Include="SceneFactory.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Scene\SceneFactory.cpp" />
+    <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
@@ -172,31 +172,31 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractSceneFactory.h" />
+    <ClInclude Include="Scene\AbstractSceneFactory.h" />
     <ClInclude Include="BackGround.h" />
-    <ClInclude Include="BaseCollider.h" />
-    <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Collision\BaseCollider.h" />
+    <ClInclude Include="Scene\BaseScene.h" />
     <ClInclude Include="ChargeTrajectories.h" />
-    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="Scene\ClearScene.h" />
     <ClInclude Include="Enemy\IBulletEnemy.h" />
     <ClInclude Include="Enemy\BulletManager.h" />
-    <ClInclude Include="CircleCollider.h" />
-    <ClInclude Include="CollisionAttribute.h" />
-    <ClInclude Include="CollisionInfo.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="CollisionPrimitive.h" />
-    <ClInclude Include="CollisionTypes.h" />
+    <ClInclude Include="Collision\CircleCollider.h" />
+    <ClInclude Include="Collision\CollisionAttribute.h" />
+    <ClInclude Include="Collision\CollisionInfo.h" />
+    <ClInclude Include="Collision\CollisionManager.h" />
+    <ClInclude Include="Collision\CollisionPrimitive.h" />
+    <ClInclude Include="Collision\CollisionTypes.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Enemy\BulletFlyEnemy.h" />
     <ClInclude Include="Enemy\EnemyBullet.h" />
     <ClInclude Include="Enemy\EnemyManager.h" />
     <ClInclude Include="Enemy\BulletEnemyState.h" />
-    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Collision\Collision.h" />
     <ClInclude Include="Enemy\MathFunc.h" />
     <ClInclude Include="Enemy\ShotBulletEnemy.h" />
     <ClInclude Include="Enemy\WanderEnemy.h" />
     <ClInclude Include="EnergyGauge.h" />
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Gauge.h" />
     <ClInclude Include="GaugeFrame.h" />
     <ClInclude Include="Enemy\IEnemy.h" />
@@ -205,9 +205,9 @@
     <ClInclude Include="KeyboardInput.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
-    <ClInclude Include="SceneFactory.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="Scene\SceneFactory.h" />
+    <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Trajectory.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TrajectoriesManager.h" />
