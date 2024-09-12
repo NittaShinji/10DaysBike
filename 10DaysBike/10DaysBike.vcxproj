@@ -138,6 +138,7 @@
     <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="DecreGauge.cpp" />
+    <ClCompile Include="Enemy\BeamEnemy.cpp" />
     <ClCompile Include="Scene\ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DecreGauge.h" />
+    <ClInclude Include="Enemy\BeamEnemy.h" />
     <ClInclude Include="Scene\AbstractSceneFactory.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Collision\BaseCollider.h" />
