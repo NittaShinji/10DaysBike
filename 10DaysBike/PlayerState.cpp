@@ -23,15 +23,14 @@ void IPlayerState::SideMoveUpdate()
 	player_->SetVec(SIDE_MOVE_VEC * Player::SIDE_MOVING_SPEED);
 }
 
-void IPlayerState::TurnPlayerUpdate()
+void IPlayerState::TurnPlayerUpdate(bool isTurn, bool isBurst)
 {
-	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY))
+	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY) || isTurn)
 	{
-		isWaitingTurn_ = true;
-		player_->ProccesingNewTrajs();
+		TurnProcces();
 	}
 	//バースト
-	if (KeyboardInput::GetInstance().GetTriggerKey(Player::BURST_KEY))
+	if (KeyboardInput::GetInstance().GetTriggerKey(Player::BURST_KEY) || isBurst)
 	{
 		isWaitingBurst_ = true;
 		player_->ProccesingNewTrajs();
@@ -48,12 +47,12 @@ void IPlayerState::DownDraw()
 	player_->DrawImage(useImageName_, Player::DOWN_IMAGE_ANGLE, isSideTurnImage_);
 }
 
-void IPlayerState::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void IPlayerState::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 
 }
 
-void IPlayerState::Update(std::function<void(float thickRate, float costRate)> shootFunc, bool isUp)
+void IPlayerState::Update(std::function<bool(float thickRate, float costRate)> shootFunc, bool isUp)
 {
 	SideMoveUpdate();
 
@@ -128,6 +127,12 @@ void IPlayerState::AnimationUpdate(bool isUp)
 	}
 }
 
+void IPlayerState::TurnProcces()
+{
+	isWaitingTurn_ = true;
+	player_->ProccesingNewTrajs();
+}
+
 //----------------------------------------------------
 //プレイヤーが上向きの状態
 void PlayerStateUp::Init()
@@ -137,7 +142,7 @@ void PlayerStateUp::Init()
 	player_->ProccesingNewTrajs();
 }
 
-void PlayerStateUp::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 	IPlayerState::Update(nullptr, true);
 
@@ -171,14 +176,14 @@ void PlayerStateDown::Init()
 	player_->ProccesingNewTrajs();
 }
 
-void PlayerStateDown::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 	IPlayerState::Update(nullptr, false);
 
 	//軌跡の太さとかコストをセットして生成
-	shootFunc(1.0f, 1.0f);
-
-	TurnPlayerUpdate();
+	bool isDanger = !shootFunc(1.0f, 1.0f);
+	//ゲージ切れそうならターンするため
+	TurnPlayerUpdate(isDanger);
 
 	if (isWaitingTurn_)
 	{
@@ -198,7 +203,7 @@ void PlayerStateDown::Draw()
 
 //-------------------------------------------------------------------------------------------------
 //バースト状態の親ステート
-void IBurstState::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void IBurstState::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 	timer_--;
 
@@ -225,7 +230,7 @@ void PlayerStateBurstUp::Init()
 	timer_ = STATE_TIME;
 }
 
-void PlayerStateBurstUp::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void PlayerStateBurstUp::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
 	IPlayerState::Update(nullptr, true);
@@ -251,7 +256,7 @@ void PlayerStateBurstDown::Init()
 	timer_ = STATE_TIME;
 }
 
-void PlayerStateBurstDown::Update(std::function<void(float thickRate, float costRate)> shootFunc)
+void PlayerStateBurstDown::Update(std::function<bool(float thickRate, float costRate)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
 	IPlayerState::Update(nullptr, false);

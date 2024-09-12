@@ -73,7 +73,7 @@ void Player::Update(std::function<bool(float)> shootGaugeFunc,
 	state_->Update(
 		[=](float thickRate, float costRate)
 		{
-			trajManag_->Update({ -vec_.y * moveSpeedRate_, thickRate, costRate }, shootGaugeFunc, chargeGaugeFunc);
+			return trajManag_->Update({ -vec_.y * moveSpeedRate_, thickRate, costRate }, shootGaugeFunc, chargeGaugeFunc);
 		}
 	);
 

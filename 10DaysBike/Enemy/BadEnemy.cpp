@@ -39,6 +39,9 @@ void BadEnemy::Update()
 		pos_.x = targetPos_.x;
 		pos_.y = targetPos_.y;
 	}
+
+	
+
 	IEnemy::Update();
 }
 

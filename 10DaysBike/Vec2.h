@@ -38,6 +38,8 @@ public:
 	float Dot(const Vec2& v) const;
 	//外積取得
 	float Cross(const Vec2& v) const;
+	//角度
+	float AngleDeg()const;
 
 public:
 	//マイナス
