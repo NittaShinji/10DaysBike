@@ -112,8 +112,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// ブルーム描画処理
 		backGround->Draw();
-		player->Draw();
 		enemyManager->Draw();
+		player->Draw();
 
 #pragma region ブルーム後処理
 		//// 左右キーが押されたらカメラを回転する
@@ -160,8 +160,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 		// 通常の描画結果を描画する
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255); // アルファブレンドモードに設定
 		DrawGraph(0, 0, ColorScreen, FALSE);
-
 
 		// 描画モードをバイリニアフィルタリングにする( 拡大したときにドットがぼやけるようにする )
 		SetDrawMode(DX_DRAWMODE_BILINEAR);
@@ -173,11 +173,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		DrawExtendGraph(0, 0, SCREEN_W, SCREEN_H, GaussScreen, FALSE);
 		DrawExtendGraph(0, 0, SCREEN_W, SCREEN_H, GaussScreen, FALSE);
 
-		// 描画ブレンドモードをブレンド無しに戻す
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		// 描画ブレンドモードをアルファブレンドに戻す
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 
 		// 描画モードを二アレストに戻す
 		SetDrawMode(DX_DRAWMODE_NEAREST);
+
 
 
 		// 現在のガウスフィルタのぼかし度合いを描画する

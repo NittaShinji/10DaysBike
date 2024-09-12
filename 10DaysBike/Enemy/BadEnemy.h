@@ -13,6 +13,7 @@ class BadEnemy : public IEnemy
 public:
 	static const uint16_t PROT_ENEMY_DAMEGE_NUM = 1;
 	static const uint16_t PROT_ENEMY_IMGAE_NUM = 4;
+	static const double kBadEnemyImageScale_;
 
 private:
 
