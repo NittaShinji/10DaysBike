@@ -12,7 +12,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
-
+	gameState_ = std::make_unique<GameState>();
+	gameState_->Init();
 }
 
 void SceneManager::Update()
@@ -53,5 +54,7 @@ void SceneManager::ChangeScene(const std::string& sceneName)
 
 	//次シーンを生成
 	nextScene_ = std::move(sceneFactory_->CreateScene(sceneName));
+	// シーンにGameStateを渡す
+	nextScene_->SetGameState(gameState_.get());
 }
 

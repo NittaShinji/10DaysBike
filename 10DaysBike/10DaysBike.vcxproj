@@ -139,6 +139,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="DecreGauge.cpp" />
     <ClCompile Include="Enemy\BeamEnemy.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Scene\ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shake.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Trajectory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TrajectoriesManager.cpp" />
@@ -176,6 +178,7 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="DecreGauge.h" />
     <ClInclude Include="Enemy\BeamEnemy.h" />
     <ClInclude Include="Scene\AbstractSceneFactory.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Shake.h" />
     <ClInclude Include="Trajectory.h" />
     <ClInclude Include="resource.h" />
