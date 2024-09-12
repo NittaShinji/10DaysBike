@@ -11,7 +11,7 @@ void BackGround::Init()
 		//‰æ‘œ“Ç‚İ‚İ
 		backGroundObj[i].graphHandle = LoadGraph((RESOUCE_PATH + "backGround.png").c_str());
 		//ˆÊ’u‚Ì‰Šú‰»
-		backGroundObj[i].pos.x = 0;
+		backGroundObj[i].pos.x = UI_SIZE.x;
 		backGroundObj[i].pos.y = i * kBackGroundGraphHeight;
 		backGroundObj[i].defaultPos = backGroundObj[i].pos;
 	}

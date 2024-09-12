@@ -8,13 +8,13 @@ class EnergyGauge
 {
 public:
 	//ゲージ枠の長さ
-	const uint16_t FRAME_WIDTH = WINDOW_SIZE.x;
+	const uint16_t FRAME_WIDTH = WINDOW_SIZE.x - UI_SIZE.x;
 	const uint16_t FRAME_HEIGHT = WINDOW_SIZE.y / 8;
 	//ゲージの枠の太さ
-	const uint16_t FRAME_THICKNESS = WINDOW_SIZE.x / 20 / 2;
+	const uint16_t FRAME_THICKNESS = (GAME_WINDOW_SIZE.x) / 20 / 2;
 	//ゲージ枠の位置
 	const uint16_t FRAME_TOP = WINDOW_SIZE.y - FRAME_HEIGHT;
-	const uint16_t FRAME_LEFT = 0;
+	const uint16_t FRAME_LEFT = UI_SIZE.x;
 
 	//ゲージ本体の長さ
 	const uint16_t GAUGE_WIDTH = FRAME_WIDTH - FRAME_THICKNESS * 2;

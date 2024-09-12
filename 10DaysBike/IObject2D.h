@@ -53,10 +53,10 @@ public:
 
 public:
 	//‰æ–ÊŠO‚É‚ ‚é‚©
-	bool GetIsOffingScreen();
-	bool GetIsOffingScreen(const Vec2& pos);
-	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2);
-	bool GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3);
+	bool GetIsOffingGameScreen();
+	bool GetIsOffingGameScreen(const Vec2& pos);
+	bool GetIsOffingGameScreen(const Vec2& pos, const Vec2& pos2);
+	bool GetIsOffingGameScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3);
 	//‰æ–Ê“à‚ÉŽû‚ß‚é
 	void FitTheScreen(float radius);
 public:
