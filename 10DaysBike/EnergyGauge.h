@@ -3,6 +3,7 @@
 #include"Gauge.h"
 #include"DecreGauge.h"
 #include"GaugeFrame.h"
+#include"Shake.h"
 
 //âÊñ â∫ÇÃÉQÅ[ÉW
 class EnergyGauge
@@ -33,7 +34,6 @@ public:
 	static const uint16_t DECRE_GAUGE_TIME = 15;
 	static const float DECRE_GAUGE_INTERVAL;
 
-
 private:
 	Vec2 frameWidthHeight_ = { (float)FRAME_WIDTH, (float)FRAME_HEIGHT };
 	Vec2 gaugeWidthHeight_ = { (float)GAUGE_WIDTH, (float)GAUGE_HEIGHT };
@@ -50,6 +50,11 @@ private:
 	std::unique_ptr<DecreGauge> decreGauge_ = nullptr;
 	std::unique_ptr<GaugeFrame> frame_ = nullptr;
 
+	//éGÇ…
+	const float DAMAGED_SHAKE_MAX = 19;
+	const uint64_t DAMAGED_SHAKE_TIME = 90;
+	std::unique_ptr<Shake> damagedShake_ = nullptr;
+
 
 private:
 	Vec2 GetGaugeWidthHeight();
@@ -60,6 +65,7 @@ public:
 	void Draw();
 public:
 	bool DecreGaugeRatio(float ratio);
+	bool DamageDecreGauge(float ratio);
 	bool ChargeGaugeRatio(float posY, float ratio);
 };
 

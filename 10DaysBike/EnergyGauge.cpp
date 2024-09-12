@@ -24,6 +24,9 @@ void EnergyGauge::Init()
 	frame_->Init();
 
 	frame_->SetPos({ (float)(FRAME_LEFT + FRAME_WIDTH / 2) ,(float)(FRAME_TOP + FRAME_HEIGHT / 2) });
+
+
+	damagedShake_ = std::make_unique<Shake>();
 }
 
 void EnergyGauge::Update()
@@ -33,8 +36,12 @@ void EnergyGauge::Update()
 	//ƒQ[ƒW“à•”
 	gauge_->SetWidthHeight(GetGaugeWidthHeight());
 	gauge_->SetColorRatio(gaugeRatio_);
-	gauge_->SetPos({ (float)GAUGE_LEFT - FRAME_WIDTH / 2.0f * frameScaleRate_
-		, (float)GAUGE_TOP - FRAME_HEIGHT / 2.0f * frameScaleRate_ });
+	gauge_->SetPos({
+		(float)GAUGE_LEFT - FRAME_WIDTH / 2.0f * frameScaleRate_
+		+ damagedShake_->GetShake()
+		, (float)GAUGE_TOP - FRAME_HEIGHT / 2.0f * frameScaleRate_
+		+ damagedShake_->GetShake()
+		});
 
 	//Œ¸‚é‚Ì‚ª‚í‚©‚è‚â‚·‚«ƒQ[ƒW
 	decreGauge_->SetPos(gauge_->GetPos());
@@ -42,12 +49,18 @@ void EnergyGauge::Update()
 	//˜g
 	frame_->SetWidthHeight(frameWidthHeight_ + frameWidthHeight_ * frameScaleRate_);
 	frame_->SetThickness(frameThickness + frameThickness * frameScaleRate_);
+	frame_->SetPos({ 
+		(float)(FRAME_LEFT + FRAME_WIDTH / 2) + damagedShake_->GetShake() ,
+		(float)(FRAME_TOP + FRAME_HEIGHT / 2) + damagedShake_->GetShake()
+		});
 
 
 	//XVˆ—
 	gauge_->Update();
 	decreGauge_->Update();
 	frame_->Update();
+
+	damagedShake_->Update();
 
 
 	//
@@ -79,6 +92,20 @@ bool EnergyGauge::DecreGaugeRatio(float ratio)
 	}
 
 	return ans;
+}
+
+bool EnergyGauge::DamageDecreGauge(float ratio)
+{
+	gaugeRatio_ = max(gaugeRatio_ - ratio, 0);
+
+	damagedShake_->BeginShake(DAMAGED_SHAKE_TIME, DAMAGED_SHAKE_MAX);
+
+	if (gaugeRatio_ <= 0)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 bool EnergyGauge::ChargeGaugeRatio(float posY, float ratio)

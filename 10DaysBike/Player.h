@@ -3,6 +3,7 @@
 #include "CircleCollider.h"
 #include"TrajectoriesManager.h"
 #include<functional>
+#include"Shake.h"
 
 //前方宣言
 class IPlayerState;
@@ -15,6 +16,7 @@ public:
 	static const float SIDE_MOVING_SPEED;
 	static const uint16_t PROT_PLAYER_DRAWING_SIZE = 40;
 	static const ColorDxLib PROT_PLAYER_COLOR;
+	static const ColorDxLib DAMAGED_PLAYER_COLOR;
 	static const int TURN_KEY = KEY_INPUT_Z;
 	static const int BURST_KEY = KEY_INPUT_X;
 	static const float DAMAGE_DECRE_RATIO;
@@ -58,12 +60,17 @@ private:
 	//移動スピードの倍率(バースト用に)
 	float moveSpeedRate_ = 1.0f;
 
+	//雑に
+	static const int DAMAGED_TIME = 70;
+	static const int DAMAGED_SHAKE_MAX = 16;
+	std::unique_ptr<Shake> damagedShake_ = nullptr;
+
 	int normalImageHandles_[NORMAL_IMAGE_NUM];
 	int curveImageHandles_[CURVE_IMAGE_NUM];
 	uint8_t imageIndex_ = 0;
 
 	//ダメージ受けたとき呼び出す関数
-	std::function<void(float damageDecreRatio)> damageFunc_ = nullptr;
+	std::function<bool(float damageDecreRatio)> damageFunc_ = nullptr;
 
 public:
 	~Player();
@@ -81,7 +88,10 @@ public:
 	void TrajManagerPosUpdate();
 public:
 	void SetMoveSpeedRate(float rate) { moveSpeedRate_ = rate; }
+	void SetDamagedFunc(const std::function<float(float damageDecreRatio)>& func) { damageFunc_ = func; }
+
 	float GetMoveSpeedRate() { return moveSpeedRate_; }
+	Vec2 GetDrawPos();
 public:
 	void  IncrementImageIndex(const std::string& imageName);
 	void  ImageIndexReset() { imageIndex_ = 0; }
