@@ -24,15 +24,17 @@ public:
 	//スコア追加
 	void AddScore(int32_t addNum)
 	{
-		if (isDrumRoll_)
-		{
-			// ドラムロール中の場合、追加のスコアはドラムロールの目標スコアに反映
-			drumRollscoreTarget_ += addNum;
-		}
-		else
-		{
-			score_ += addNum;
-		}
+		//if (isDrumRoll_)
+		//{
+		//	// ドラムロール中の場合、追加のスコアはドラムロールの目標スコアに反映
+		//	drumRollscoreTarget_ += addNum;
+		//}
+		//else
+		//{
+		//	score_ += addNum;
+		//}
+
+		score_ += addNum;
 	};
 
 	//数値情報を桁数に入力

@@ -8,12 +8,7 @@ class ScoreManager
 {
 public:
 
-	struct EnemyRegistInfo
-	{
-		std::string name;
-		bool isRegist;
-	};
-
+	static const int kGameClearScore = 10000;
 
 public:
 
@@ -33,5 +28,9 @@ private:
 	int32_t rankingHandle_;
 	//ƒXƒRƒA‰æ‘œ
 	int32_t scoreHandle_;
+
+public:
+
+	Score* GetTotalScore() { return totalScore_.get(); }
 };
 

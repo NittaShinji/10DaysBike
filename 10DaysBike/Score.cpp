@@ -19,7 +19,7 @@ Score::~Score()
 void Score::Load()
 {
 	//テクスチャ読み込み
-	LoadDivGraph((RESOUCE_PATH + "number.png").c_str(), 10, 10, 1, 32, 32, textureHandle_);
+	LoadDivGraph((RESOUCE_PATH + "bitmap_num.png").c_str(), 10, 10, 1, 32, 32, textureHandle_);
 }
 
 void Score::Init(Vec2 pos)
@@ -35,7 +35,7 @@ void Score::Init(Vec2 pos)
 	for (int i = 0; i < kScoreDigitNum_; i++)
 	{
 		// 座標の初期化
-		pos_[i] = Vec2((i * equalDistanceX), 10.0f);
+		pos_[i] = Vec2((i * equalDistanceX) + 16.0f, 10.0f);
 	}
 }
 

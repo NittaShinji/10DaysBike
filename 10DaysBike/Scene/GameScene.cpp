@@ -63,7 +63,6 @@ void GameScene::Update()
 	//全ての衝突をチェック
 	collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
 
-
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("CLEAR");
@@ -71,6 +70,11 @@ void GameScene::Update()
 	else if (! player->GetIsAlive()) {
 		//タイトルシーンに移動
 		SceneManager::GetInstance()->ChangeScene("TITLE");
+	}
+	else if (gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore)
+	{
+		//クリアシーンに移動
+		SceneManager::GetInstance()->ChangeScene("CLEAR");
 	}
 }
 
