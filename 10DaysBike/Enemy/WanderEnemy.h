@@ -28,7 +28,8 @@ private:
 	float moveVelocity_ = 0;
 	const float kAddVelocity_ = 0.2f;
 	Vec2 moveVec_ = {0,1};
-	float homingAngle_ = 0.03f;
+	float homingAngle_ = 0.06f;
+	const float kNearLen_ = 100.f;
 
 	Vec2 oldMoveVec_ = {}; //ˆÚ“®ƒxƒNƒgƒ‹•Û‘¶
 	int32_t isHomingCount_ = 0;

@@ -18,26 +18,40 @@ void BadEnemy::Init(const Vec2& pos, const Vec2& targetPos)
 	IEnemy::AddCollider();
 
 	targetPos_ = targetPos;
+
+	pattern_ = 1;
 }
 
 void BadEnemy::Update()
 {
-	float dx = targetPos_.x - pos_.x;
-	float dy = targetPos_.y - pos_.y;
-	float distance = sqrt(dx * dx + dy * dy);
+	if (pattern_ == 0) {
+		float dx = targetPos_.x - pos_.x;
+		float dy = targetPos_.y - pos_.y;
+		float distance = sqrt(dx * dx + dy * dy);
 
-	// 目的地に到達したかを確認
-	if (distance > moveSpeed_) {
-		// 単位ベクトルを計算して移動
-		float ux = dx / distance;
-		float uy = dy / distance;
-		pos_.x += ux * moveSpeed_;
-		pos_.y += uy * moveSpeed_;
+		// 目的地に到達したかを確認
+		if (distance > moveSpeedY_) {
+			// 単位ベクトルを計算して移動
+			float ux = dx / distance;
+			float uy = dy / distance;
+			pos_.x += ux * moveSpeedY_;
+			pos_.y += uy * moveSpeedY_;
+		}
+		else {
+			// 目的地に到達したら、位置を目的地に固定
+			pos_.x = targetPos_.x;
+			pos_.y = targetPos_.y;
+		}
 	}
-	else {
-		// 目的地に到達したら、位置を目的地に固定
-		pos_.x = targetPos_.x;
-		pos_.y = targetPos_.y;
+	else if (pattern_ == 1) {
+		moveAngle_ += kAddmoveAngle_;
+		pos_.x += sinf(moveAngle_) * moveSpeedX_;
+		pos_.y += moveSpeedY_;
+	}
+	else if (pattern_ == 2) {
+		moveAngle_ += kAddmoveAngle_;
+		pos_.x += sinf(moveAngle_) * -moveSpeedX_;
+		pos_.y += moveSpeedY_;
 	}
 
 	

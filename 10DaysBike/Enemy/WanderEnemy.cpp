@@ -37,6 +37,13 @@ void WanderEnemy::Update()
 		isHoming_ = false;
 	}
 
+	Vec2 targetLenVec = pos_ - *(targetPosPtr_);
+	float targetLen = targetLenVec.GetLength();
+	targetLen = fabsf(targetLen);
+	if (targetLen < kNearLen_) {	//近づいたらホーミングを解く
+		isHoming_ = false;
+	}
+
 	//挙動処理
 	moveVelocity_ += kAddVelocity_;
 
