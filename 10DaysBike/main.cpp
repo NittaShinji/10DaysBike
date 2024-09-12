@@ -48,7 +48,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	sceneFactory_ = std::make_unique<SceneFactory>();
 	SceneManager::GetInstance()->SetSceneFactory(std::move(sceneFactory_));
 	//シーンマネージャに最初のシーンをセット
-	SceneManager::GetInstance()->ChangeScene("GAME");
+	SceneManager::GetInstance()->Initialize();
+	SceneManager::GetInstance()->ChangeScene("TITLE");
 	GameScene::StaticInitialize();
 
 	// ゲームループ

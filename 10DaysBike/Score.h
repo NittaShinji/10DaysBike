@@ -45,7 +45,7 @@ private:
 	//リザルトで足していくときのタイマー
 	float drumTimer_ = 0;
 	//ドラムロールする時間
-	float kMaxDrumTime_ = 40;
+	float kMaxDrumTime_ = 340;
 
 	//ドラムロールしているかのフラグ
 	bool isDrumRoll_ = false;

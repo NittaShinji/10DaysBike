@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "AbstractSceneFactory.h"
+#include "GameState.h"
 
 class SceneManager final
 {
@@ -32,6 +33,9 @@ public: //メンバ関数
 	//シーンファクトリーのセッター
 	void SetSceneFactory(std::unique_ptr<AbstractSceneFactory> sceneFactory) { sceneFactory_ = std::move(sceneFactory); }
 
+	// GameState の取得
+	GameState* GetGameState() { return gameState_.get(); }
+
 private:
 
 	//コンストラクタ
@@ -49,5 +53,7 @@ private:
 	std::unique_ptr<BaseScene> nextScene_ = nullptr;
 	//今のシーン(実行中シーン)
 	std::unique_ptr<BaseScene> scene_ = nullptr;
+	// シーン間で共有されるゲーム情報
+	std::unique_ptr<GameState> gameState_ = nullptr;
 };
 
