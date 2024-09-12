@@ -8,6 +8,7 @@ void EnemyManager::Init()
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
+	isWaitEnemy_ = false;
 	LoadEnemyPopDate();
 	//GenerateBulletFlyEnemy();
 }

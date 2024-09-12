@@ -39,11 +39,15 @@ public: //メンバ関数
 		colliders.remove(collider);
 	}
 
-	//void RemoveCollider(BaseCollider* collider)
-	//{
-	//	// 削除予定リストに追加
-	//	collidersToRemove.push_back(collider);
-	//}
+	/// <summary>
+	/// コライダーの全てを削除
+	/// </summary>
+	/// <param name="collider">コライダー</param>
+	inline void RemoveCollider()
+	{
+		colliders.clear();
+		collidersToRemove.clear();
+	}
 
 	/// <summary>
 	/// 全ての衝突をチェック
