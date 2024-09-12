@@ -14,6 +14,7 @@ CollisionManager* GameScene::collisionManager_ = nullptr;
 void GameScene::StaticInitialize()
 {
 	collisionManager_ = CollisionManager::GetInstance();
+	Score::Load();
 }
 
 void GameScene::Initialize()
@@ -42,6 +43,8 @@ void GameScene::Initialize()
 	enemyManager->Init();
 	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
 	backGround->Init();
+	score_ = std::make_unique<Score>();
+	score_->Init(Vec2(40,400));
 }
 
 void GameScene::Update()
@@ -53,6 +56,7 @@ void GameScene::Update()
 	enemyManager->Update();
 	gauge->Update();
 	backGround->Update(player->GetVec().y, player->GetPlayerState());
+	score_->Update();
 
 	//全ての衝突をチェック
 	collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
@@ -118,5 +122,6 @@ void GameScene::Draw()
 #pragma endregion ブルーム後処理
 
 	//UI描画処理(ブルームなし)
+	score_->Draw();
 	gauge->Draw();
 }
