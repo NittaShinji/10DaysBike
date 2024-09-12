@@ -56,6 +56,8 @@ void EnemyManager::Draw()
 	}
 
 	bulletManager_->Draw();
+
+	DrawFormatString(50, 400, GetColor(255, 255, 255), "“G‚Ì” : %d", enemyTotalNum);
 }
 
 void EnemyManager::SetPlayerPosPtr(Vec2* pPosPtr)
@@ -173,6 +175,9 @@ void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos, const int32_t patte
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
 	newEnemy->Init(generatePos,targetPos,pattern);
 
+	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+	enemyTotalNum++;
+
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
 }
@@ -190,6 +195,9 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
+	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+	enemyTotalNum++;
+
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
 }
@@ -202,6 +210,9 @@ void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos,
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
 	newEnemy->Init(generatePos, PlayerPos);
+
+	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+	enemyTotalNum++;
 
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));
