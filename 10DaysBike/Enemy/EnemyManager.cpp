@@ -31,7 +31,7 @@ void EnemyManager::Update()
 		{
 			if (enemies_.size() < kMaxEnemyNum)
 			{
-				GenerateBadEnemy({ 300,60 },1);
+				//GenerateBadEnemy({ 300,60 },1);
 				//GenerateWanderEnemy(playerPosPtr_,{630,30});
 				waitTimer_ = kWaitTime_;
 			}
