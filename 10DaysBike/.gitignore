@@ -5,7 +5,7 @@
 ### C++ ###
 # Prerequisites
 *.
-*Log.txt
+*.txt
 
 # Compiled Object files
 *.slo
