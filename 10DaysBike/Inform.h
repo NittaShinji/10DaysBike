@@ -4,7 +4,7 @@
 #include<memory>
 
 static const Vec2 UI_SIZE = { 420,940 };
-static const Vec2 WINDOW_SIZE = { 640 + UI_SIZE.x,940 };
+static const Vec2 WINDOW_SIZE = { 640 + UI_SIZE.x/*420*/,940};
 static const Vec2 GAME_WINDOW_SIZE = { WINDOW_SIZE.x - UI_SIZE.x,WINDOW_SIZE.y };
 static const std::string TITLE = "10DaysProt";
 
