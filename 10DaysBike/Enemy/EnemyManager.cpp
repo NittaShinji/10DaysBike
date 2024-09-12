@@ -16,12 +16,21 @@ void EnemyManager::Init()
 
 void EnemyManager::Update()
 {
+	for (std::unique_ptr<IEnemy>& enemy : enemies_)
+	{
+		if (enemy->GetIsDead()) 
+		{
+			//敵を登録する
+			deadEnemyNames_.push_back(enemy->GetName());
+		}
+	}
+
 	//デスフラグの立った敵を削除
 	// 敵の削除（デスフラグの立ったものを削除）
 	enemies_.erase(
 		std::remove_if(enemies_.begin(), enemies_.end(),
 		[](std::unique_ptr<IEnemy>& enemy) {
-		return enemy->IsDead();
+		return enemy->GetIsDead();
 	}),
 	enemies_.end());
 

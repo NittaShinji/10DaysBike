@@ -49,6 +49,7 @@ public:
 	void Draw();
 
 	void SetPlayerPosPtr(Vec2* pPosPtr);
+	std::vector<std::string>& GetDeadEnemyNames() { return deadEnemyNames_; }
 
 private:
 
@@ -68,5 +69,8 @@ private:
 
 	//“G‚Ì”
 	int32_t enemyTotalNum = 0;
+
+	//“|‚ê‚½“G‚Ì–¼‘O
+	std::vector<std::string> deadEnemyNames_;
 };
 

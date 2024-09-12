@@ -49,7 +49,7 @@ public:
 
 public:
 	int32_t GetEnemyHP() { return hp_; }
-	bool IsDead() const { return isDead_; }
+	bool GetIsDead() const { return isDead_; }
 
 };
 

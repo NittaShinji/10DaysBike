@@ -25,7 +25,7 @@ void Score::Load()
 void Score::Init(Vec2 pos)
 {
 	//得点初期化
-	score_ = 1023459;
+	score_ = 0;
 	isDrumRoll_ = false;
 
 	//どれぐらいの等間隔で離すか
@@ -41,18 +41,20 @@ void Score::Init(Vec2 pos)
 
 void Score::Update()
 {
-	//敵が死んだ際に敵の種類によってポイントを変える
+	if (isDrumRoll_)
+    {
+        InputDrumRoll();
 
-	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_T)) {
-		//ゲームシーンに移動
-		isDrumRoll_ = true;
-	}
-
-	if (isDrumRoll_ == true)
-	{
-		InputDrumRoll();
-	}
-
+        // ドラムロールスコアが目標スコアに達したら終了
+        if (drumRollscore_ >= targetScore_) {
+            isDrumRoll_ = false;
+            drumRollscore_ = targetScore_;  // 最終的なスコアに合わせる
+        }
+    }
+    else
+    {
+        InputNumberTS();  // 通常のスコア表示
+    }
 }
 
 void Score::Draw()
@@ -85,16 +87,20 @@ void Score::InputNumberTS()
 void Score::InputDrumRoll()
 {
 	//t 経過時間	b最初の位置	c移動量	d移動時間
-	if (drumTimer_ < kMaxDrumTime_) 
+	if (isDrumRoll_)
 	{
-		drumTimer_++;
-	}
-	else
-	{
-		isDrumRoll_ = false;
+		if (drumTimer_ < kMaxDrumTime_)
+		{
+			drumTimer_++;
+		}
+
+		// ドラムロールの表示スコアを更新（スコアの変動に対応）
+		drumRollscore_ = EaseOutSine(drumTimer_, drumRollscore_, static_cast<float>(targetScore_ - drumRollscore_), kMaxDrumTime_);
 	}
 
-	drumRollscore_ = EaseInOutExpo(drumTimer_, 0.0f, static_cast<float>(score_), kMaxDrumTime_);
+	//drumRollscore_ = EaseInOutExpo(drumTimer_, 0.0f, static_cast<float>(score_), kMaxDrumTime_);
+	//drumRollscore_ = EaseOutSine(drumTimer_, 0.0f, static_cast<float>(score_), kMaxDrumTime_);
+
 
 	//--7桁目(10万の位を表示)
 	displayNum_[0] = (drumRollscore_ % 10000000) / 1000000;
@@ -117,4 +123,27 @@ float Score::EaseInOutExpo(float t, float b, float c, float d) {
 	if (t == d) return b + c;
 	if ((t /= d / 2) < 1) return c / 2 * pow(2, 10 * (t - 1)) + b;
 	return c / 2 * (-pow(2, -10 * --t) + 2) + b;
+}
+
+float Score::EaseOutSine(float t, float b, float c, float d)
+{
+	float x = t / d;
+	return c * sin((x * 3.1415) / 2) + b;
+}
+
+void Score::StartDrumRoll(int32_t newScore)
+{
+	if (isDrumRoll_)
+	{
+		// 既存のドラムロールの目標スコアを更新
+		targetScore_ = newScore;
+	}
+	else
+	{
+		// ドラムロールを開始
+		score_ += newScore; // 既存のスコアに追加
+		targetScore_ = score_; // 新しい目標スコアに設定
+		drumTimer_ = 0.0f; // タイマーをリセット
+		isDrumRoll_ = true; // ドラムロールを有効にする
+	}
 }

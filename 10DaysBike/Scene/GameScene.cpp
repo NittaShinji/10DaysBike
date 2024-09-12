@@ -57,6 +57,7 @@ void GameScene::Update()
 	gauge->Update();
 	backGround->Update(player->GetVec().y, player->GetPlayerState());
 	//score_->Update();
+	gameState_->scoreManager_->RegistScore(enemyManager->GetDeadEnemyNames());
 	gameState_->scoreManager_->Update();
 
 	//全ての衝突をチェック
