@@ -3,6 +3,7 @@
 
 //‘O•ûéŒ¾
 class Player;
+class IPlayerState;
 
 class BackGround
 {
@@ -28,7 +29,7 @@ private:
 public:
 
 	void Init();
-	void Update(int playerSpeed);
+	void Update(int playerSpeed, IPlayerState* playerState);
 	void Draw();
 };
 

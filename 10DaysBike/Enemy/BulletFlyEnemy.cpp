@@ -39,7 +39,6 @@ void BulletFlyEnemy::Update()
 		// bulletCoolTimer_ の値を取得
 		int32_t bulletCoolTimer = fireBulletState->GetBulletCoolTimer();
 
-		// bulletCoolTimer_ を使って何か処理を行う
 		// 例: タイマーがリセットされるかどうか確認する
 		int bulletGraphDivNum = EnemyStateFireBullet::kBulletCoolTime_ / PROT_ENEMY_IMGAE_NUM;
 

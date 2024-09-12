@@ -82,6 +82,7 @@ public:
 	void  IncrementImageIndex(const std::string& imageName);
 	void  ImageIndexReset() { imageIndex_ = 0; }
 	Vec2* GetPlayerPosPtr() { return &pos_; };
+	IPlayerState* GetPlayerState() { return state_.get(); }
 
 public:
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
