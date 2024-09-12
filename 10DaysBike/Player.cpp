@@ -12,6 +12,7 @@ const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
 const std::string Player::NORMAL_IMAGE_NAME = "BikeRun.png";
 const std::string Player::CURVE_IMAGE_NAME = "BikeCurve.png";
 
+const float Player::DAMAGE_DECRE_RATIO = 0.333f;
 
 Player::~Player()
 {

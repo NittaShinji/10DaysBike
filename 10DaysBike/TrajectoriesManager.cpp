@@ -126,6 +126,7 @@ bool TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 			{
 				trajectories = std::make_unique<Trajectories>();
 			}
+			trajectories->Init();
 		}
 		//‹OÕ‚Ì”z—ñ‚ª‚·‚Å‚É‚ ‚Á‚Äƒ^[ƒ“‚µ‚Ä‚È‚¢‚Æ‚«
 		else

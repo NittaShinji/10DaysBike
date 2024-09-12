@@ -8,7 +8,8 @@ public:
 	static const float CHARGE_MOVE_RATE;
 	static const float CHARGE_MOVE_WIDTH;
 private:
-	uint16_t timer_ = 0;
+	float timer_ = 0;
+	float timerAdd_ = 0;
 
 
 private:

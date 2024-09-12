@@ -1,6 +1,7 @@
 #pragma once
 #include"IObject2D.h"
 #include"Gauge.h"
+#include"DecreGauge.h"
 #include"GaugeFrame.h"
 
 //âÊñ â∫ÇÃÉQÅ[ÉW
@@ -11,7 +12,7 @@ public:
 	const uint16_t FRAME_WIDTH = WINDOW_SIZE.x - UI_SIZE.x;
 	const uint16_t FRAME_HEIGHT = WINDOW_SIZE.y / 8;
 	//ÉQÅ[ÉWÇÃògÇÃëæÇ≥
-	const uint16_t FRAME_THICKNESS = (GAME_WINDOW_SIZE.x) / 20 / 2;
+	const uint16_t FRAME_THICKNESS = (GAME_WINDOW_SIZE.x) / 30 / 2;
 	//ÉQÅ[ÉWògÇÃà íu
 	const uint16_t FRAME_TOP = WINDOW_SIZE.y - FRAME_HEIGHT;
 	const uint16_t FRAME_LEFT = UI_SIZE.x;
@@ -28,6 +29,9 @@ public:
 	const float CHARGE_SCALING_MAX = 0.03f;
 	const float CHARGE_SCALING_INCRE = 0.234f;
 	const float CHARGE_SCALING_DECRE = 0.023f;
+public:
+	static const uint16_t DECRE_GAUGE_TIME = 15;
+	static const float DECRE_GAUGE_INTERVAL;
 
 
 private:
@@ -40,12 +44,15 @@ private:
 	float frameScaleRate_ = 0;
 	float frameScaleTime_ = 0;
 
-	std::unique_ptr<Gauge> gauge_ = nullptr;
+	float decreGaugeInterval_ = 0;
+
+	std::unique_ptr<IGauge> gauge_ = nullptr;
+	std::unique_ptr<DecreGauge> decreGauge_ = nullptr;
 	std::unique_ptr<GaugeFrame> frame_ = nullptr;
 
 
 private:
-
+	Vec2 GetGaugeWidthHeight();
 
 public:
 	void Init();
