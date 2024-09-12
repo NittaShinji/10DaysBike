@@ -25,6 +25,7 @@ private:
 
 	BackGroundObj backGroundObj[backGroundGraphNum];
 	int scrollValue_;
+	int saveScrollValue_;
 
 public:
 
