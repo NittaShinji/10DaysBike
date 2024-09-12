@@ -32,31 +32,31 @@ void IObject2D::SetCollider(BaseCollider* collider)
 	collider->Update();
 }
 
-bool IObject2D::GetIsOffingScreen()
+bool IObject2D::GetIsOffingGameScreen()
 {
-	return GetIsOffingScreen(pos_);
+	return GetIsOffingGameScreen(pos_);
 }
 
-bool IObject2D::GetIsOffingScreen(const Vec2& pos)
+bool IObject2D::GetIsOffingGameScreen(const Vec2& pos)
 {
-	bool isOffingX = (pos.x > WINDOW_SIZE.x) || (pos.x < 0);
+	bool isOffingX = (pos.x > WINDOW_SIZE.x) || (UI_SIZE.x < 0);
 	bool isOffingY = (pos.y > WINDOW_SIZE.y) || (pos.y < 0);
 
 	return (isOffingX || isOffingY);
 }
 
-bool IObject2D::GetIsOffingScreen(const Vec2& pos, const Vec2& pos2)
+bool IObject2D::GetIsOffingGameScreen(const Vec2& pos, const Vec2& pos2)
 {
-	return (GetIsOffingScreen(pos) && GetIsOffingScreen(pos2));
+	return (GetIsOffingGameScreen(pos) && GetIsOffingGameScreen(pos2));
 }
 
-bool IObject2D::GetIsOffingScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3)
+bool IObject2D::GetIsOffingGameScreen(const Vec2& pos, const Vec2& pos2, const Vec2& pos3)
 {
-	return (GetIsOffingScreen(pos) && GetIsOffingScreen(pos2) && GetIsOffingScreen(pos3));
+	return (GetIsOffingGameScreen(pos) && GetIsOffingGameScreen(pos2) && GetIsOffingGameScreen(pos3));
 }
 
 void IObject2D::FitTheScreen(float radius)
 {
-	pos_.x = min(max(pos_.x, radius), WINDOW_SIZE.x - radius);
+	pos_.x = min(max(pos_.x, UI_SIZE.x + radius), WINDOW_SIZE.x - radius);
 	pos_.y = min(max(pos_.y, radius), WINDOW_SIZE.y - radius);
 }

@@ -62,7 +62,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 	auto player = std::make_unique<Player>();
-	player->Init({ WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
+	player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 
 	auto gauge = std::make_unique<EnergyGauge>();
 	gauge->Init();
@@ -94,10 +94,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			gauge->FRAME_TOP);
 		enemyManager->Update();
 		gauge->Update();
-		backGround->Update(player->GetVec().y,player->GetPlayerState());
+		backGround->Update(player->GetVec().y, player->GetPlayerState());
 
 		//全ての衝突をチェック
-		collisionManager_->CheckAllCollisions(player->GetPos(),30.0f);
+		collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
 
 #pragma region ブルーム前処理
 		// 通常の描画結果を書き込むスクリーンを描画対象にする

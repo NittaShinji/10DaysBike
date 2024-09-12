@@ -62,7 +62,7 @@ void Trajectory::Update(std::function<bool(float trajPos, float chargeGaugeRatio
 		isAlive_ = false;
 	}
 
-	if (GetIsOffingScreen(twoPoses_.sPos, twoPoses_.ePos)
+	if (GetIsOffingGameScreen(twoPoses_.sPos, twoPoses_.ePos)
 		|| lifeFrame_ < 1)
 	{
 		//‰æ–ÊŠO‚Éo‚½‚çÁ‚µ‚Ä‚à‚ç‚¤‚½‚ß
