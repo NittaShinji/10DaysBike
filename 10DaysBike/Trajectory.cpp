@@ -3,7 +3,7 @@
 #include "Easing.h"
 #include "Util.h"
 
-const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 0,220,220 };
+const ColorDxLib Trajectory::PROT_TRAJ_COLOR = { 255,255,255 };
 const float Trajectory::SHOOT_DECREMENT_GAUGE = 1.0f / 600.0f;
 const float Trajectory::CHARGE_GAUGE_RATIO = SHOOT_DECREMENT_GAUGE * 2.4f;
 
@@ -24,8 +24,6 @@ void Trajectory::Init()
 void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 {
 	color_ = PROT_TRAJ_COLOR;
-
-	name_ = "trajectory";
 
 	//コライダーの追加
 	SetRadius(32.5f);

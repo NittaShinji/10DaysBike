@@ -31,8 +31,8 @@ public:
 	void SetPlayerPtr(Player* player) { player_ = player; }
 public:
 	virtual void Init() = 0;
-	virtual void Update(std::function<bool(float thickRate, float costRate)> shootFunc);
-	void Update(std::function<bool(float thickRate, float costRate)> shootFunc, bool isUp);
+	virtual void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc);
+	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc, bool isUp);
 	virtual void Draw() = 0;
 };
 
@@ -47,7 +47,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -62,7 +62,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -81,7 +81,7 @@ protected:
 
 public:
 	virtual void Init()override = 0;
-	virtual void Update(std::function<bool(float thickRate, float costRate)> shootFunc)override;
+	virtual void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
 	virtual void Draw()override = 0;
 };
 
@@ -96,7 +96,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -110,6 +110,6 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };

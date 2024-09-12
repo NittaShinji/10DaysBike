@@ -1,7 +1,7 @@
 #include "Gauge.h"
 #include "Easing.h"
 
-const ColorDxLib Gauge::COLOR = { 0,195,195 };
+const ColorDxLib Gauge::COLOR = { 255,255,255 };
 const ColorDxLib Gauge::DANGER_COLOR = { 255,50,50 };
 
 

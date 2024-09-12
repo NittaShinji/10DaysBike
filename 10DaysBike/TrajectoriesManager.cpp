@@ -2,7 +2,8 @@
 #include "KeyboardInput.h"
 
 const float TrajectoriesManager::TRAJ_SPEED = 24.0f;
-
+const std::string TrajectoriesManager::NORMAL_TRAJ_NAME = "traj";
+const std::string TrajectoriesManager::BURST_TRAJ_NAME = "burstTraj";
 
 void TrajectoriesManager::Init()
 {
@@ -143,6 +144,7 @@ bool TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
 		//太さや消費ゲージをセット
 		traj->SetThickNessRate(geneInfo.trajThickRate);
 		traj->SetChargeGaugeRate(geneInfo.trajCostRate);
+		traj->SetName(geneInfo.name);
 
 		//配列に追加
 		trajectories->PushBackTraj(std::move(traj));
