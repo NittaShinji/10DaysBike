@@ -21,7 +21,16 @@ private:
 	//目的地
 	Vec2 targetPos_;     
 	//移動速度
-	const float moveSpeed_ = 3.0f;   
+	const float moveSpeedY_ = 3.0f;  
+	const float moveSpeedX_ = 3.5f;
+
+	//動きパターンのローカル変数
+	int32_t pattern_ = 0;
+
+	//移動変数
+	float moveAngle_ = 0;
+	const float kAddmoveAngle_ = 0.05f;
+
 
 public:
 	~BadEnemy();
