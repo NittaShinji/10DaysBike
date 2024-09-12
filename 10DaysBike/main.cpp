@@ -11,6 +11,8 @@
 #include "AbstractSceneFactory.h"
 #include "SceneFactory.h"
 #include "GameScene.h"
+#include "TitleScene.h"
+#include "ResultScene.h"
 
 // ウィンドウのタイトルに表示する文字列
 
@@ -50,7 +52,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//シーンマネージャに最初のシーンをセット
 	SceneManager::GetInstance()->Initialize();
 	SceneManager::GetInstance()->ChangeScene("GAME");
+	TitleScene::StaticInitialize();
 	GameScene::StaticInitialize();
+	ResultScene::StaticInitialize();
 
 	// ゲームループ
 	while (true) {

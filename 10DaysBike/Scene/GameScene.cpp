@@ -66,15 +66,18 @@ void GameScene::Update()
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("CLEAR");
+		gameState_->SetIsClear(true);
 	}
 	else if (! player->GetIsAlive()) {
 		//タイトルシーンに移動
-		SceneManager::GetInstance()->ChangeScene("TITLE");
+		SceneManager::GetInstance()->ChangeScene("RESULT");
+		gameState_->SetIsClear(false);
 	}
 	else if (gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore)
 	{
 		//クリアシーンに移動
-		SceneManager::GetInstance()->ChangeScene("CLEAR");
+		SceneManager::GetInstance()->ChangeScene("RESULT");
+		gameState_->SetIsClear(true);
 	}
 }
 

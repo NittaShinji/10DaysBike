@@ -1,14 +1,11 @@
 #pragma once
 #include "BaseScene.h"
 
-/// <summary>
-/// タイトルシーン
-/// </summary>
-class TitleScene : public BaseScene
+class ResultScene : public BaseScene
 {
 public:
 
-	~TitleScene();
+	~ResultScene();
 
 	//静的初期化
 	static void StaticInitialize();
@@ -24,9 +21,8 @@ public:
 
 private:
 
-	//スプライト
-	static int titleHandle_;
+	//クリア画像
+	static int clearImageHandle_;
+	//ゲームオーバー画像
+	static int gameOverImageHandle_;
 };
-
-
-

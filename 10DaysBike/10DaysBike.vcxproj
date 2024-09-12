@@ -140,6 +140,7 @@
     <ClCompile Include="DecreGauge.cpp" />
     <ClCompile Include="Enemy\BeamEnemy.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
     <ClCompile Include="Enemy\BulletManager.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="DecreGauge.h" />
     <ClInclude Include="Enemy\BeamEnemy.h" />
+    <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\AbstractSceneFactory.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Collision\BaseCollider.h" />

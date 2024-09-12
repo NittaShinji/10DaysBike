@@ -4,6 +4,7 @@ void GameState::Init()
 {
 	scoreManager_ = std::make_unique<ScoreManager>();
 	scoreManager_->Init();
+	isClear_ = false;
 }
 
 void GameState::Update()
