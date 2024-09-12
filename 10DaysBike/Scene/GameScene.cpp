@@ -39,6 +39,7 @@ void GameScene::Initialize()
 	backGround = std::make_unique<BackGround>();
 
 	player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
+	player->SetDamagedFunc([&](float decreGaugeRatio) { return gauge->DamageDecreGauge(decreGaugeRatio); });
 	gauge->Init();
 	enemyManager->Init();
 	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
@@ -61,9 +62,14 @@ void GameScene::Update()
 	//全ての衝突をチェック
 	collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
 
+
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
-		//ゲームシーンに移動
+		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("CLEAR");
+	}
+	else if (! player->GetIsAlive()) {
+		//タイトルシーンに移動
+		SceneManager::GetInstance()->ChangeScene("TITLE");
 	}
 }
 
