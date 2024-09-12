@@ -8,10 +8,12 @@ const float Player::SIDE_MOVING_SPEED = 9.37f;
 const float  Player::DOWN_IMAGE_ANGLE = 3.1415f;
 const float Player::IMAGE_EXTEND = PROT_PLAYER_DRAWING_SIZE * 2.0f / (float)IMAGE_SIZE;
 const ColorDxLib Player::PROT_PLAYER_COLOR = { 255,255,255 };
+const ColorDxLib Player::DAMAGED_PLAYER_COLOR = { 255,0,0 };
 
 const std::string Player::NORMAL_IMAGE_NAME = "BikeRun.png";
 const std::string Player::CURVE_IMAGE_NAME = "BikeCurve.png";
 
+const float Player::DAMAGE_DECRE_RATIO = 0.25f;
 
 Player::~Player()
 {
@@ -56,6 +58,9 @@ void Player::Init(const Vec2& pos)
 
 	coliderPos_ = pos_;
 
+	//シェイク
+	damagedShake_ = std::make_unique<Shake>();
+
 	//ステート
 	ChangeState(std::make_unique<PlayerStateDown>());
 }
@@ -86,17 +91,19 @@ void Player::Update(std::function<bool(float)> shootGaugeFunc,
 	pos_.y = min(pos_.y, rimitY - PROT_PLAYER_DRAWING_SIZE);
 
 	//--------------------------
-	if (isHit_ == true)
-	{
-		isHit_ = false;
-		color_ = { 255,255,255 };
-	}
+	//雑に
+	damagedShake_->Update();
 
-	coliderPos_ = pos_;
+	coliderPos_ = GetDrawPos();
 }
 
 void Player::Draw()
 {
+	if (damagedShake_->GetIsShaking())
+	{
+		color_ = DAMAGED_PLAYER_COLOR;
+	}
+
 	trajManag_->Draw();
 
 	state_->Draw();
@@ -116,7 +123,7 @@ void Player::DrawImage(const std::string& imageName, float angle, bool imageSide
 
 	if (handles)
 	{
-		DrawRotaGraph(pos_.x, pos_.y, IMAGE_EXTEND, angle, handles[imageIndex_], true, imageSideTurn);
+		DrawRotaGraph(GetDrawPos().x, GetDrawPos().y, IMAGE_EXTEND, angle, handles[imageIndex_], true, imageSideTurn);
 	}
 }
 
@@ -137,7 +144,12 @@ void Player::ProccesingNewTrajs()
 
 void Player::TrajManagerPosUpdate()
 {
-	trajManag_->SetPos(pos_);
+	trajManag_->SetPos(GetDrawPos());
+}
+
+Vec2 Player::GetDrawPos()
+{
+	return pos_ + Vec2{ damagedShake_->GetShake(),damagedShake_->GetShake() };
 }
 
 void Player::IncrementImageIndex(const std::string& imageName)
@@ -158,9 +170,11 @@ void Player::IncrementImageIndex(const std::string& imageName)
 
 void Player::OnCollision(const CollisionInfo& info)
 {
-	if (isHit_ == false)
+	if (!damagedShake_->GetIsShaking())
 	{
-		isHit_ = true;
-		color_ = { 0,0,255 };
+		//ダメージでゲージ減らす(ゲージがなくなったらしぼう)
+		isAlive_ = damageFunc_(DAMAGE_DECRE_RATIO);
+		//雑に
+		damagedShake_->BeginShake(DAMAGED_TIME, DAMAGED_SHAKE_MAX);
 	}
 }

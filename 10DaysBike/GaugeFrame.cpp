@@ -1,6 +1,6 @@
 #include "GaugeFrame.h"
 
-const ColorDxLib GaugeFrame::COLOR = { 110,110,110 };
+const ColorDxLib GaugeFrame::COLOR = { 90,90,90 };
 
 void GaugeFrame::Init()
 {
