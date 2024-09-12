@@ -38,7 +38,7 @@ public:
 
 public:
 
-	void Init(const Vec2& pos, const Vec2& targetPos);
+	void Init(const Vec2& pos, const Vec2& targetPos,const int pattern);
 	void Update()override;
 	void Draw()override;
 public:

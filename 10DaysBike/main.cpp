@@ -12,16 +12,6 @@
 #include "SceneFactory.h"
 #include "GameScene.h"
 
-//// スクリーン変数
-//#define SCREEN_W		WINDOW_SIZE.x				// 画面の横幅
-//#define SCREEN_H		WINDOW_SIZE.y				// 画面の縦幅
-//#define DOWN_SCALE		8				// ガウスフィルタを掛ける画像が画面のサイズの何分の１か
-//#define DOWN_SCALE_SCREEN_W	( SCREEN_W / DOWN_SCALE )	// ガウスフィルタを掛ける画像の横幅
-//#define DOWN_SCALE_SCREEN_H	( SCREEN_H / DOWN_SCALE )	// ガウスフィルタを掛ける画像の縦幅
-//int ColorScreen;	// 普通の描画結果を書き込むスクリーン
-//int HighBrightScreen;	// 普通の描画結果から高輝度部分を抜き出した結果を書き込むスクリーン
-//int DownScaleScreen;	// 高輝度部分を縮小した結果を書き込むスクリーン
-//int GaussScreen;	// 縮小画像をガウスフィルタでぼかした結果を書き込むスクリーン
 // ウィンドウのタイトルに表示する文字列
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
@@ -52,49 +42,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画像などのリソースデータの変数宣言と読み込み
-	//// 通常の描画結果を書き込むスクリーンと、フィルターの処理結果を書き込むスクリーンの作成
-	//ColorScreen = MakeScreen(SCREEN_W, SCREEN_H, FALSE);
-	//HighBrightScreen = MakeScreen(SCREEN_W, SCREEN_H, FALSE);
-	//DownScaleScreen = MakeScreen(DOWN_SCALE_SCREEN_W, DOWN_SCALE_SCREEN_H, FALSE);
-	//GaussScreen = MakeScreen(DOWN_SCALE_SCREEN_W, DOWN_SCALE_SCREEN_H, FALSE);
-	//int Angle;		// カメラの水平角度
-	//int StageModel;	// ステージモデル
-	//int GaussRatio;	// ガウスフィルタのぼかし度合い
-	//// カメラの角度とガウスフィルタのぼかし度合いを初期化
-	//Angle = 0;
-	//GaussRatio = 900;
-
-	// ゲームループで使う変数の宣言
-	//auto player = std::make_unique<Player>();
-	//player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
-
-	//auto gauge = std::make_unique<EnergyGauge>();
-	//gauge->Init();
-
-	//std::unique_ptr <EnemyManager> enemyManager = std::make_unique<EnemyManager>();
-	//enemyManager->Init();
-	//enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
-
-	////衝突マネージャー
-	//CollisionManager* collisionManager_ = nullptr;
-	//collisionManager_ = CollisionManager::GetInstance();
-
-	////背景クラス
-	//std::unique_ptr <BackGround> backGround = std::make_unique<BackGround>();
-	//backGround->Init();
-
-	////ゲームの流れ
-	//enum Gameflow {
-	//	Title,
-	//	InGame,
-	//	Clear,
-	//	RegistScore,
-	//	Result,
-	//};
-
-	//Gameflow gameFlow_ = Title;
-	//const unsigned int stringCr = GetColor(255, 255, 255);
-
 	//シーンファクトリー
 	std::unique_ptr<AbstractSceneFactory> sceneFactory_ = nullptr;
 	//シーンファクトリーを生成し、マネージャにセット
@@ -115,128 +62,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		SceneManager::GetInstance()->Update();
 
-		//switch (gameFlow_)
-		//{
-		//case Title:
-
-		//	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
-		//		gameFlow_ = InGame;
-		//	}
-		//	
-		//	break;
-		//case InGame:
-		//	
-		//	// 更新処理
-		//	player->Update([&](float shootGaugeDecre) { return gauge->DecreGaugeRatio(shootGaugeDecre); },
-		//		[&](float posY, float shootChargeGauge) { return gauge->ChargeGaugeRatio(posY, shootChargeGauge); },
-		//		gauge->FRAME_TOP);
-		//	enemyManager->Update();
-		//	gauge->Update();
-		//	backGround->Update(player->GetVec().y, player->GetPlayerState());
-
-		//	//全ての衝突をチェック
-		//	collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
-		//	break;
-
-		//case Clear:
-
-		//	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
-		//		gameFlow_ = Title;
-		//	}
-		// 
-		//	break;
-		//case RegistScore:
-
-		//	break;
-		//case Result:
-
-		//	break;
-		//default:
-
-		//	break;
-		//}
-
 		//-------------描画-------------
 		
 		//ゲームシーンの描画
 		SceneManager::GetInstance()->Draw();
-
-
-//		switch (gameFlow_)
-//		{
-//		case Title:
-//
-//			DrawString(200, 100, "TITLE", stringCr);
-//			
-//			break;
-//		case InGame:
-//
-//#pragma region ブルーム前処理
-//			// 通常の描画結果を書き込むスクリーンを描画対象にする
-//			SetDrawScreen(ColorScreen);
-//
-//			// 画面をクリア
-//			ClearDrawScreen();
-//
-//			// カメラの位置と向きを設定
-//			SetCameraPositionAndAngle(VGet(0.0f, 120.0f, 0.0f), 0.0f, Angle / 180.0f * 3.14159f, 0.0f);
-//#pragma endregion ブルーム前処理
-//
-//			// ブルーム描画処理
-//			backGround->Draw();
-//			enemyManager->Draw();
-//			player->Draw();
-//
-//#pragma region ブルーム後処理
-//
-//			// 描画結果から高輝度部分のみを抜き出した画像を得る
-//			GraphFilterBlt(ColorScreen, HighBrightScreen, DX_GRAPH_FILTER_BRIGHT_CLIP, DX_CMP_LESS, 230, TRUE, GetColor(0, 0, 0), 255);
-//
-//			// 高輝度部分を８分の１に縮小した画像を得る
-//			GraphFilterBlt(HighBrightScreen, DownScaleScreen, DX_GRAPH_FILTER_DOWN_SCALE, DOWN_SCALE);
-//
-//			// ８分の１に縮小した画像をガウスフィルタでぼかす
-//			GraphFilterBlt(DownScaleScreen, GaussScreen, DX_GRAPH_FILTER_GAUSS, 16, GaussRatio);
-//
-//			// 描画対象を裏画面にする
-//			SetDrawScreen(DX_SCREEN_BACK);
-//
-//			// 通常の描画結果を描画する
-//			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255); // アルファブレンドモードに設定
-//			DrawGraph(0, 0, ColorScreen, FALSE);
-//
-//			// 描画モードをバイリニアフィルタリングにする( 拡大したときにドットがぼやけるようにする )
-//			SetDrawMode(DX_DRAWMODE_BILINEAR);
-//
-//			// 描画ブレンドモードを加算にする
-//			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-//
-//			// 高輝度部分を縮小してぼかした画像を画面いっぱいに２回描画する( ２回描画するのはより明るくみえるようにするため )
-//			DrawExtendGraph(0, 0, SCREEN_W, SCREEN_H, GaussScreen, FALSE);
-//			DrawExtendGraph(0, 0, SCREEN_W, SCREEN_H, GaussScreen, FALSE);
-//
-//			// 描画ブレンドモードをアルファブレンドに戻す
-//			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-//
-//			// 描画モードを二アレストに戻す
-//			SetDrawMode(DX_DRAWMODE_NEAREST);
-//
-//#pragma endregion ブルーム後処理
-//
-//			//UI描画処理(ブルームなし)
-//			gauge->Draw();
-//
-//			break;
-//		case Clear:
-//			DrawString(200, 100, "CLEAR", stringCr);
-//			break;
-//		case RegistScore:
-//			break;
-//		case Result:
-//			break;
-//		default:
-//			break;
-//		}
 
 		//---------  ここまでにプログラムを記述  ---------//
 

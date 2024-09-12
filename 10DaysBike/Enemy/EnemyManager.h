@@ -34,9 +34,9 @@ private:
 	//敵発生コマンドの更新
 	void UpdateEnemyPopComands();
 	//敵発生関数
-	void GenerateBadEnemy(const Vec2& GeneratePos);
-	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
-	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
+	void GenerateBadEnemy(const Vec2& GeneratePos, const int32_t pattern);
+	void GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t pattern);
+	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos, const int32_t pattern);
 
 public:
 	void Init();
