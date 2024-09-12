@@ -35,7 +35,7 @@ void Score::Init(Vec2 pos)
 	for (int i = 0; i < kScoreDigitNum_; i++)
 	{
 		// À•W‚Ì‰Šú‰»
-		pos_[i] = Vec2((i * equalDistanceX) - 6.0f, 10.0f);
+		pos_[i] = Vec2((i * equalDistanceX), 10.0f);
 	}
 }
 

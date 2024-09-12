@@ -27,7 +27,7 @@ public:
 	void Update()override;
 	void Draw()override;
 
-	void SetPattern(int pattern) { pattern_ = pattern; };
+	void SetPattern(int32_t pattern) { pattern_ = pattern; };
 public:
 
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
@@ -39,7 +39,7 @@ private:
 	static const double kBeamEnemyImageScale_;
 	int graphHandle_[kBeamEnemyImageNum_];
 	int imageNum_ = 0;
-	int pattern_ = 0;
+	int32_t pattern_ = 0;
 	bool isInvMove_ = false;
 
 	Vec2 moveVec_;
