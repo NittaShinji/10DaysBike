@@ -16,6 +16,7 @@ public:
 		BAT = 0,
 		BULLET_FLY = 1,
 		WANDER = 2,
+		BEAM = 3,
 	};
 
 	const Vec2 kEnemyPopUP = Vec2(WINDOW_SIZE.x / 2, -100.0f);
@@ -39,6 +40,7 @@ private:
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
 	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos);
+	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, int32_t pattern);
 	void GenerateBadEnemy(const Vec2& GeneratePos, const int32_t pattern);
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t pattern);
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos, const int32_t pattern);

@@ -153,6 +153,10 @@ void EnemyManager::UpdateEnemyPopComands()
 			{
 				GenerateWanderEnemy(playerPosPtr_, Vec2(x, y), pattern);
 			}
+			else if (enemyNum == BEAM) {
+				GenerateBeamEnemy(playerPosPtr_, Vec2(x, y), pattern);
+
+			}
 		}
 		//WAITƒRƒ}ƒ“ƒh
 		else if (word.find("WAIT") == 0)
@@ -240,6 +244,24 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos)
 	newEnemy->Init(generatePos, bulletSpeed);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
+
+	//“G‚ğ“o˜^‚·‚é
+	enemies_.push_back(std::move(newEnemy));
+}
+
+void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, int32_t pattern)
+{
+	const float bulletSpeed = 12.5f;
+
+	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+
+	//“G‚ğ¶¬‚µA‰Šú‰»
+	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();
+	newEnemy->Init(generatePos, bulletSpeed);
+
+	newEnemy->SetBullletManger(bulletManager_.get());
+	newEnemy->SetPattern(pattern);
 
 	//“G‚ğ“o˜^‚·‚é
 	enemies_.push_back(std::move(newEnemy));

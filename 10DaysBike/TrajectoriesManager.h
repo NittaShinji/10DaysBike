@@ -13,6 +13,7 @@ public:
 		float dirY = 0;
 		float trajThickRate = 1.0f;
 		float trajCostRate = 1.0f;
+		int32_t continueNum = 1;
 		std::string name;
 	};
 public:
@@ -30,15 +31,15 @@ private:
 public:
 	~TrajectoriesManager() { trajectoriesArray_.clear(); }
 private:
-	bool GenerateTrajectory(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
-	bool GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc);
+	bool GenerateTrajectory(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge,int32_t continueNum)> shootGaugeFunc);
+	bool GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge,int32_t continueNum)> shootGaugeFunc);
 private:
 	void SetNewestTrajPos();
 public:
 	void Init()override;
 	void Init(const Vec2& pos);
 	void Update()override;
-	bool Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+	bool Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge,int32_t continueNum)> shootGaugeFunc,
 		std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc);
 	void Draw()override;
 public:

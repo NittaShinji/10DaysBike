@@ -54,7 +54,7 @@ private:
 	const float DAMAGED_SHAKE_MAX = 19;
 	const uint64_t DAMAGED_SHAKE_TIME = 90;
 	std::unique_ptr<Shake> damagedShake_ = nullptr;
-
+	const float GAUGE_ENOUGH_MIN = 0.05f;
 
 private:
 	Vec2 GetGaugeWidthHeight();
@@ -64,7 +64,7 @@ public:
 	void Update();
 	void Draw();
 public:
-	bool DecreGaugeRatio(float ratio);
+	bool DecreGaugeRatio(float ratio, int32_t continueNum);
 	bool DamageDecreGauge(float ratio);
 	bool ChargeGaugeRatio(float posY, float ratio);
 };

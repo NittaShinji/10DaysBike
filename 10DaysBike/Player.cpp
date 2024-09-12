@@ -70,16 +70,16 @@ void Player::Update()
 	Update(nullptr, nullptr, 0);
 }
 
-void Player::Update(std::function<bool(float)> shootGaugeFunc,
+void Player::Update(std::function<bool(float decreGauge, int32_t continueNum)> shootGaugeFunc,
 	std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc,
 	float rimitY)
 {
 	//ステート更新
 	state_->Update(
-		[=](float thickRate, float costRate, const std::string& trajName)
+		[=](float thickRate, float costRate, int32_t continueNum, const std::string& trajName)
 		{
 			TrajectoriesManager::TrajGenerateInform info =
-			{ -vec_.y * moveSpeedRate_, thickRate, costRate, trajName };
+			{ -vec_.y * moveSpeedRate_, thickRate, costRate, continueNum, trajName };
 
 			return trajManag_->Update(info, shootGaugeFunc, chargeGaugeFunc);
 		}
@@ -157,7 +157,7 @@ void Player::IncrementImageIndex(const std::string& imageName)
 	if (imageName == NORMAL_IMAGE_NAME)
 	{
 		imageIndex_++;
-		if (imageIndex_ == NORMAL_IMAGE_NUM)
+		if (imageIndex_ >= NORMAL_IMAGE_NUM)
 		{
 			imageIndex_ = 0;
 		}

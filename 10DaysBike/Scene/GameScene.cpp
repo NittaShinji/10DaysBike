@@ -50,7 +50,7 @@ void GameScene::Initialize()
 void GameScene::Update()
 {
 	// XVˆ—
-	player->Update([&](float shootGaugeDecre) { return gauge->DecreGaugeRatio(shootGaugeDecre); },
+	player->Update([&](float shootGaugeDecre, int32_t continueNum) { return gauge->DecreGaugeRatio(shootGaugeDecre, continueNum); },
 		[&](float posY, float shootChargeGauge) { return gauge->ChargeGaugeRatio(posY, shootChargeGauge); },
 		gauge->FRAME_TOP);
 	enemyManager->Update();
