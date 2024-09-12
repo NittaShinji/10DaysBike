@@ -24,15 +24,16 @@ protected:
 	void TurnProcces();
 protected:
 	void SideMoveUpdate();
-	void TurnPlayerUpdate(bool isTurn = false, bool isBurst = false);
+	void TurnPlayerUpdate(bool isTurn = false);
+	void BurstPlayerUpdate();
 	void UpDraw();
 	void DownDraw();
 public:
 	void SetPlayerPtr(Player* player) { player_ = player; }
 public:
 	virtual void Init() = 0;
-	virtual void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc);
-	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc, bool isUp);
+	virtual void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc);
+	void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc, bool isUp);
 	virtual void Draw() = 0;
 };
 
@@ -47,7 +48,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -62,7 +63,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -78,10 +79,11 @@ public:
 protected:
 	uint16_t timer_ = 0;
 	uint16_t timerMax_ = 0;
+	bool isEnd_ = false;
 
 public:
 	virtual void Init()override = 0;
-	virtual void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
+	virtual void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc)override;
 	virtual void Draw()override = 0;
 };
 
@@ -96,7 +98,7 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };
 
@@ -110,6 +112,6 @@ private:
 
 public:
 	void Init()override;
-	void Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)override;
+	void Update(std::function<bool(float thickRate, float costRate,int32_t continueNum, const std::string& trajName)> shootFunc)override;
 	void Draw()override;
 };

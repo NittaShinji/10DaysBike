@@ -23,14 +23,18 @@ void IPlayerState::SideMoveUpdate()
 	player_->SetVec(SIDE_MOVE_VEC * Player::SIDE_MOVING_SPEED);
 }
 
-void IPlayerState::TurnPlayerUpdate(bool isTurn, bool isBurst)
+void IPlayerState::TurnPlayerUpdate(bool isTurn)
 {
 	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY) || isTurn)
 	{
 		TurnProcces();
 	}
-	//バースト
-	if (KeyboardInput::GetInstance().GetTriggerKey(Player::BURST_KEY) || isBurst)
+}
+
+void IPlayerState::BurstPlayerUpdate()
+{
+	//バースト(ゲージが足りないときに勝手にダッシュしないように)
+	if (KeyboardInput::GetInstance().GetTriggerKey(Player::BURST_KEY))
 	{
 		isWaitingBurst_ = true;
 		player_->ProccesingNewTrajs();
@@ -47,12 +51,12 @@ void IPlayerState::DownDraw()
 	player_->DrawImage(useImageName_, Player::DOWN_IMAGE_ANGLE, isSideTurnImage_);
 }
 
-void IPlayerState::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void IPlayerState::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 
 }
 
-void IPlayerState::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc, bool isUp)
+void IPlayerState::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc, bool isUp)
 {
 	SideMoveUpdate();
 
@@ -140,16 +144,22 @@ void PlayerStateUp::Init()
 	dirY_ = -Player::AUTO_MOVING_SPEED;
 	//新しい奇跡の配列
 	player_->ProccesingNewTrajs();
+
+	player_->SetMoveSpeedRate(1.0f);
 }
 
-void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 	IPlayerState::Update(nullptr, true);
 
 	//軌跡の太さとかコストをセットして生成
-	shootFunc(1.0f, 1.0f, TrajectoriesManager::NORMAL_TRAJ_NAME);
+	bool canBurst = shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 
 	TurnPlayerUpdate();
+	if (canBurst)
+	{
+		BurstPlayerUpdate();
+	}
 
 	if (isWaitingTurn_)
 	{
@@ -174,16 +184,19 @@ void PlayerStateDown::Init()
 	dirY_ = Player::AUTO_MOVING_SPEED;
 	//新しい奇跡の配列
 	player_->ProccesingNewTrajs();
+
+	player_->SetMoveSpeedRate(1.0f);
 }
 
-void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 	IPlayerState::Update(nullptr, false);
 
 	//軌跡の太さとかコストをセットして生成
-	bool isDanger = !shootFunc(1.0f, 1.0f, TrajectoriesManager::NORMAL_TRAJ_NAME);
+	bool isDanger = !shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 	//ゲージ切れそうならターンするため
 	TurnPlayerUpdate(isDanger);
+	BurstPlayerUpdate();
 
 	if (isWaitingTurn_)
 	{
@@ -203,7 +216,7 @@ void PlayerStateDown::Draw()
 
 //-------------------------------------------------------------------------------------------------
 //バースト状態の親ステート
-void IBurstState::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void IBurstState::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 	timer_--;
 
@@ -215,8 +228,11 @@ void IBurstState::Update(std::function<bool(float thickRate, float costRate, con
 	);
 
 	//軌跡の太さとかコストをセットして生成
-	shootFunc(Lerp(1.0f, BURST_THICK_RATE, EaseOut(t))
-		, Lerp(1.0f, BURST_COST_RATE, EaseOut(t)), TrajectoriesManager::BURST_TRAJ_NAME
+	isEnd_ = !shootFunc(
+		Lerp(1.0f, BURST_THICK_RATE, EaseOut(t))
+		, Lerp(1.0f, BURST_COST_RATE, EaseOut(t))
+		, timerMax_
+		, TrajectoriesManager::BURST_TRAJ_NAME
 	);
 }
 
@@ -230,14 +246,17 @@ void PlayerStateBurstUp::Init()
 	timer_ = STATE_TIME;
 }
 
-void PlayerStateBurstUp::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void PlayerStateBurstUp::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
-	IPlayerState::Update(nullptr, true);
 
-	if (timer_ < 1)
+	if (timer_ < 1 || isEnd_)
 	{
 		player_->ChangeState(std::make_unique<PlayerStateUp>());
+	}
+	else
+	{
+		IPlayerState::Update(nullptr, true);
 	}
 }
 
@@ -256,14 +275,17 @@ void PlayerStateBurstDown::Init()
 	timer_ = STATE_TIME;
 }
 
-void PlayerStateBurstDown::Update(std::function<bool(float thickRate, float costRate, const std::string& trajName)> shootFunc)
+void PlayerStateBurstDown::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
 {
 	IBurstState::Update(shootFunc);
-	IPlayerState::Update(nullptr, false);
 
-	if (timer_ < 1)
+	if (timer_ < 1 || isEnd_)
 	{
 		player_->ChangeState(std::make_unique<PlayerStateDown>());
+	}
+	else
+	{
+		IPlayerState::Update(nullptr, false);
 	}
 }
 

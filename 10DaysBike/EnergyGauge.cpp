@@ -49,7 +49,7 @@ void EnergyGauge::Update()
 	//˜g
 	frame_->SetWidthHeight(frameWidthHeight_ + frameWidthHeight_ * frameScaleRate_);
 	frame_->SetThickness(frameThickness + frameThickness * frameScaleRate_);
-	frame_->SetPos({ 
+	frame_->SetPos({
 		(float)(FRAME_LEFT + FRAME_WIDTH / 2) + damagedShake_->GetShake() ,
 		(float)(FRAME_TOP + FRAME_HEIGHT / 2) + damagedShake_->GetShake()
 		});
@@ -78,11 +78,13 @@ void EnergyGauge::Draw()
 	frame_->Draw();
 }
 
-bool EnergyGauge::DecreGaugeRatio(float ratio)
+bool EnergyGauge::DecreGaugeRatio(float ratio, int32_t continueNum)
 {
 	bool ans = false;
 
-	if (gaugeRatio_ > 0.0f)
+	float afterGauge = gaugeRatio_ - ratio * (float)continueNum;
+
+	if (afterGauge > GAUGE_ENOUGH_MIN)
 	{
 		gaugeRatio_ = max(gaugeRatio_ - ratio, 0);
 		ans = true;

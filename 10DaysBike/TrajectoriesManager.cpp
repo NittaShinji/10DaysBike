@@ -1,7 +1,7 @@
 #include "TrajectoriesManager.h"
 #include "KeyboardInput.h"
 
-const float TrajectoriesManager::TRAJ_SPEED = 24.0f;
+const float TrajectoriesManager::TRAJ_SPEED = 30.0f;
 const std::string TrajectoriesManager::NORMAL_TRAJ_NAME = "traj";
 const std::string TrajectoriesManager::BURST_TRAJ_NAME = "burstTraj";
 
@@ -19,7 +19,7 @@ void TrajectoriesManager::Init(const Vec2& pos)
 	color_ = COLOR_DEBUG;
 }
 
-bool TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc)
+bool TrajectoriesManager::GenerateUpdate(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge, int32_t continueNum)> shootGaugeFunc)
 {
 	bool isDanger = GenerateTrajectory(geneInfo, shootGaugeFunc);
 	oldPos_ = pos_;
@@ -45,7 +45,7 @@ void TrajectoriesManager::Update()
 	Update(info, nullptr, nullptr);
 }
 
-bool TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge)> shootGaugeFunc,
+bool TrajectoriesManager::Update(const TrajGenerateInform& geneInfo, std::function<bool(float decreGauge, int32_t continueNum)> shootGaugeFunc,
 	std::function<bool(float trajPos, float chargeGaugeRatio)> chargeGaugeFunc)
 {
 	const Vec2 TRAJ_VEC = Vec2(0, geneInfo.dirY).GetNormalize() * TRAJ_SPEED;
@@ -105,9 +105,11 @@ void TrajectoriesManager::ProccesingNewTrajs()
 
 //------------------------------------------------------------------------------------
 bool TrajectoriesManager::GenerateTrajectory(const TrajGenerateInform& geneInfo,
-	std::function<bool(float decreGauge)> shootGaugeFunc)
+	std::function<bool(float decreGauge, int32_t continueNum)> shootGaugeFunc)
 {
-	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE * geneInfo.trajCostRate))
+	//1Ç¬ÇÃãOê’ÇÃÇ∞Ç∏ÇÈÇËÇÂÇ§Ç∆ÇªÇÃçÌÇËÇÇ†Ç∆âΩâÒÇ∑ÇÈÇ©ÇëóÇËÅAâ¬î\ÇæÇ¡ÇΩÇÁåÇÇ¬ÇΩÇﬂ
+	if (shootGaugeFunc(Trajectory::SHOOT_DECREMENT_GAUGE * geneInfo.trajCostRate,
+		geneInfo.continueNum))
 	{
 		bool isHead = false;
 		std::unique_ptr<Trajectories> trajectories = nullptr;
