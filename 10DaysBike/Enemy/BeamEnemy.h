@@ -43,7 +43,7 @@ private:
 	bool isInvMove_ = false;
 
 	Vec2 moveVec_;
-	const Vec2 kMoveSpeed_ = { 0.3f,4.f };
+	const Vec2 kMoveSpeed_ = { 3.f, 0.5f};
 
 
 
@@ -56,7 +56,7 @@ private:
 	ACTION_PHASE actionPhase_ = Charge;
 
 	int32_t chargeCount_ = 0;
-	const int32_t kMaxChargeCount_ = 30;
+	const int32_t kMaxChargeCount_ = 90;
 
 	int32_t shotCount_ = 0;
 	const int32_t kMaxShotCount_ = 100;
@@ -65,7 +65,7 @@ private:
 	const int32_t kBulletShotCount_ = 2;
 
 	int32_t delayCount_ = 0;
-	const int32_t kMaxDelayCount_ = 120;
+	const int32_t kMaxDelayCount_ = 60;
 
 	bool isTopBullet_ = true;
 };

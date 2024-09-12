@@ -58,8 +58,6 @@ void BeamEnemy::Update()
 			moveVec_.x *= -1;
 		}
 
-		
-
 		pos_ += moveVec_;
 	}
 	else if (actionPhase_ == Shot) {
@@ -101,6 +99,20 @@ void BeamEnemy::Update()
 			delayCount_ = 0;
 			actionPhase_ = Charge;
 		}
+
+
+		//à⁄ìÆèàóù
+		if (isInvMove_ == false) {
+			moveVec_ = kMoveSpeed_;
+		}
+		else {
+			moveVec_ = kMoveSpeed_;
+			moveVec_.x *= -1;
+		}
+
+
+
+		pos_ += moveVec_;
 	}
 
 	
