@@ -72,7 +72,17 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 	if (isHit_ == false)
 	{
 		isHit_ = true;
-		hp_ -= damageNum_;
+
+		std::string objName = info.object->GetName();
+		if (objName == "traj")
+		{
+			hp_ -= 1;
+		}
+		else if (objName == "burstTraj")
+		{
+			hp_ = 0;
+		}
+
 		color_ = { 255,0,0 };
 	}
 }

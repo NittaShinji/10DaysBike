@@ -17,6 +17,7 @@ public:
 	static const ColorDxLib PROT_PLAYER_COLOR;
 	static const int TURN_KEY = KEY_INPUT_Z;
 	static const int BURST_KEY = KEY_INPUT_X;
+	static const float DAMAGE_DECRE_RATIO;
 public:
 	//画像の種類
 	enum struct ImageIndex
@@ -60,6 +61,9 @@ private:
 	int normalImageHandles_[NORMAL_IMAGE_NUM];
 	int curveImageHandles_[CURVE_IMAGE_NUM];
 	uint8_t imageIndex_ = 0;
+
+	//ダメージ受けたとき呼び出す関数
+	std::function<void(float damageDecreRatio)> damageFunc_ = nullptr;
 
 public:
 	~Player();

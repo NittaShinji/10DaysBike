@@ -9,7 +9,7 @@ BadEnemy::~BadEnemy()
 	DeleteGraph(graphHandle_);
 }
 
-void BadEnemy::Init(const Vec2& pos, const Vec2& targetPos)
+void BadEnemy::Init(const Vec2& pos, const Vec2& targetPos, const int pattern)
 {
 	//‰Šú‰»
 	IEnemy::Init(pos,"BadEnemy");
@@ -21,7 +21,7 @@ void BadEnemy::Init(const Vec2& pos, const Vec2& targetPos)
 
 	targetPos_ = targetPos;
 
-	pattern_ = 1;
+	pattern_ = pattern;
 }
 
 void BadEnemy::Update()

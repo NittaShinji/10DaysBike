@@ -7,6 +7,8 @@ const float ChargeTrajectories::CHARGE_MOVE_WIDTH = WINDOW_SIZE.x / 80.0f;
 
 void ChargeTrajectories::Init()
 {
+	timerAdd_ = GetRand(3.14f) - 3.14f / 2.0f;
+	timerAdd_ = min(max(timerAdd_, -1.0f), 1.0f);
 }
 
 void ChargeTrajectories::Update()
@@ -30,7 +32,7 @@ void ChargeTrajectories::Update(float dirY, std::function<bool(float trajPos, fl
 
 void ChargeTrajectories::ChargeMoveProcess()
 {
-	timer_++;
+	timer_ += timerAdd_;
 
 	for (auto& traj : trajectories_)
 	{

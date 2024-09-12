@@ -39,6 +39,9 @@ private:
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
 	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos);
+	void GenerateBadEnemy(const Vec2& GeneratePos, const int32_t pattern);
+	void GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t pattern);
+	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos, const int32_t pattern);
 
 public:
 	void Init();
@@ -62,5 +65,8 @@ private:
 
 	//プレイヤーの位置取得
 	Vec2* playerPosPtr_ = nullptr;
+
+	//敵の数
+	int32_t enemyTotalNum = 0;
 };
 
