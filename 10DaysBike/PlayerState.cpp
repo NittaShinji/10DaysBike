@@ -25,9 +25,7 @@ void IPlayerState::SideMoveUpdate()
 
 void IPlayerState::TurnPlayerUpdate(bool isTurn)
 {
-	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY)|| 
-		KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY2)
-		|| isTurn)
+	if (isTurn)
 	{
 		TurnProcces();
 	}
@@ -157,7 +155,7 @@ void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate, i
 	//軌跡の太さとかコストをセットして生成
 	bool canBurst = shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 
-	TurnPlayerUpdate();
+	TurnPlayerUpdate(KeyboardInput::GetInstance().GetTriggerDownKey());
 	if (canBurst)
 	{
 		BurstPlayerUpdate();
@@ -197,7 +195,7 @@ void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate,
 	//軌跡の太さとかコストをセットして生成
 	bool isDanger = !shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 	//ゲージ切れそうならターンするため
-	TurnPlayerUpdate(isDanger);
+	TurnPlayerUpdate(isDanger || KeyboardInput::GetInstance().GetTriggerUpKey());
 	BurstPlayerUpdate();
 
 	if (isWaitingTurn_)

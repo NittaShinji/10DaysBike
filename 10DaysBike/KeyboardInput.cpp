@@ -74,3 +74,13 @@ bool KeyboardInput::GetHitLeftKey()
 {
 	return  GetHitKey(KEY_INPUT_LEFT) || GetHitKey(KEY_INPUT_A);
 }
+
+bool KeyboardInput::GetTriggerUpKey()
+{
+	return GetTriggerKey(KEY_INPUT_UP) || GetTriggerKey(KEY_INPUT_W);
+}
+
+bool KeyboardInput::GetTriggerDownKey()
+{
+	return GetTriggerKey(KEY_INPUT_DOWN) || GetTriggerKey(KEY_INPUT_S);
+}
