@@ -32,6 +32,7 @@ void ResultScene::Initialize()
 	gameState_->scoreManager_->ResetInit();
 	gameState_->scoreManager_->GetResultScore()->SetPos(Vec2(480,805));
 	gameState_->scoreManager_->GetResultScore()->SetIsDrum(true);
+	gameState_->scoreManager_->SetNotRankDrumRoll();
 
 	//クリアしていればゲームクリア
 	if (gameState_->GetIsClear() == true)
@@ -55,7 +56,24 @@ void ResultScene::Update()
 {
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_SPACE)) 
 	{
-		if (gameState_->scoreManager_->GetIsjugeRegist() == false && gameState_->scoreManager_->GetIsRegistRanking() == true)
+		//if (gameState_->scoreManager_->GetIsjugeRegist() == false && gameState_->scoreManager_->GetIsRegistRanking() == true)
+		//{
+		//	//ゲームシーンに移動
+		//	if (CheckSoundMem(gameOverSoundHandle_) == 1)
+		//	{
+		//		StopSoundMem(gameOverSoundHandle_);
+		//	}
+		//	if (CheckSoundMem(clearSoundHandle_) == 1)
+		//	{
+		//		StopSoundMem(clearSoundHandle_);
+		//	}
+
+		//	SceneManager::GetInstance()->ChangeScene("TITLE");
+		//	gameState_->scoreManager_->Reset();
+		//	gameState_->SetIsClear(false);
+		//}
+
+		if (gameState_->scoreManager_->GetIsjugeRegist() == false)
 		{
 			//ゲームシーンに移動
 			if (CheckSoundMem(gameOverSoundHandle_) == 1)
@@ -84,7 +102,7 @@ void ResultScene::Update()
 
 	if (gameState_->scoreManager_->GetResultScore()->GetIsFinishDrum() == true)
 	{
-		//gameState_->scoreManager_->RegistRanking();
+		gameState_->scoreManager_->RegistRanking();
 	}
 
 	if(isStartDrumScore_ == true)

@@ -161,7 +161,7 @@ void ScoreManager::RegistScore(std::vector<std::string>& deadEnemyNames)
         {
             if (deadEnemyName == "BadEnemy")
             {
-                totalScore_->AddScore(103);
+                totalScore_->AddScore(100);
                 scoreAdded = true;
             }
             else if (deadEnemyName == "BeamEnemy")
@@ -205,11 +205,11 @@ void ScoreManager::InitRanking()
 {
 	// “ü—Íˆ—
 	if (!isLoggedIn) {
-		if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_Y)) {
+		
 			if (!isConnectingToAPI) {
 				isConnectingToAPI = true;
 			}
-		}
+		
 	}
 
 	// API‚É’ÊM‚·‚é
@@ -302,4 +302,11 @@ void ScoreManager::DrawRanking()
 	goldScore_->Draw();
 	silberScore_->Draw();
 	bronzeScore_->Draw();
+}
+
+void ScoreManager::SetNotRankDrumRoll()
+{
+	goldScore_->SetIsDrum(false);
+	silberScore_->SetIsDrum(false);
+	bronzeScore_->SetIsDrum(false);
 }
