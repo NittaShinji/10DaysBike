@@ -10,7 +10,7 @@ int ResultScene::clearSoundHandle_;
 
 void ResultScene::StaticInitialize()
 {
-	clearImageHandle_ = LoadGraph((RESOUCE_PATH + "GameClear.png").c_str());
+	clearImageHandle_ = LoadGraph((RESOUCE_PATH + "GameClearScore.png").c_str());
 	gameOverImageHandle_ = LoadGraph((RESOUCE_PATH + "GameOver.png").c_str());
 	clearSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameClearSE.wav").c_str());
 	gameOverSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameOverSE.wav").c_str());
@@ -26,7 +26,9 @@ void ResultScene::DeleteResource()
 
 void ResultScene::Initialize()
 {
-	
+	gameState_->scoreManager_->ResetInit();
+	gameState_->scoreManager_->GetResultScore()->SetIsDrum(true);
+
 	//クリアしていればゲームクリア
 	if (gameState_->GetIsClear() == true)
 	{
@@ -62,7 +64,19 @@ void ResultScene::Update()
 		gameState_->SetIsClear(false);
 	}
 
-	gameState_->scoreManager_->Update();
+	if (waitScoreTimer_ > 0 && isStartDrumScore_ == false)
+	{
+		waitScoreTimer_--;
+		if (waitScoreTimer_ <= 0)
+		{
+			isStartDrumScore_ = true;
+		}
+	}
+
+	if(isStartDrumScore_ == true)
+	{
+		gameState_->scoreManager_->ResetUpdate();
+	}
 }
 
 void ResultScene::Draw()
@@ -81,5 +95,5 @@ void ResultScene::Draw()
 		DrawGraph(0, 0, gameOverImageHandle_, true);
 	}
 
-	gameState_->scoreManager_->Draw();
+	gameState_->scoreManager_->ResetDraw();
 }

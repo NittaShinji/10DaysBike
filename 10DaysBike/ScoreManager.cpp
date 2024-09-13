@@ -5,6 +5,9 @@ void ScoreManager::Init()
 {
 	totalScore_ = std::make_unique<Score>();
 	totalScore_->Init(Vec2(500,500));
+
+    resultScore_ = std::make_unique<Score>();
+    resultScore_->Init(Vec2(500,700));
 	Score::Load();
 }
 
@@ -22,6 +25,23 @@ void ScoreManager::Draw()
 void ScoreManager::Reset()
 {
     totalScore_->Reset();
+}
+
+void ScoreManager::ResetInit()
+{
+    int gameScore =  totalScore_->GetTargetScore();
+    resultScore_->SetTargetScore(gameScore);
+}
+
+void ScoreManager::ResetUpdate()
+{
+
+    resultScore_->Update();
+}
+
+void ScoreManager::ResetDraw()
+{
+    resultScore_->Draw();
 }
 
 void ScoreManager::RegistScore(std::vector<std::string>& deadEnemyNames)
