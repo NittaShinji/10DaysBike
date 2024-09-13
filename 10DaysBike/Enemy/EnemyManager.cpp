@@ -175,6 +175,9 @@ void EnemyManager::UpdateEnemyPopComands()
 			//コマンドループを抜ける
 			break;
 		}
+		else if (word.find("END") == 0) {
+			isGameEnd_ = true;
+		}
 	}
 }
 

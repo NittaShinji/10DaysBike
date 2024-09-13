@@ -8,7 +8,7 @@ class ScoreManager
 {
 public:
 
-	static const int kGameClearScore = 5200;
+	static const int kGameClearScore = 12000;
 
 public:
 
