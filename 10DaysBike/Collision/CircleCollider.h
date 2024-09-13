@@ -18,7 +18,7 @@ public:
 	CircleCollider(Vec2 offset = kDefaultOffset_, float radius = kDefaultRadius_) :
 
 		offset_(offset),
-		radius_(radius)
+		radius(radius)
 	{
 		//球形状をセット
 		shapeType_ = COLLISIONSHAPE_CIRCLE;
@@ -34,11 +34,11 @@ private:
 	//オブジェクト中心からのオフセット
 	Vec2 offset_;
 	//半径
-	float radius_;
+	float radius;
 
 public:
 
-	inline void SetRadius(float radius) { radius_ = radius; }
+	inline void SetRadius(float radius) { radius = radius; }
 	inline void SetOffset(const Vec2& offset) { this->offset_ = offset; }
 	inline const Vec2& GetOffset() { return offset_; }
 	inline float GetRadius() { return radius; }
