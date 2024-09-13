@@ -33,5 +33,9 @@ public:
 	bool GetHitSideKey();
 	bool GetHitRightKey();
 	bool GetHitLeftKey();
+	bool GetHitUpKey();
+	bool GetHitDownKey();
+	bool GetTriggerUpKey();
+	bool GetTriggerDownKey();
 };
 

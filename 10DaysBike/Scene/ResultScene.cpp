@@ -10,7 +10,7 @@ int ResultScene::clearSoundHandle_;
 
 void ResultScene::StaticInitialize()
 {
-	clearImageHandle_ = LoadGraph((RESOUCE_PATH + "GameClearScore.png").c_str());
+	clearImageHandle_ = LoadGraph((RESOUCE_PATH + "GameClear.png").c_str());
 	gameOverImageHandle_ = LoadGraph((RESOUCE_PATH + "GameOver.png").c_str());
 	clearSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameClearSE.wav").c_str());
 	gameOverSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameOverSE.wav").c_str());
@@ -27,6 +27,7 @@ void ResultScene::DeleteResource()
 void ResultScene::Initialize()
 {
 	gameState_->scoreManager_->ResetInit();
+	gameState_->scoreManager_->GetResultScore()->SetPos(Vec2(480,805));
 	gameState_->scoreManager_->GetResultScore()->SetIsDrum(true);
 
 	//クリアしていればゲームクリア
