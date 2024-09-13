@@ -104,7 +104,7 @@ void GameScene::Update()
 		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(false);
 	}
-	else if (gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore)
+	else if (/*gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore ||*/ enemyManager->GetIsGameEnd() == true)
 	{
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("RESULT");
