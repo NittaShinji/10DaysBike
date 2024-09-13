@@ -58,6 +58,7 @@ public:
 	void Draw();
 
 	void SetPlayerPosPtr(Vec2* pPosPtr);
+	bool GetIsGameEnd() { return isGameEnd_; };
 	std::vector<std::string>& GetDeadEnemyNames() { return deadEnemyNames_; }
 
 public:
@@ -86,6 +87,9 @@ private:
 
 	//“G‚Ì”
 	int32_t enemyTotalNum = 0;
+
+	//
+	bool isGameEnd_ = false;
 
 	//“|‚ê‚½“G‚Ì–¼‘O
 	std::vector<std::string> deadEnemyNames_;

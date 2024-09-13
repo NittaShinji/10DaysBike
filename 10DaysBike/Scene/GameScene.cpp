@@ -98,19 +98,13 @@ void GameScene::Update()
 
 	ParticleEffectManager::GetInstance().Update();
 
-	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
-		//クリアシーンに移動
-		SceneManager::GetInstance()->ChangeScene("CLEAR");
-		StopSoundMem(bgmHandle_);
-		gameState_->SetIsClear(true);
-	}
-	else if (! player->GetIsAlive()) {
-		//タイトルシーンに移動
+	if (! player->GetIsAlive()) {
+		//ゲームオーバーシーンに移動
 		SceneManager::GetInstance()->ChangeScene("RESULT");
 		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(false);
 	}
-	else if (gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore)
+	else if (/*gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore ||*/ enemyManager->GetIsGameEnd() == true)
 	{
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("RESULT");

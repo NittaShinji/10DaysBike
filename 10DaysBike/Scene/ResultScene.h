@@ -26,6 +26,8 @@ private:
 	static int clearImageHandle_;
 	//ƒQ[ƒ€ƒI[ƒo[‰æ‘œ
 	static int gameOverImageHandle_;
+	//“o˜^’†‰æ‘œ
+	static int registHandle_;
 
 	//ƒQ[ƒ€“àBGM
 	static int gameOverSoundHandle_;
