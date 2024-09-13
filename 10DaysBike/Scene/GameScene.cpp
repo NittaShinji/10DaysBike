@@ -12,12 +12,14 @@
 CollisionManager* GameScene::collisionManager_ = nullptr;
 int GameScene::bgmHandle_;
 int GameScene::startHandle_;
+int GameScene::uiHandle_;
 
 void GameScene::StaticInitialize()
 {
 	collisionManager_ = CollisionManager::GetInstance();
 	bgmHandle_ = LoadSoundMem((RESOUCE_PATH + "gameBGM.wav").c_str());
 	startHandle_ = LoadSoundMem((RESOUCE_PATH + "gameStart.wav").c_str());
+	uiHandle_ = LoadGraph((RESOUCE_PATH + "UI.png").c_str());
 
 	IEnemy::LoadSound();
 }
@@ -27,6 +29,7 @@ void GameScene::DeleteResource()
 	IEnemy::UnloadSound();
 	DeleteSoundMem(bgmHandle_);
 	DeleteSoundMem(startHandle_);
+	DeleteSoundMem(uiHandle_);
 }
 
 void GameScene::Initialize()
@@ -169,6 +172,7 @@ void GameScene::Draw()
 #pragma endregion ブルーム後処理
 
 	//UI描画処理(ブルームなし)
+	DrawGraph(0, 0, uiHandle_, true);
 	gameState_->scoreManager_->Draw();
 	gauge->Draw();
 }

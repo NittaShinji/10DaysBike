@@ -56,6 +56,8 @@ private:
 	static int bgmHandle_;
 	//スタート音
 	static int startHandle_;
+	//UI画像
+	static int uiHandle_;
 
 	bool isStart_ = false;
 };
