@@ -67,6 +67,19 @@ void Score::Draw()
 	}
 }
 
+void Score::SetPos(Vec2 pos)
+{
+	//‚Ç‚ê‚®‚ç‚¢‚Ì“™ŠÔŠu‚Å—£‚·‚©
+	const float equalDistanceX = 48.0f;
+	const float equalDistanceY = 0.0f;
+
+	for (int i = 0; i < kScoreDigitNum_; i++)
+	{
+		// À•W‚Ì‰Šú‰»
+		pos_[i] = Vec2((i * equalDistanceX) + pos.x, pos.y);
+	}
+}
+
 void Score::InputNumberTS()
 {
 	//--7Œ…–Ú(10–œ‚ÌˆÊ‚ð•\Ž¦)

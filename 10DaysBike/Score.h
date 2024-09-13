@@ -20,6 +20,7 @@ public:
 	void SetIsDrum(bool isDrumRoll) { isDrumRoll_ = isDrumRoll; }
 	void SetDrumTimer(float drumRollTimer) { drumTimer_ = drumRollTimer; }
 	void SetTargetScore(int targetScore) { targetScore_ = targetScore; }
+	void SetPos(Vec2 pos);
 
 	//ÉXÉRÉAí«â¡
 	void AddScore(int32_t addNum)
