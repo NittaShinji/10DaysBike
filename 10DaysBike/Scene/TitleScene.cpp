@@ -22,6 +22,7 @@ void TitleScene::Initialize()
 	////BGMÄ¶
 	//PlaySoundMem(bgmHandle_, DX_PLAYTYPE_LOOP);
 	gameState_->scoreManager_->SetIsRegistRanking(false);
+	gameState_->scoreManager_->SetIsjugeRegist(false);
 }
 
 void TitleScene::Update()
@@ -68,11 +69,6 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	const unsigned int stringCr = GetColor(255, 255, 255);
-	DrawString(200, 100, "TITLE PUSH ENTER", stringCr);
-
-	gameState_->scoreManager_->Draw();
-
 	//ƒ^ƒCƒgƒ‹•`‰æ
 	DrawGraph(0, 0, titleHandle_, true);
 

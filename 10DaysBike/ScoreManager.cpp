@@ -1,7 +1,7 @@
 #include "ScoreManager.h"
 #include "Vec2.h"
 #include "KeyboardInput.h"
-
+#include "Inform.h"
 #include <cpprest/filestream.h>
 #include <cpprest/http_client.h>
 #include <string>
@@ -89,6 +89,11 @@ pplx::task<web::json::value> Login(const std::wstring& url) {
 	});
 }
 
+void ScoreManager::Load()
+{
+	
+}
+
 void ScoreManager::Init()
 {
 	totalScore_ = std::make_unique<Score>();
@@ -134,6 +139,11 @@ void ScoreManager::ResetUpdate()
 	goldScore_->Update();
 	silberScore_->Update();
 	bronzeScore_->Update();
+	int registScore = totalScore_->GetTargetScore();
+	if (registScore > ranking[2] && isRegistRanking_ == false)
+	{
+		isJugeRegeist = true;
+	}
 }
 
 void ScoreManager::ResetDraw()
@@ -151,7 +161,7 @@ void ScoreManager::RegistScore(std::vector<std::string>& deadEnemyNames)
         {
             if (deadEnemyName == "BadEnemy")
             {
-                totalScore_->AddScore(101);
+                totalScore_->AddScore(103);
                 scoreAdded = true;
             }
             else if (deadEnemyName == "BeamEnemy")
@@ -276,6 +286,7 @@ void ScoreManager::RegistRanking()
 					silberScore_->SetScore(ranking[1]);
 					bronzeScore_->SetScore(ranking[2]);
 					isRegistRanking_ = true;
+					isJugeRegeist = false;
 				}
 			}
 			catch (const std::exception& e) {

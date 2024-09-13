@@ -13,6 +13,8 @@ public:
 
 public:
 
+	static void Load();
+
 	void Init();
 	void Update();
 	void Draw();
@@ -39,9 +41,6 @@ private:
 	std::unique_ptr<Score> bronzeScore_ = nullptr;
 
 	//ランキング画像
-	int32_t rankingHandle_;
-	//スコア画像
-	int32_t scoreHandle_;
 
 	const int kRankNum = 5;
 	int ranking[500] = { 0 };
@@ -51,10 +50,16 @@ private:
 	std::wstring token;
 	const unsigned int stringCr = GetColor(255, 255, 255);
 
+	bool isJugeRegeist = false;
+
 public:
 
 	Score* GetTotalScore() { return totalScore_.get(); }
 	Score* GetResultScore() { return resultScore_.get(); }
 	void SetIsRegistRanking(bool isRegistRanking) { isRegistRanking_ = isRegistRanking; }
+	void SetIsjugeRegist(bool isJuge) { isJugeRegeist = isJuge; }
+
+	bool GetIsjugeRegist() { return isJugeRegeist; }
+	bool GetIsRegistRanking() { return isRegistRanking_; }
 };
 
