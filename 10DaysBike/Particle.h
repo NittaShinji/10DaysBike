@@ -32,6 +32,8 @@ public:
 
 private:
     ParticleInform info_;
+    float radiusTmp_ = 1.0f;
+    int timerTmp_ = 1.0f;
 
 private:
 

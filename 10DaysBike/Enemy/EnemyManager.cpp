@@ -7,6 +7,12 @@ void EnemyManager::Init(const std::function<void(float chargeRatio)>& damagedCha
 {
 	damagedChargeGaugeFunc_ = damagedChargeGaugeFunc;
 
+	damagedEffectFunc_ = [&](const Vec2& pos, float radius) { GenerateDamageEffect(pos, radius); };
+
+	enemyDamageEffect_ = std::make_unique<EnemyDamageEffect>();
+	enemyDamageEffect_->Init(6, 15, {-11,11}, {-11,11});
+
+
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
@@ -20,7 +26,7 @@ void EnemyManager::Update()
 {
 	for (std::unique_ptr<IEnemy>& enemy : enemies_)
 	{
-		if (enemy->GetIsDead()) 
+		if (enemy->GetIsDead())
 		{
 			//“G‚ğ“o˜^‚·‚é
 			deadEnemyNames_.push_back(enemy->GetName());
@@ -31,10 +37,10 @@ void EnemyManager::Update()
 	// “G‚ÌíœiƒfƒXƒtƒ‰ƒO‚Ì—§‚Á‚½‚à‚Ì‚ğíœj
 	enemies_.erase(
 		std::remove_if(enemies_.begin(), enemies_.end(),
-		[](std::unique_ptr<IEnemy>& enemy) {
-		return enemy->GetIsDead();
-	}),
-	enemies_.end());
+			[](std::unique_ptr<IEnemy>& enemy) {
+				return enemy->GetIsDead();
+			}),
+		enemies_.end());
 
 	if (waitTimer_ >= 0)
 	{
@@ -145,7 +151,7 @@ void EnemyManager::UpdateEnemyPopComands()
 			//“G‚ğ”­¶‚³‚¹‚é
 			if (enemyNum == BAT)
 			{
-				GenerateBadEnemy(Vec2(x,y), pattern);
+				GenerateBadEnemy(Vec2(x, y), pattern);
 			}
 			else if (enemyNum == BULLET_FLY)
 			{
@@ -189,8 +195,9 @@ void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos, const int32_t patte
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
-	newEnemy->Init(generatePos,targetPos,pattern);
+	newEnemy->Init(generatePos, targetPos, pattern);
 	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
+	newEnemy->SetDamagedEffectFunc(damagedEffectFunc_);
 
 	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
 	enemyTotalNum++;
@@ -210,6 +217,7 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t
 	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
 	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
+	newEnemy->SetDamagedEffectFunc(damagedEffectFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
@@ -229,6 +237,7 @@ void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos,
 	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
 	newEnemy->Init(generatePos, PlayerPos);
 	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
+	newEnemy->SetDamagedEffectFunc(damagedEffectFunc_);
 
 	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
 	enemyTotalNum++;
@@ -248,6 +257,7 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos)
 	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
 	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
+	newEnemy->SetDamagedEffectFunc(damagedEffectFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
@@ -266,6 +276,7 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, i
 	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
 	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
+	newEnemy->SetDamagedEffectFunc(damagedEffectFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 	newEnemy->SetPattern(pattern);

@@ -37,8 +37,6 @@ void IBulletEnemy::Draw()
 		bullet->Draw();
 	}
 
-	ExplosionStaging_->Draw();
-
 	unsigned int Cr;
 	// 白の色コードを保存
 	Cr = GetColor(255, 255, 255);

@@ -13,7 +13,7 @@ protected:
 	float dirYMin_ = 0;
 	float dirYMax_ = 0;
 
-	int timer = 0;
+	int timer_ = 0;
 
 public:
 	void Init()override { ; }
@@ -21,7 +21,12 @@ public:
 	void Update()override { ; }
 	void Draw()override { ; }
 
+	bool TimerUpdate();
+
 	virtual void Generate() = 0;
+
+protected:
+	Vec2 GetRandomVecFromDirMinMax();
 
 protected:
 	void SetInterval(int interval) { interval_ = interval; }
