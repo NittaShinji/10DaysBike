@@ -3,8 +3,10 @@
 #include <random>
 #include <fstream>
 
-void EnemyManager::Init()
+void EnemyManager::Init(const std::function<void(float chargeRatio)>& damagedChargeGaugeFunc)
 {
+	damagedChargeGaugeFunc_ = damagedChargeGaugeFunc;
+
 	waitTimer_ = kWaitTime_;
 	enemies_.clear();
 	bulletManager_ = std::make_unique<BulletManager>();
@@ -188,6 +190,7 @@ void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos, const int32_t patte
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
 	newEnemy->Init(generatePos,targetPos,pattern);
+	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
 
 	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
 	enemyTotalNum++;
@@ -206,6 +209,7 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
+	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
@@ -224,6 +228,7 @@ void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos,
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
 	newEnemy->Init(generatePos, PlayerPos);
+	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
 
 	//“G‚Ì‘”ƒJƒEƒ“ƒg‚ğ‘‚â‚·
 	enemyTotalNum++;
@@ -242,6 +247,7 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos)
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
+	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 
@@ -259,6 +265,7 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, i
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();
 	newEnemy->Init(generatePos, bulletSpeed);
+	newEnemy->SetChargeGaugeFunc(damagedChargeGaugeFunc_);
 
 	newEnemy->SetBullletManger(bulletManager_.get());
 	newEnemy->SetPattern(pattern);

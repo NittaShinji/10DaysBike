@@ -57,7 +57,7 @@ void GameScene::Initialize()
 	player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 	player->SetDamagedFunc([&](float decreGaugeRatio) { return gauge->DamageDecreGauge(decreGaugeRatio); });
 	gauge->Init();
-	enemyManager->Init();
+	enemyManager->Init([&](float chargeRatio) { gauge->ChargeGaugeRatio(chargeRatio); });
 	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
 	backGround->Init();
 	// ‰¹—Ê‚ÌÝ’è

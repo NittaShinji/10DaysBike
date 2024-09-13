@@ -4,6 +4,7 @@
 #include "Inform.h"
 #include "ExplosionStaging.h"
 #include <list>
+#include <functional>
 
 class IEnemy : public IObject2D
 {
@@ -14,6 +15,10 @@ public:
 	static const uint16_t PROT_ENEMY_DRAWING_SIZE = 50;
 	static const ColorDxLib PROT_ENEMY_COLOR;
 	static const int TURN_KEY = KEY_INPUT_SPACE;
+
+private:
+	//1.0f==100%
+	const float DAMAGED_CHARGE_GAUGE_RATIO = 0.1f / 60.0f;
 
 protected:
 
@@ -41,13 +46,16 @@ protected:
 	//死亡音
 	static int deadSoundHandle_;
 
+	//ゲージをチャージするための関数
+	std::function<void(float chargeRatio)> chargeFunc_ = nullptr;
+
 public:
 	~IEnemy();
 
 public:
 
 	static void LoadSound();
-	static void UnloadSound(){DeleteSoundMem(explosionSoundHandle_);}
+	static void UnloadSound() { DeleteSoundMem(explosionSoundHandle_); }
 
 	void Init()override;
 	virtual void Init(const Vec2& pos, std::string name);
@@ -66,5 +74,6 @@ public:
 	int32_t GetEnemyHP() { return hp_; }
 	bool GetIsDead() const { return isDead_; }
 
+	void SetChargeGaugeFunc(const std::function<void(float chargeRatio)>& func) { chargeFunc_ = func; }
 };
 

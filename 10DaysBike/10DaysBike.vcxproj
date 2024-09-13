@@ -138,6 +138,7 @@
     <ClCompile Include="ChargeTrajectories.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="DecreGauge.cpp" />
+    <ClCompile Include="EnemyDamageEffect.cpp" />
     <ClCompile Include="Enemy\BeamEnemy.cpp" />
     <ClCompile Include="ExplosionCircle.cpp" />
     <ClCompile Include="ExplosionStaging.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyDamageEffect.h" />
     <ClInclude Include="ExplosionCircle.h" />
     <ClInclude Include="ExplosionStaging.h" />
     <ClInclude Include="GameState.h" />
