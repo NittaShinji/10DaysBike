@@ -95,6 +95,9 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 		}
 
 		color_ = { 255,0,0 };
+
+		//ダメージ時にゲージ回復させる
+		chargeFunc_(DAMAGED_CHARGE_GAUGE_RATIO);
 	}
 
 	if (hp_ <= 0)

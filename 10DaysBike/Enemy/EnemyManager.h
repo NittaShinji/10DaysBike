@@ -27,6 +27,9 @@ public:
 private:
 	std::vector<std::unique_ptr<IEnemy>> enemies_;
 	std::unique_ptr<BulletManager> bulletManager_;
+
+	std::function<void(float chargeRatio)>damagedChargeGaugeFunc_ = nullptr;
+
 public:
 	~EnemyManager() { enemies_.clear(); }
 private:
@@ -46,7 +49,7 @@ private:
 	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos, const int32_t pattern);
 
 public:
-	void Init();
+	void Init(const std::function<void(float chargeRatio)>& damagedChargeGaugeFunc);
 	void Update();
 	void Draw();
 
