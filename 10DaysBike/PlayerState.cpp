@@ -155,7 +155,7 @@ void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate, i
 	//軌跡の太さとかコストをセットして生成
 	bool canBurst = shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 
-	TurnPlayerUpdate(KeyboardInput::GetInstance().GetTriggerDownKey());
+	TurnPlayerUpdate(KeyboardInput::GetInstance().GetHitDownKey());
 	if (canBurst)
 	{
 		BurstPlayerUpdate();
@@ -195,7 +195,7 @@ void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate,
 	//軌跡の太さとかコストをセットして生成
 	bool isDanger = !shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
 	//ゲージ切れそうならターンするため
-	TurnPlayerUpdate(isDanger || KeyboardInput::GetInstance().GetTriggerUpKey());
+	TurnPlayerUpdate(isDanger || KeyboardInput::GetInstance().GetHitUpKey());
 	BurstPlayerUpdate();
 
 	if (isWaitingTurn_)
