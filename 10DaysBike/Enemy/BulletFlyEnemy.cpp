@@ -64,8 +64,16 @@ void BulletFlyEnemy::Update()
 void BulletFlyEnemy::Draw()
 {
 	IBulletEnemy::Draw();
-	const int* handles = nullptr;
-	DrawRotaGraph(pos_.x, pos_.y, kBulletFlyEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	const int shakeRange = 2;
+	if (isHit_ == true)
+	{
+		drawPos_.x += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ÉâÉìÉ_ÉÄÇ…êkÇ¶ÇÈ
+		drawPos_.y += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ÉâÉìÉ_ÉÄÇ…êkÇ¶ÇÈ
+		DrawRotaGraph(drawPos_.x, drawPos_.y, kBulletFlyEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	}
+	else {
+		DrawRotaGraph(pos_.x, pos_.y, kBulletFlyEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	}
 }
 
 void BulletFlyEnemy::OnCollision(const CollisionInfo& info)

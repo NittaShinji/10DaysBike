@@ -139,6 +139,8 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="DecreGauge.cpp" />
     <ClCompile Include="Enemy\BeamEnemy.cpp" />
+    <ClCompile Include="ExplosionCircle.cpp" />
+    <ClCompile Include="ExplosionStaging.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\ClearScene.cpp" />
@@ -179,6 +181,8 @@
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExplosionCircle.h" />
+    <ClInclude Include="ExplosionStaging.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="DecreGauge.h" />
     <ClInclude Include="Enemy\BeamEnemy.h" />

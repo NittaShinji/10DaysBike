@@ -21,6 +21,8 @@ void IEnemy::Init(const Vec2& pos, std::string name)
 	color_ = PROT_ENEMY_COLOR;
 
 	radius_ = PROT_ENEMY_DRAWING_SIZE;
+
+	ExplosionStaging_ = std::make_unique<ExplosionStaging>();
 }
 
 void IEnemy::Update()
@@ -39,8 +41,11 @@ void IEnemy::Update()
 		isDeleteCollider_ = true;
 	}
 
+	ExplosionStaging_->Update(pos_);
+	
 	//現在位置をコライダー用の変数に渡す
 	coliderPos_ = pos_;
+	drawPos_ = pos_;
 }
 
 void IEnemy::Draw()
@@ -52,6 +57,12 @@ void IEnemy::Draw()
 		Cr = GetColor(255, 255, 255);
 		DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
 	}
+
+	if (isHit_ == true)
+	{
+		ExplosionStaging_->Draw();
+	}
+	
 }
 
 void IEnemy::AddCollider()
@@ -85,4 +96,6 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 
 		color_ = { 255,0,0 };
 	}
+
+	ExplosionStaging_->Init(pos_,1000);
 }

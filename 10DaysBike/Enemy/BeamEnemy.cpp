@@ -110,21 +110,24 @@ void BeamEnemy::Update()
 			moveVec_.x *= -1;
 		}
 
-
-
 		pos_ += moveVec_;
 	}
-
-	
-
-
 }
 
 void BeamEnemy::Draw()
 {
 	IBulletEnemy::Draw();
-	const int* handles = nullptr;
-	DrawRotaGraph(pos_.x, pos_.y, kBeamEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	
+	const int shakeRange = 2;
+	if (isHit_ == true)
+	{
+		drawPos_.x += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ÉâÉìÉ_ÉÄÇ…êkÇ¶ÇÈ
+		drawPos_.y += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ÉâÉìÉ_ÉÄÇ…êkÇ¶ÇÈ
+		DrawRotaGraph(drawPos_.x, drawPos_.y, kBeamEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	}
+	else {
+		DrawRotaGraph(pos_.x, pos_.y, kBeamEnemyImageScale_, angle_, graphHandle_[imageNum_], TRUE, FALSE);
+	}
 }
 
 void BeamEnemy::OnCollision(const CollisionInfo& info)

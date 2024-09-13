@@ -93,8 +93,18 @@ void WanderEnemy::Update()
 void WanderEnemy::Draw()
 {
 	IEnemy::Draw();
-	const int* handles = nullptr;
-	DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_, FALSE);
+	
+	const int shakeRange = 2;
+	if (isHit_ == true)
+	{
+		drawPos_.x += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ƒ‰ƒ“ƒ_ƒ€‚Ék‚¦‚é
+		drawPos_.y += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ƒ‰ƒ“ƒ_ƒ€‚Ék‚¦‚é
+		DrawGraph(drawPos_.x - radius_, drawPos_.y - radius_, graphHandle_, FALSE);
+	}
+	else {
+		DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_, FALSE);
+	}
+	
 }
 
 //----------------------------------------------------------------------

@@ -2,6 +2,7 @@
 #include"IObject2D.h"
 #include "CircleCollider.h"
 #include "Inform.h"
+#include "ExplosionStaging.h"
 #include <list>
 
 class IEnemy : public IObject2D
@@ -24,11 +25,15 @@ protected:
 	uint16_t damageNum_ = 1;
 	//敵のコライダー
 	std::unique_ptr<CircleCollider> enemyCollider_ = nullptr;
+	//爆発演出
+	std::unique_ptr<ExplosionStaging> ExplosionStaging_ = nullptr;
 	//HP
 	const int32_t kDefaultEnemyHP_ = 30;
 	int32_t hp_ = kDefaultEnemyHP_;
 	//角度
 	double angle_ = 0.0;
+	//描画用座標
+	Vec2 drawPos_;
 
 public:
 	~IEnemy();
