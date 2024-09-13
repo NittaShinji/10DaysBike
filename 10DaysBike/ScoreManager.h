@@ -15,6 +15,7 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+	void Reset();
 
 	void RegistScore(std::vector<std::string>& deadEnemyNames);
 

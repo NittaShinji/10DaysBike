@@ -6,12 +6,6 @@
 int ResultScene::gameOverImageHandle_;
 int ResultScene::clearImageHandle_;
 
-ResultScene::~ResultScene()
-{
-	DeleteGraph(clearImageHandle_);
-	DeleteGraph(gameOverImageHandle_);
-}
-
 void ResultScene::StaticInitialize()
 {
 	clearImageHandle_ = LoadGraph((RESOUCE_PATH + "GameClear.png").c_str());
@@ -28,6 +22,7 @@ void ResultScene::Update()
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 		//ƒQ[ƒ€ƒV[ƒ“‚ÉˆÚ“®
 		SceneManager::GetInstance()->ChangeScene("TITLE");
+		gameState_->scoreManager_->Reset();
 		gameState_->SetIsClear(false);
 	}
 

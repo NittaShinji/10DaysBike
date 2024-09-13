@@ -47,6 +47,8 @@ public:
 
 	void StartDrumRoll(int32_t newScore); // ドラムロールを開始する新しい関数を追加
 
+	void Reset();
+
 private:
 
 	//二次元用の座標
@@ -71,7 +73,7 @@ private:
 	//リザルトで足していくときのタイマー
 	float drumTimer_ = 0;
 	//ドラムロールする時間
-	float kMaxDrumTime_ = 90;
+	const float kMaxDrumTime_ = 90;
 
 	//ドラムロールしているかのフラグ
 	bool isDrumRoll_ = false;
