@@ -38,11 +38,6 @@ void IBulletEnemy::Draw()
 	}
 
 	ExplosionStaging_->Draw();
-
-	unsigned int Cr;
-	// 白の色コードを保存
-	Cr = GetColor(255, 255, 255);
-	DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
 }
 
 void IBulletEnemy::OnCollision(const CollisionInfo& info)

@@ -37,6 +37,8 @@ private:
 
 	//–Â‚ç‚µ‚½‚©‚Ç‚¤‚©
 	bool isPlayBgm_ = false;
+	//–Â‚ç‚µ‚½‚©‚Ç‚¤‚©
+	bool isTakeRank_ = false;
 };
 
 

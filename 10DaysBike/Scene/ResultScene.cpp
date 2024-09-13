@@ -7,6 +7,7 @@ int ResultScene::gameOverImageHandle_;
 int ResultScene::clearImageHandle_;
 int ResultScene::gameOverSoundHandle_;
 int ResultScene::clearSoundHandle_;
+int ResultScene::registHandle_;
 
 void ResultScene::StaticInitialize()
 {
@@ -14,6 +15,7 @@ void ResultScene::StaticInitialize()
 	gameOverImageHandle_ = LoadGraph((RESOUCE_PATH + "GameOver.png").c_str());
 	clearSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameClearSE.wav").c_str());
 	gameOverSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "GameOverSE.wav").c_str());
+	registHandle_ = LoadGraph((RESOUCE_PATH + "RegistScore.png").c_str());
 }
 
 void ResultScene::DeleteResource()
@@ -22,6 +24,7 @@ void ResultScene::DeleteResource()
 	DeleteSoundMem(clearImageHandle_);
 	DeleteSoundMem(gameOverSoundHandle_);
 	DeleteSoundMem(clearSoundHandle_);
+	DeleteSoundMem(registHandle_);
 }
 
 void ResultScene::Initialize()
@@ -50,19 +53,24 @@ void ResultScene::Initialize()
 
 void ResultScene::Update()
 {
-	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
-		//ゲームシーンに移動
-		if (CheckSoundMem(gameOverSoundHandle_) == 1)
+	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_SPACE)) 
+	{
+		if (gameState_->scoreManager_->GetIsjugeRegist() == false && gameState_->scoreManager_->GetIsRegistRanking() == true)
 		{
-			StopSoundMem(gameOverSoundHandle_);
+			//ゲームシーンに移動
+			if (CheckSoundMem(gameOverSoundHandle_) == 1)
+			{
+				StopSoundMem(gameOverSoundHandle_);
+			}
+			if (CheckSoundMem(clearSoundHandle_) == 1)
+			{
+				StopSoundMem(clearSoundHandle_);
+			}
+
+			SceneManager::GetInstance()->ChangeScene("TITLE");
+			gameState_->scoreManager_->Reset();
+			gameState_->SetIsClear(false);
 		}
-		if (CheckSoundMem(clearSoundHandle_) == 1)
-		{
-			StopSoundMem(clearSoundHandle_);
-		}
-		SceneManager::GetInstance()->ChangeScene("TITLE");
-		gameState_->scoreManager_->Reset();
-		gameState_->SetIsClear(false);
 	}
 
 	if (waitScoreTimer_ > 0 && isStartDrumScore_ == false)
@@ -72,6 +80,11 @@ void ResultScene::Update()
 		{
 			isStartDrumScore_ = true;
 		}
+	}
+
+	if (gameState_->scoreManager_->GetResultScore()->GetIsFinishDrum() == true)
+	{
+		//gameState_->scoreManager_->RegistRanking();
 	}
 
 	if(isStartDrumScore_ == true)
@@ -84,11 +97,13 @@ void ResultScene::Draw()
 {
 	if (gameState_->GetIsClear()) 
 	{
-		const unsigned int stringCr = GetColor(255, 255, 255);
-		DrawString(200, 100, "CLEAR  PUSH ENTER", stringCr);
-
 		//ゲームクリア描画
 		DrawGraph(0, 0, clearImageHandle_, true);
+
+		if (gameState_->scoreManager_->GetIsjugeRegist() == true)
+		{
+			DrawGraph(0, 210, registHandle_, true);
+		}
 	}
 	else
 	{
@@ -97,4 +112,6 @@ void ResultScene::Draw()
 	}
 
 	gameState_->scoreManager_->ResetDraw();
+	gameState_->scoreManager_->DrawRanking();
+
 }

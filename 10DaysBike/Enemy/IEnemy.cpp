@@ -59,19 +59,10 @@ void IEnemy::Update()
 
 void IEnemy::Draw()
 {
-	if (hp_ > 0)
-	{
-		unsigned int Cr;
-		// 白の色コードを保存
-		Cr = GetColor(255, 255, 255);
-		DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
-	}
-
 	if (isHit_ == true)
 	{
 		ExplosionStaging_->Draw();
-	}
-	
+	}	
 }
 
 void IEnemy::AddCollider()

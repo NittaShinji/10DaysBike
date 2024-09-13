@@ -27,6 +27,7 @@ void Score::Init(Vec2 pos)
 	//得点初期化
 	score_ = 0;
 	isDrumRoll_ = false;
+	isFinishDrumroll = false;
 
 	//どれぐらいの等間隔で離すか
 	const float equalDistanceX = 48.0f;
@@ -50,6 +51,7 @@ void Score::Update()
             isDrumRoll_ = false;
             drumRollscore_ = targetScore_;  // 最終的なスコアに合わせる
 			score_ = targetScore_;
+			isFinishDrumroll = true;
         }
     }
     else
@@ -194,6 +196,8 @@ void Score::Reset()
 
 	//ドラムロールの目標スコア
 	drumRollscoreTarget_ = 0;
+
+	isFinishDrumroll = false;
 
 	//どれぐらい離すか
 	const float equalDistanceX = 48.0f;
