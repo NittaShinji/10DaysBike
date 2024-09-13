@@ -26,6 +26,8 @@ public:
 	void Init(const Vec2& pos,float bulletSpeed);
 	void Update()override;
 	void Draw()override;
+
+	void SetPattern(int pattern) { pattern_ = pattern; };
 public:
 
 	//Õ“Ë‚ÉŒÄ‚Ño‚³‚ê‚éŠÖ”
@@ -37,5 +39,7 @@ private:
 	static const double kBulletFlyEnemyImageScale_;
 	int graphHandle_[kBulletFlyEnemyImageNum_];
 	int imageNum_ = 0;
+
+	int pattern_ = 0;
 };
 

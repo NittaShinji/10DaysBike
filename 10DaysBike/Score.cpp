@@ -29,7 +29,7 @@ void Score::Init(Vec2 pos)
 	isDrumRoll_ = false;
 
 	//‚Ç‚ê‚®‚ç‚¢‚Ì“™ŠÔŠu‚Å—£‚·‚©
-	const float equalDistanceX = 32.0f;
+	const float equalDistanceX = 48.0f;
 	const float equalDistanceY = 0.0f;
 
 	for (int i = 0; i < kScoreDigitNum_; i++)
@@ -62,7 +62,7 @@ void Score::Draw()
 	//0`9‚Ü‚Å‚»‚ê‚¼‚ê•`‰æ
 	for (int i = 0; i < kScoreDigitNum_; i++)
 	{
-		DrawGraph(pos_[i].x + UI_SIZE.x, pos_[i].y, textureHandle_[displayNum_[i]], true);
+		DrawRotaGraph(pos_[i].x + 56, pos_[i].y + 60, 2.0f, 0, textureHandle_[displayNum_[i]], TRUE);
 	}
 }
 
@@ -118,6 +118,16 @@ void Score::InputDrumRoll()
 	displayNum_[6] = (drumRollscore_ % 10) / 1;
 }
 
+void Score::SetEqualDistancePos(Vec2 distancePos)
+{
+	//‚Ç‚ê‚®‚ç‚¢‚Ì“™ŠÔŠu‚Å—£‚·‚©
+	for (int i = 0; i < kScoreDigitNum_; i++)
+	{
+		// À•W‚Ì‰Šú‰»
+		pos_[i] = Vec2((i * distancePos.x) + 16.0f, 10.0f);
+	}
+}
+
 float Score::EaseInOutExpo(float t, float b, float c, float d) {
 	if (t == 0) return b;
 	if (t == d) return b + c;
@@ -170,4 +180,14 @@ void Score::Reset()
 
 	//ƒhƒ‰ƒ€ƒ[ƒ‹‚Ì–Ú•WƒXƒRƒA
 	drumRollscoreTarget_ = 0;
+
+	//‚Ç‚ê‚®‚ç‚¢—£‚·‚©
+	const float equalDistanceX = 48.0f;
+	const float equalDistanceY = 0.0f;
+
+	for (int i = 0; i < kScoreDigitNum_; i++)
+	{
+		// À•W‚Ì‰Šú‰»
+		pos_[i] = Vec2((i * equalDistanceX) + 16.0f, 10.0f);
+	}
 }

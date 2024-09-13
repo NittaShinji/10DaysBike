@@ -41,7 +41,7 @@ void EnemyManager::Update()
 		{
 			if (enemies_.size() < kMaxEnemyNum)
 			{
-				GenerateBeamEnemy(playerPosPtr_, { 300,60 });
+				//GenerateBeamEnemy(playerPosPtr_, { 300,60 });
 				//GenerateWanderEnemy(playerPosPtr_,{630,30});
 				waitTimer_ = kWaitTime_;
 			}
@@ -180,10 +180,10 @@ void EnemyManager::GenerateBadEnemy(const Vec2& GeneratePos, const int32_t patte
 {
 	// “G‚Ì–Ú•W’n“_‚ğİ’è
 	Vec2 targetPos;
-	targetPos = Vec2(GeneratePos.x + UI_SIZE.x, 1200);
+	targetPos = Vec2(GeneratePos.x + UI_SIZE.x + FIELD_CENTER, 1200);
 
 	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
-	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x + FIELD_CENTER, GeneratePos.y);
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BadEnemy> newEnemy = std::make_unique<BadEnemy>();
@@ -201,7 +201,7 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t
 	const float bulletSpeed = 12.5f;
 
 	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
-	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x + FIELD_CENTER, GeneratePos.y);
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BulletFlyEnemy> newEnemy = std::make_unique<BulletFlyEnemy>();
@@ -219,7 +219,7 @@ void EnemyManager::GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t
 void EnemyManager::GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, const int32_t pattern)
 {
 	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
-	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x + FIELD_CENTER, GeneratePos.y);
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<WanderEnemy> newEnemy = std::make_unique<WanderEnemy>();
@@ -254,7 +254,7 @@ void EnemyManager::GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, i
 	const float bulletSpeed = 12.5f;
 
 	//¶¬’n“_‚ğUI”wŒi•ª‚¸‚ç‚·
-	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x, GeneratePos.y);
+	Vec2 generatePos = Vec2(GeneratePos.x + UI_SIZE.x + FIELD_CENTER, GeneratePos.y);
 
 	//“G‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<BeamEnemy> newEnemy = std::make_unique<BeamEnemy>();

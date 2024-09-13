@@ -8,6 +8,9 @@ public:
 	//静的初期化
 	static void StaticInitialize();
 
+	//リソース削除
+	static void DeleteResource();
+
 	//初期化
 	void Initialize() override;
 
@@ -23,4 +26,9 @@ private:
 	static int clearImageHandle_;
 	//ゲームオーバー画像
 	static int gameOverImageHandle_;
+
+	//ゲーム内BGM
+	static int gameOverSoundHandle_;
+	//スタート音
+	static int clearSoundHandle_;
 };

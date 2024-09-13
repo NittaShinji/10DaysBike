@@ -11,10 +11,26 @@
 #define DOWN_SCALE_SCREEN_H	( SCREEN_H / DOWN_SCALE )	// ガウスフィルタを掛ける画像の縦幅
 
 CollisionManager* GameScene::collisionManager_ = nullptr;
+int GameScene::bgmHandle_;
+int GameScene::startHandle_;
+int GameScene::uiHandle_;
 
 void GameScene::StaticInitialize()
 {
 	collisionManager_ = CollisionManager::GetInstance();
+	bgmHandle_ = LoadSoundMem((RESOUCE_PATH + "gameBGM.wav").c_str());
+	startHandle_ = LoadSoundMem((RESOUCE_PATH + "gameStart.wav").c_str());
+	uiHandle_ = LoadGraph((RESOUCE_PATH + "UI.png").c_str());
+
+	IEnemy::LoadSound();
+}
+
+void GameScene::DeleteResource()
+{
+	IEnemy::UnloadSound();
+	DeleteSoundMem(bgmHandle_);
+	DeleteSoundMem(startHandle_);
+	DeleteSoundMem(uiHandle_);
 }
 
 void GameScene::Initialize()
@@ -44,17 +60,34 @@ void GameScene::Initialize()
 	enemyManager->Init();
 	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
 	backGround->Init();
+	// 音量の設定
+	ChangeVolumeSoundMem(255 * 50 / 100, startHandle_);
+	//BGM再生
+	PlaySoundMem(startHandle_, DX_PLAYTYPE_BACK);
 
 	ParticleEffectManager::GetInstance().Init();
 }
 
 void GameScene::Update()
 {
+	if (CheckSoundMem(startHandle_) == 0 && isStart_ == false)
+	{
+		// 音量の設定
+		ChangeVolumeSoundMem(255 * 50 / 100, bgmHandle_);
+		//BGM再生
+		PlaySoundMem(bgmHandle_, DX_PLAYTYPE_LOOP);
+		isStart_ = true;
+	}
+
 	// 更新処理
 	player->Update([&](float shootGaugeDecre, int32_t continueNum) { return gauge->DecreGaugeRatio(shootGaugeDecre, continueNum); },
 		[&](float posY, float shootChargeGauge) { return gauge->ChargeGaugeRatio(posY, shootChargeGauge); },
 		gauge->FRAME_TOP);
-	enemyManager->Update();
+	if (isStart_ == true)
+	{
+		enemyManager->Update();
+	}
+
 	gauge->Update();
 	backGround->Update(player->GetVec().y, player->GetPlayerState());
 	gameState_->scoreManager_->RegistScore(enemyManager->GetDeadEnemyNames());
@@ -68,17 +101,20 @@ void GameScene::Update()
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("CLEAR");
+		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(true);
 	}
 	else if (! player->GetIsAlive()) {
 		//タイトルシーンに移動
 		SceneManager::GetInstance()->ChangeScene("RESULT");
+		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(false);
 	}
 	else if (gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore)
 	{
 		//クリアシーンに移動
 		SceneManager::GetInstance()->ChangeScene("RESULT");
+		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(true);
 	}
 }
@@ -98,7 +134,10 @@ void GameScene::Draw()
 
 	// ブルーム描画処理
 	backGround->Draw();
-	enemyManager->Draw();
+	if (isStart_ == true)
+	{
+		enemyManager->Draw();
+	}
 	player->Draw();
 
 #pragma region ブルーム後処理
@@ -138,6 +177,7 @@ void GameScene::Draw()
 #pragma endregion ブルーム後処理
 
 	//UI描画処理(ブルームなし)
+	DrawGraph(0, 0, uiHandle_, true);
 	gameState_->scoreManager_->Draw();
 	gauge->Draw();
 

@@ -51,7 +51,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SceneManager::GetInstance()->SetSceneFactory(std::move(sceneFactory_));
 	//シーンマネージャに最初のシーンをセット
 	SceneManager::GetInstance()->Initialize();
-	SceneManager::GetInstance()->ChangeScene("GAME");
+	SceneManager::GetInstance()->ChangeScene("TITLE");
 	TitleScene::StaticInitialize();
 	GameScene::StaticInitialize();
 	ResultScene::StaticInitialize();
@@ -90,6 +90,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 	}
+
+	TitleScene::DeleteResource();
+	GameScene::DeleteResource();
+	ResultScene::DeleteResource();
+
 	// Dxライブラリ終了処理
 	DxLib_End();
 

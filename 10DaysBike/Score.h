@@ -42,6 +42,9 @@ public:
 	void InputNumberTS();
 	void InputDrumRoll();
 
+	//•‚Ì‰Šú‰»
+	void SetEqualDistancePos(Vec2 distancePos);
+
 	float EaseInOutExpo(float t, float b, float c, float d);
 	float EaseOutSine(float t, float b, float c, float d);
 

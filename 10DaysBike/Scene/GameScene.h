@@ -18,6 +18,9 @@ public:
 	//静的初期化
 	static void StaticInitialize();
 
+	//リソース削除
+	static void DeleteResource();
+
 	//初期化
 	void Initialize() override;
 
@@ -48,5 +51,14 @@ private:
 	static CollisionManager* collisionManager_;
 	//背景クラス
 	std::unique_ptr <BackGround> backGround = nullptr;
+
+	//ゲーム内BGM
+	static int bgmHandle_;
+	//スタート音
+	static int startHandle_;
+	//UI画像
+	static int uiHandle_;
+
+	bool isStart_ = false;
 };
 

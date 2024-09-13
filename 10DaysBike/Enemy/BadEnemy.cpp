@@ -2,7 +2,7 @@
 #include "BulletManager.h"
 #include "CollisionAttribute.h"
 
-const double BadEnemy::kBadEnemyImageScale_ = 1.0f;
+const double BadEnemy::kBadEnemyImageScale_ = 0.5f;
 
 BadEnemy::~BadEnemy()
 {
@@ -47,12 +47,12 @@ void BadEnemy::Update()
 	}
 	else if (pattern_ == 1) {
 		moveAngle_ += kAddmoveAngle_;
-		pos_.x += sinf(moveAngle_) * moveSpeedX_;
+		pos_.x += sinf(moveAngle_) * moveSpeedX_ - 0.3f;
 		pos_.y += moveSpeedY_;
 	}
 	else if (pattern_ == 2) {
 		moveAngle_ += kAddmoveAngle_;
-		pos_.x += sinf(moveAngle_) * -moveSpeedX_;
+		pos_.x += sinf(moveAngle_) * -moveSpeedX_ + 0.3f;
 		pos_.y += moveSpeedY_;
 	}
 
