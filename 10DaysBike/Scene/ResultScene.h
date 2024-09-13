@@ -31,4 +31,9 @@ private:
 	static int gameOverSoundHandle_;
 	//スタート音
 	static int clearSoundHandle_;
+
+	const int waitScoreTime = 60;
+	int waitScoreTimer_ = waitScoreTime;
+
+	bool isStartDrumScore_ = false;
 };

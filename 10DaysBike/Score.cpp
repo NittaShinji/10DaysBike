@@ -29,7 +29,7 @@ void Score::Init(Vec2 pos)
 	isDrumRoll_ = false;
 
 	//どれぐらいの等間隔で離すか
-	const float equalDistanceX = 32.0f;
+	const float equalDistanceX = 48.0f;
 	const float equalDistanceY = 0.0f;
 
 	for (int i = 0; i < kScoreDigitNum_; i++)
@@ -49,6 +49,7 @@ void Score::Update()
         if (drumRollscore_ >= targetScore_) {
             isDrumRoll_ = false;
             drumRollscore_ = targetScore_;  // 最終的なスコアに合わせる
+			score_ = targetScore_;
         }
     }
     else
@@ -62,7 +63,7 @@ void Score::Draw()
 	//0～9までそれぞれ描画
 	for (int i = 0; i < kScoreDigitNum_; i++)
 	{
-		DrawGraph(pos_[i].x + UI_SIZE.x, pos_[i].y, textureHandle_[displayNum_[i]], true);
+		DrawRotaGraph(pos_[i].x + 56, pos_[i].y + 60, 2.0f, 0, textureHandle_[displayNum_[i]], TRUE);
 	}
 }
 
@@ -118,6 +119,16 @@ void Score::InputDrumRoll()
 	displayNum_[6] = (drumRollscore_ % 10) / 1;
 }
 
+void Score::SetEqualDistancePos(Vec2 distancePos)
+{
+	//どれぐらいの等間隔で離すか
+	for (int i = 0; i < kScoreDigitNum_; i++)
+	{
+		// 座標の初期化
+		pos_[i] = Vec2((i * distancePos.x) + 16.0f, 10.0f);
+	}
+}
+
 float Score::EaseInOutExpo(float t, float b, float c, float d) {
 	if (t == 0) return b;
 	if (t == d) return b + c;
@@ -170,4 +181,14 @@ void Score::Reset()
 
 	//ドラムロールの目標スコア
 	drumRollscoreTarget_ = 0;
+
+	//どれぐらい離すか
+	const float equalDistanceX = 48.0f;
+	const float equalDistanceY = 0.0f;
+
+	for (int i = 0; i < kScoreDigitNum_; i++)
+	{
+		// 座標の初期化
+		pos_[i] = Vec2((i * equalDistanceX) + 16.0f, 10.0f);
+	}
 }

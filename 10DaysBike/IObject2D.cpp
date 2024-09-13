@@ -39,7 +39,7 @@ bool IObject2D::GetIsOffingGameScreen()
 
 bool IObject2D::GetIsOffingGameScreen(const Vec2& pos)
 {
-	bool isOffingX = (pos.x > WINDOW_SIZE.x) || (UI_SIZE.x < 0);
+	bool isOffingX = (pos.x > WINDOW_SIZE.x) || (pos.x < 0);
 	bool isOffingY = (pos.y > WINDOW_SIZE.y) || (pos.y < 0);
 
 	return (isOffingX || isOffingY);

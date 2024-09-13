@@ -27,6 +27,9 @@ void EnergyGauge::Init()
 
 
 	damagedShake_ = std::make_unique<Shake>();
+
+	gaugeEffect_ = std::make_unique<GaugeEffect>();
+	gaugeEffect_->Init(4, 5, { -4.0f,4.0f }, { -17.0f,0 });
 }
 
 void EnergyGauge::Update()
@@ -118,6 +121,12 @@ bool EnergyGauge::ChargeGaugeRatio(float posY, float ratio)
 
 		frameScaleTime_ += CHARGE_SCALING_INCRE;
 		frameScaleRate_ = sinf(frameScaleTime_) * CHARGE_SCALING_MAX;
+
+		//パーティクル
+		gaugeEffect_->SetPos(frame_->GetPos());
+		gaugeEffect_->SetWidthHeight(frame_->GetWidthHeight());
+		gaugeEffect_->Generate();
+
 		return true;
 	}
 	return false;

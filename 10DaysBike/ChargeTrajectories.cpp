@@ -32,7 +32,7 @@ void ChargeTrajectories::Update(float dirY, std::function<bool(float trajPos, fl
 
 void ChargeTrajectories::ChargeMoveProcess()
 {
-	timer_ += timerAdd_;
+	timer += timerAdd_;
 
 	for (auto& traj : trajectories_)
 	{
@@ -41,7 +41,7 @@ void ChargeTrajectories::ChargeMoveProcess()
 		const float POS_Y_RATIO = (POS_Y / WINDOW_SIZE.y) * 2.0f;
 
 		traj->SetVec({
-			(sinf(timer_ * POS_Y_RATIO)) /** CHARGE_MOVE_RATE*/ * CHARGE_MOVE_WIDTH + POS_Y_RATIO
+			(sinf(timer * POS_Y_RATIO)) /** CHARGE_MOVE_RATE*/ * CHARGE_MOVE_WIDTH + POS_Y_RATIO
 			,traj->GetScrollVec().y
 			});
 	}

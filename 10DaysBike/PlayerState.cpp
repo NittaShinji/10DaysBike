@@ -25,7 +25,9 @@ void IPlayerState::SideMoveUpdate()
 
 void IPlayerState::TurnPlayerUpdate(bool isTurn)
 {
-	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY) || isTurn)
+	if (KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY)|| 
+		KeyboardInput::GetInstance().GetTriggerKey(Player::TURN_KEY2)
+		|| isTurn)
 	{
 		TurnProcces();
 	}

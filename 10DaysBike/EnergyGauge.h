@@ -4,6 +4,7 @@
 #include"DecreGauge.h"
 #include"GaugeFrame.h"
 #include"Shake.h"
+#include"GaugeEffect.h"
 
 //âÊñ â∫ÇÃÉQÅ[ÉW
 class EnergyGauge
@@ -45,6 +46,9 @@ private:
 	float frameScaleTime_ = 0;
 
 	float decreGaugeInterval_ = 0;
+
+	//
+	std::unique_ptr<GaugeEffect> gaugeEffect_ = nullptr;
 
 	std::unique_ptr<IGauge> gauge_ = nullptr;
 	std::unique_ptr<DecreGauge> decreGauge_ = nullptr;
