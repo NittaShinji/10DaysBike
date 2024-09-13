@@ -5,8 +5,6 @@ class ResultScene : public BaseScene
 {
 public:
 
-	~ResultScene();
-
 	//Ã“I‰Šú‰»
 	static void StaticInitialize();
 

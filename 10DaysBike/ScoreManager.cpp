@@ -19,6 +19,11 @@ void ScoreManager::Draw()
 	//ƒ‰ƒ“ƒLƒ“ƒO‚Ì•\Ž¦
 }
 
+void ScoreManager::Reset()
+{
+    totalScore_->Reset();
+}
+
 void ScoreManager::RegistScore(std::vector<std::string>& deadEnemyNames)
 {
     bool scoreAdded = false;

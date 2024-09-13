@@ -43,8 +43,6 @@ void GameScene::Initialize()
 	enemyManager->Init();
 	enemyManager->SetPlayerPosPtr(player->GetPlayerPosPtr());
 	backGround->Init();
-	score_ = std::make_unique<Score>();
-	score_->Init(Vec2(40,400));
 }
 
 void GameScene::Update()
@@ -56,7 +54,6 @@ void GameScene::Update()
 	enemyManager->Update();
 	gauge->Update();
 	backGround->Update(player->GetVec().y, player->GetPlayerState());
-	//score_->Update();
 	gameState_->scoreManager_->RegistScore(enemyManager->GetDeadEnemyNames());
 	gameState_->scoreManager_->Update();
 
@@ -136,7 +133,6 @@ void GameScene::Draw()
 #pragma endregion ブルーム後処理
 
 	//UI描画処理(ブルームなし)
-	score_->Draw();
 	gameState_->scoreManager_->Draw();
 	gauge->Draw();
 }

@@ -147,3 +147,27 @@ void Score::StartDrumRoll(int32_t newScore)
 		isDrumRoll_ = true; // ドラムロールを有効にする
 	}
 }
+
+void Score::Reset()
+{
+	//加算するスコア
+	score_ = 0;
+
+	//ドラムロールするスコア
+	drumRollscore_ = 0;
+	//目標スコア
+	targetScore_ = 0;
+	//リザルトで足していくときのタイマー
+	drumTimer_ = 0;
+
+	//ドラムロールしているかのフラグ
+	isDrumRoll_ = false;
+
+	//ドラムロールの目標スコア
+	drumRollscoreTarget_ = 0;
+
+	isDrumRoll_ = false;
+
+	//ドラムロールの目標スコア
+	drumRollscoreTarget_ = 0;
+}
