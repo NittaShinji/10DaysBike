@@ -17,6 +17,10 @@ public:
 	void Draw();
 	void Reset();
 
+	void ResetInit();
+	void ResetUpdate();
+	void ResetDraw();
+
 	void RegistScore(std::vector<std::string>& deadEnemyNames);
 
 	void UpdateRanking();
@@ -24,6 +28,7 @@ public:
 private:
 
 	std::unique_ptr<Score> totalScore_ = nullptr;
+	std::unique_ptr<Score> resultScore_ = nullptr;
 
 	//ƒ‰ƒ“ƒLƒ“ƒO‰æ‘œ
 	int32_t rankingHandle_;
@@ -33,5 +38,6 @@ private:
 public:
 
 	Score* GetTotalScore() { return totalScore_.get(); }
+	Score* GetResultScore() { return resultScore_.get(); }
 };
 

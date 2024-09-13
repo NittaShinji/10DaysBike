@@ -49,6 +49,7 @@ void Score::Update()
         if (drumRollscore_ >= targetScore_) {
             isDrumRoll_ = false;
             drumRollscore_ = targetScore_;  // 最終的なスコアに合わせる
+			score_ = targetScore_;
         }
     }
     else
