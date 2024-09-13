@@ -142,6 +142,10 @@
     <ClCompile Include="ExplosionCircle.cpp" />
     <ClCompile Include="ExplosionStaging.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GaugeEffect.cpp" />
+    <ClCompile Include="IEmitter.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEffectManager.cpp" />
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\ClearScene.cpp" />
     <ClCompile Include="Enemy\IBulletEnemy.cpp" />
@@ -186,6 +190,10 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="DecreGauge.h" />
     <ClInclude Include="Enemy\BeamEnemy.h" />
+    <ClInclude Include="GaugeEffect.h" />
+    <ClInclude Include="IEmitter.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEffectManager.h" />
     <ClInclude Include="Scene\ResultScene.h" />
     <ClInclude Include="Scene\AbstractSceneFactory.h" />
     <ClInclude Include="BackGround.h" />

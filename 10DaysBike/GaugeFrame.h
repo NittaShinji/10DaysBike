@@ -20,6 +20,7 @@ public:
 	void Draw()override;
 public:
 	void SetWidthHeight(const Vec2& widthHeight) { widthHeight_ = widthHeight; }
+	const Vec2& GetWidthHeight() {return widthHeight_; }
 	void SetThickness(float thickness) { thickness_ = thickness; }
 };
 

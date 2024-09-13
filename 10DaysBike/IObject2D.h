@@ -32,7 +32,7 @@ public:
 public:
 	void SetPos(const Vec2& pos) { pos_ = pos; }
 	void SetVec(const Vec2& vec) { vec_ = vec; }
-	void SetRadius(const float radius) { radius_ = radius; }
+	void SetRadius(float radius) { radius_ = radius; }
 	void SetName(const std::string& name) { name_ = name; }
 
 	void SetColor(const ColorDxLib& color) { color_ = color; }

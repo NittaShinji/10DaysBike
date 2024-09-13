@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "KeyboardInput.h"
 #include "SceneManager.h"
+#include "ParticleEffectManager.h"
 
 // スクリーン変数
 #define SCREEN_W		WINDOW_SIZE.x				// 画面の横幅
@@ -63,6 +64,8 @@ void GameScene::Initialize()
 	ChangeVolumeSoundMem(255 * 50 / 100, startHandle_);
 	//BGM再生
 	PlaySoundMem(startHandle_, DX_PLAYTYPE_BACK);
+
+	ParticleEffectManager::GetInstance().Init();
 }
 
 void GameScene::Update()
@@ -92,6 +95,8 @@ void GameScene::Update()
 
 	//全ての衝突をチェック
 	collisionManager_->CheckAllCollisions(player->GetPos(), 30.0f);
+
+	ParticleEffectManager::GetInstance().Update();
 
 	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
 		//クリアシーンに移動
@@ -175,4 +180,6 @@ void GameScene::Draw()
 	DrawGraph(0, 0, uiHandle_, true);
 	gameState_->scoreManager_->Draw();
 	gauge->Draw();
+
+	ParticleEffectManager::GetInstance().Draw();
 }

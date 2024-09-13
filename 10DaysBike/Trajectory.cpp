@@ -50,6 +50,7 @@ void Trajectory::Update(std::function<bool(float trajPos, float chargeGaugeRatio
 	twoPoses_.sPos += vec_ + scrollVec_;
 	twoPoses_.ePos += vec_ + scrollVec_;
 
+
 	collider_->Update();
 
 	lifeFrame_--;
