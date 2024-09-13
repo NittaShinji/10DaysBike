@@ -88,7 +88,7 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 		}
 		else if (objName == TrajectoriesManager::DOWN_TRAJ_NAME)
 		{
-			hp_ -= 1;
+			hp_ -= 2;
 		}
 		else if (objName == TrajectoriesManager::BURST_UP_NAME)
 		{
