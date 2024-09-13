@@ -153,7 +153,7 @@ void PlayerStateUp::Update(std::function<bool(float thickRate, float costRate, i
 	IPlayerState::Update(nullptr, true);
 
 	//軌跡の太さとかコストをセットして生成
-	bool canBurst = shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
+	bool canBurst = shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::UP_TRAJ_NAME);
 
 	TurnPlayerUpdate(KeyboardInput::GetInstance().GetHitDownKey());
 	if (canBurst)
@@ -193,7 +193,7 @@ void PlayerStateDown::Update(std::function<bool(float thickRate, float costRate,
 	IPlayerState::Update(nullptr, false);
 
 	//軌跡の太さとかコストをセットして生成
-	bool isDanger = !shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::NORMAL_TRAJ_NAME);
+	bool isDanger = !shootFunc(1.0f, 1.0f, 1, TrajectoriesManager::DOWN_TRAJ_NAME);
 	//ゲージ切れそうならターンするため
 	TurnPlayerUpdate(isDanger || KeyboardInput::GetInstance().GetHitUpKey());
 	BurstPlayerUpdate();
@@ -232,7 +232,7 @@ void IBurstState::Update(std::function<bool(float thickRate, float costRate, int
 		Lerp(1.0f, BURST_THICK_RATE, EaseOut(t))
 		, Lerp(1.0f, BURST_COST_RATE, EaseOut(t))
 		, timerMax_
-		, TrajectoriesManager::BURST_TRAJ_NAME
+		, trajName_
 	);
 }
 
@@ -244,6 +244,8 @@ void PlayerStateBurstUp::Init()
 	dirY_ = -Player::AUTO_MOVING_SPEED;
 	timerMax_ = STATE_TIME;
 	timer_ = STATE_TIME;
+
+	trajName_ = TrajectoriesManager::BURST_UP_NAME;
 }
 
 void PlayerStateBurstUp::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
@@ -280,6 +282,8 @@ void PlayerStateBurstDown::Init()
 	dirY_ = Player::AUTO_MOVING_SPEED;
 	timerMax_ = STATE_TIME;
 	timer_ = STATE_TIME;
+
+	trajName_ = TrajectoriesManager::BURST_DOWN_NAME;
 }
 
 void PlayerStateBurstDown::Update(std::function<bool(float thickRate, float costRate, int32_t continueNum, const std::string& trajName)> shootFunc)
