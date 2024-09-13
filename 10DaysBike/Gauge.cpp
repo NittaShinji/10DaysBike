@@ -2,7 +2,7 @@
 #include "Easing.h"
 
 const ColorDxLib IGauge::COLOR = { 255,255,255 };
-const ColorDxLib IGauge::DANGER_COLOR = { 255,50,50 };
+const ColorDxLib IGauge::DANGER_COLOR = { 255,20,20 };
 
 
 void IGauge::Init()

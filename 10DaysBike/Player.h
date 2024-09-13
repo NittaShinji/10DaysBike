@@ -17,8 +17,6 @@ public:
 	static const uint16_t PROT_PLAYER_DRAWING_SIZE = 40;
 	static const ColorDxLib PROT_PLAYER_COLOR;
 	static const ColorDxLib DAMAGED_PLAYER_COLOR;
-	static const int TURN_KEY = KEY_INPUT_S;
-	static const int TURN_KEY2 = KEY_INPUT_DOWN;
 	static const int BURST_KEY = KEY_INPUT_SPACE;
 	static const float DAMAGE_DECRE_RATIO;
 public:
