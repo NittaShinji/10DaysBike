@@ -16,11 +16,13 @@ public:
 	int GetScore() { return score_; }
 	int GetTargetScore() { return targetScore_; }
 	bool GetIsDrum() { return isDrumRoll_; }
+	bool GetIsFinishDrum() { return isFinishDrumroll; }
 
 	void SetIsDrum(bool isDrumRoll) { isDrumRoll_ = isDrumRoll; }
 	void SetDrumTimer(float drumRollTimer) { drumTimer_ = drumRollTimer; }
 	void SetTargetScore(int targetScore) { targetScore_ = targetScore; }
 	void SetPos(Vec2 pos);
+	void SetScore(int score) { score_ = score; }
 
 	//スコア追加
 	void AddScore(int32_t addNum)
@@ -77,11 +79,14 @@ private:
 	//リザルトで足していくときのタイマー
 	float drumTimer_ = 0;
 	//ドラムロールする時間
-	const float kMaxDrumTime_ = 90;
+	const float kMaxDrumTime_ = 60;
 
 	//ドラムロールしているかのフラグ
 	bool isDrumRoll_ = false;
 
 	//ドラムロールの目標スコア
 	int drumRollscoreTarget_ = 0;
+
+	//ドラムロールが終わったかどうか
+	bool isFinishDrumroll = false;
 };

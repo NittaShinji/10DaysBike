@@ -50,7 +50,8 @@ void ResultScene::Initialize()
 
 void ResultScene::Update()
 {
-	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_RETURN)) {
+	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_SPACE)) 
+	{
 		//ƒQ[ƒ€ƒV[ƒ“‚ÉˆÚ“®
 		if (CheckSoundMem(gameOverSoundHandle_) == 1)
 		{
@@ -60,6 +61,7 @@ void ResultScene::Update()
 		{
 			StopSoundMem(clearSoundHandle_);
 		}
+
 		SceneManager::GetInstance()->ChangeScene("TITLE");
 		gameState_->scoreManager_->Reset();
 		gameState_->SetIsClear(false);
@@ -77,6 +79,11 @@ void ResultScene::Update()
 	if(isStartDrumScore_ == true)
 	{
 		gameState_->scoreManager_->ResetUpdate();
+	}
+
+	if (gameState_->scoreManager_->GetResultScore()->GetIsFinishDrum() == true)
+	{
+		gameState_->scoreManager_->RegistRanking();
 	}
 }
 
@@ -97,4 +104,6 @@ void ResultScene::Draw()
 	}
 
 	gameState_->scoreManager_->ResetDraw();
+	gameState_->scoreManager_->DrawRanking();
+
 }

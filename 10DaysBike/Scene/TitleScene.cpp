@@ -16,15 +16,31 @@ void TitleScene::StaticInitialize()
 void TitleScene::Initialize()
 {
 	playTimer_ = kDefaultPlaytoTime_;
-
+	
 	// ‰¹—Ê‚Ìİ’è
 	//ChangeVolumeSoundMem(255 * 50 / 100, bgmHandle_);
 	////BGMÄ¶
 	//PlaySoundMem(bgmHandle_, DX_PLAYTYPE_LOOP);
+	gameState_->scoreManager_->SetIsRegistRanking(false);
 }
 
 void TitleScene::Update()
 {
+	if (KeyboardInput::GetInstance().GetTriggerKey(KEY_INPUT_Y)) 
+	{
+		if (isTakeRank_ == false)
+		{
+			isTakeRank_ = true;
+			gameState_->scoreManager_->InitRanking();
+		}
+	}
+
+	if (isTakeRank_ == true)
+	{
+		gameState_->scoreManager_->UpdateRanking();
+	}
+
+
 	if (isPlayBgm_ == false)
 	{
 		if (playTimer_ > 0)
@@ -59,6 +75,8 @@ void TitleScene::Draw()
 
 	//ƒ^ƒCƒgƒ‹•`‰æ
 	DrawGraph(0, 0, titleHandle_, true);
+
+	gameState_->scoreManager_->DrawRanking();
 
 	//”wŒi•`‰æ
 
