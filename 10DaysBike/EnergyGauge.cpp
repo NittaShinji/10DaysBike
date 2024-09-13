@@ -117,17 +117,22 @@ bool EnergyGauge::ChargeGaugeRatio(float posY, float ratio)
 {
 	if (posY >= FRAME_TOP)
 	{
-		gaugeRatio_ = min(gaugeRatio_ + ratio, 1.0f);
-
-		frameScaleTime_ += CHARGE_SCALING_INCRE;
-		frameScaleRate_ = sinf(frameScaleTime_) * CHARGE_SCALING_MAX;
-
-		//パーティクル
-		gaugeEffect_->SetPos(frame_->GetPos());
-		gaugeEffect_->SetWidthHeight(frame_->GetWidthHeight());
-		gaugeEffect_->Generate();
+		ChargeGaugeRatio(ratio);
 
 		return true;
 	}
 	return false;
+}
+
+void EnergyGauge::ChargeGaugeRatio(float ratio)
+{
+	gaugeRatio_ = min(gaugeRatio_ + ratio, 1.0f);
+
+	frameScaleTime_ += CHARGE_SCALING_INCRE;
+	frameScaleRate_ = sinf(frameScaleTime_) * CHARGE_SCALING_MAX;
+
+	//パーティクル
+	gaugeEffect_->SetPos(frame_->GetPos());
+	gaugeEffect_->SetWidthHeight(frame_->GetWidthHeight());
+	gaugeEffect_->Generate();
 }

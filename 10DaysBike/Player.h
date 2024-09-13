@@ -48,6 +48,10 @@ private:
 	static const uint8_t NORMAL_IMAGE_NUM = 3;
 	static const uint8_t CURVE_IMAGE_NUM = 3;
 private:
+	static const std::string UP_BURST_SOUND_NAME;
+	static const std::string DOWN_BURST_SOUND_NAME;
+
+private:
 	//軌跡の管理クラス
 	std::unique_ptr<TrajectoriesManager> trajManag_ = nullptr;
 	//ステート
@@ -70,6 +74,10 @@ private:
 
 	//ダメージ受けたとき呼び出す関数
 	std::function<bool(float damageDecreRatio)> damageFunc_ = nullptr;
+
+	//音
+	int downBurstSound_ = 0;
+	int upBurstSound_ = 0;
 
 public:
 	~Player();
@@ -96,6 +104,11 @@ public:
 	void  ImageIndexReset() { imageIndex_ = 0; }
 	Vec2* GetPlayerPosPtr() { return &pos_; };
 	IPlayerState* GetPlayerState() { return state_.get(); }
+
+public:
+	void PlayUpBurstSound();
+	void StopUpBurstSound();
+	void PlayDownBurstSound();
 
 public:
 	//衝突時に呼び出される関数

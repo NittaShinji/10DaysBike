@@ -12,12 +12,26 @@ const ColorDxLib Player::DAMAGED_PLAYER_COLOR = { 255,0,0 };
 
 const std::string Player::NORMAL_IMAGE_NAME = "BikeRun.png";
 const std::string Player::CURVE_IMAGE_NAME = "BikeCurve.png";
+const std::string Player::UP_BURST_SOUND_NAME = "upBurst.wav";
+const std::string Player::DOWN_BURST_SOUND_NAME = "downBurst.wav";
 
 const float Player::DAMAGE_DECRE_RATIO = 0.25f;
 
 Player::~Player()
 {
 	RemoveCollider();
+
+	DeleteSoundMem(upBurstSound_);
+	DeleteSoundMem(downBurstSound_);
+
+	for (int i = 0; i < NORMAL_IMAGE_NUM;i++)
+	{
+		DeleteGraph(normalImageHandles_[i]);
+	}
+	for (int i = 0; i < CURVE_IMAGE_NUM; i++)
+	{
+		DeleteGraph(curveImageHandles_[i]);
+	}
 }
 
 void Player::Init()
@@ -37,7 +51,11 @@ void Player::Init(const Vec2& pos)
 	LoadDivGraph((RESOUCE_PATH + CURVE_IMAGE_NAME).c_str(), CURVE_IMAGE_NUM, CURVE_IMAGE_NUM,
 		1, IMAGE_SIZE, IMAGE_SIZE, curveImageHandles_);
 
-	color_ = PROT_PLAYER_COLOR;
+	//‰¹
+	upBurstSound_ = LoadSoundMem((RESOUCE_PATH + UP_BURST_SOUND_NAME).c_str());
+	downBurstSound_ = LoadSoundMem((RESOUCE_PATH + DOWN_BURST_SOUND_NAME).c_str());
+
+		color_ = PROT_PLAYER_COLOR;
 
 	radius_ = PROT_PLAYER_DRAWING_SIZE;
 
@@ -166,6 +184,21 @@ void Player::IncrementImageIndex(const std::string& imageName)
 	{
 		imageIndex_ = min(imageIndex_ + 1, CURVE_IMAGE_NUM - 1);
 	}
+}
+
+void Player::PlayUpBurstSound()
+{
+	PlaySoundMem(upBurstSound_, DX_PLAYTYPE_BACK);
+}
+
+void Player::StopUpBurstSound()
+{
+	StopSoundMem(upBurstSound_);
+}
+
+void Player::PlayDownBurstSound()
+{
+	PlaySoundMem(downBurstSound_, DX_PLAYTYPE_BACK);
 }
 
 void Player::OnCollision(const CollisionInfo& info)

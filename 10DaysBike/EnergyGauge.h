@@ -71,5 +71,6 @@ public:
 	bool DecreGaugeRatio(float ratio, int32_t continueNum);
 	bool DamageDecreGauge(float ratio);
 	bool ChargeGaugeRatio(float posY, float ratio);
+	void ChargeGaugeRatio(float ratio);
 };
 

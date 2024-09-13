@@ -252,10 +252,17 @@ void PlayerStateBurstUp::Update(std::function<bool(float thickRate, float costRa
 
 	if (timer_ < 1 || isEnd_)
 	{
+		player_->StopUpBurstSound();
 		player_->ChangeState(std::make_unique<PlayerStateUp>());
 	}
 	else
 	{
+		//ŽG‚É
+		if (timer_ == timerMax_ - 1)
+		{
+			player_->PlayUpBurstSound();
+		}
+
 		IPlayerState::Update(nullptr, true);
 	}
 }
@@ -285,6 +292,12 @@ void PlayerStateBurstDown::Update(std::function<bool(float thickRate, float cost
 	}
 	else
 	{
+		//ŽG‚É
+		if (timer_ == timerMax_ - 1)
+		{
+			player_->PlayDownBurstSound();
+		}
+
 		IPlayerState::Update(nullptr, false);
 	}
 }
