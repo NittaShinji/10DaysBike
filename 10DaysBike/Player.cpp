@@ -20,6 +20,18 @@ const float Player::DAMAGE_DECRE_RATIO = 0.25f;
 Player::~Player()
 {
 	RemoveCollider();
+
+	DeleteSoundMem(upBurstSound_);
+	DeleteSoundMem(downBurstSound_);
+
+	for (int i = 0; i < NORMAL_IMAGE_NUM;i++)
+	{
+		DeleteGraph(normalImageHandles_[i]);
+	}
+	for (int i = 0; i < CURVE_IMAGE_NUM; i++)
+	{
+		DeleteGraph(curveImageHandles_[i]);
+	}
 }
 
 void Player::Init()
