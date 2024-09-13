@@ -8,8 +8,6 @@ class TitleScene : public BaseScene
 {
 public:
 
-	~TitleScene();
-
 	//静的初期化
 	static void StaticInitialize();
 
@@ -22,10 +20,23 @@ public:
 	//描画
 	void Draw() override;
 
+	//リソース削除
+	static void DeleteResource();
+
 private:
 
 	//スプライト
 	static int titleHandle_;
+
+	//ゲーム内BGM
+	static int bgmHandle_;
+
+	//BGMタイマー
+	const int kDefaultPlaytoTime_ = 20;
+	int playTimer_ = 0;
+
+	//鳴らしたかどうか
+	bool isPlayBgm_ = false;
 };
 
 

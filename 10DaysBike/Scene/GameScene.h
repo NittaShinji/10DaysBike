@@ -51,5 +51,12 @@ private:
 	static CollisionManager* collisionManager_;
 	//背景クラス
 	std::unique_ptr <BackGround> backGround = nullptr;
+
+	//ゲーム内BGM
+	static int bgmHandle_;
+	//スタート音
+	static int startHandle_;
+
+	bool isStart_ = false;
 };
 
