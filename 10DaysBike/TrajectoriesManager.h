@@ -17,8 +17,10 @@ public:
 		std::string name;
 	};
 public:
-	static const std::string NORMAL_TRAJ_NAME;
-	static const std::string BURST_TRAJ_NAME;
+	static const std::string UP_TRAJ_NAME;
+	static const std::string DOWN_TRAJ_NAME;
+	static const std::string BURST_UP_NAME;
+	static const std::string BURST_DOWN_NAME;
 
 public:
 	static const float TRAJ_SPEED;
