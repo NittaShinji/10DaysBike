@@ -22,7 +22,7 @@ void BeamEnemy::Init(const Vec2& pos, float bulletSpeed)
 	//‰Šú‰»
 	IBulletEnemy::Init(pos, bulletSpeed, "BeamEnemy");
 	imageNum_ = 0;
-	hp_ = 1000;
+	hp_ = 100;
 	actionPhase_ = Charge;
 	isTopBullet_ = true;
 

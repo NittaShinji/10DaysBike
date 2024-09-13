@@ -1,6 +1,7 @@
 #include "IEnemy.h"
 #include "CollisionAttribute.h"
 #include "Inform.h" 
+#include "TrajectoriesManager.h"
 
 const float IEnemy::AUTO_MOVING_SPEED = 3.0f;
 const float IEnemy::SIDE_MOVING_SPEED = 3.0f;
@@ -77,14 +78,23 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 		isHit_ = true;
 
 		std::string objName = info.object->GetName();
-		if (objName == "traj")
+		if (objName == TrajectoriesManager::UP_TRAJ_NAME)
 		{
 			hp_ -= 1;
 		}
-		else if (objName == "burstTraj")
+		else if (objName == TrajectoriesManager::DOWN_TRAJ_NAME)
+		{
+			hp_ -= 1;
+		}
+		else if (objName == TrajectoriesManager::BURST_UP_NAME)
+		{
+			hp_ -= 1;
+		}
+		else if (objName == TrajectoriesManager::DOWN_TRAJ_NAME)
 		{
 			hp_ = 0;
 		}
+
 
 		color_ = { 255,0,0 };
 
