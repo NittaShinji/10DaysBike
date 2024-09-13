@@ -72,7 +72,7 @@ void TitleScene::Draw()
 	//ƒ^ƒCƒgƒ‹•`‰æ
 	DrawGraph(0, 0, titleHandle_, true);
 
-	gameState_->scoreManager_->DrawRanking();
+	//gameState_->scoreManager_->DrawRanking();
 
 	//”wŒi•`‰æ
 

@@ -84,7 +84,7 @@ void ResultScene::Update()
 
 	if (gameState_->scoreManager_->GetResultScore()->GetIsFinishDrum() == true)
 	{
-		gameState_->scoreManager_->RegistRanking();
+		//gameState_->scoreManager_->RegistRanking();
 	}
 
 	if(isStartDrumScore_ == true)
