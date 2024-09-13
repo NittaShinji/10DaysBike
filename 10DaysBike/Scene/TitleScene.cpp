@@ -23,6 +23,8 @@ void TitleScene::Initialize()
 	//PlaySoundMem(bgmHandle_, DX_PLAYTYPE_LOOP);
 	gameState_->scoreManager_->SetIsRegistRanking(false);
 	gameState_->scoreManager_->SetIsjugeRegist(false);
+	gameState_->scoreManager_->InitRanking();
+	gameState_->scoreManager_->UpdateRanking();
 }
 
 void TitleScene::Update()
@@ -73,7 +75,6 @@ void TitleScene::Draw()
 	DrawGraph(0, 0, titleHandle_, true);
 
 	//gameState_->scoreManager_->DrawRanking();
-
 	//”wŒi•`‰æ
 
 }

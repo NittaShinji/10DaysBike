@@ -31,6 +31,8 @@ public:
 	void RegistRanking();
 	void DrawRanking();
 
+	void SetNotRankDrumRoll();
+
 private:
 
 	std::unique_ptr<Score> totalScore_ = nullptr;
