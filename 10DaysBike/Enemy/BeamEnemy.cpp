@@ -29,13 +29,7 @@ void BeamEnemy::Init(const Vec2& pos, float bulletSpeed)
 	//ステート
 	ChangeState(std::make_unique<EnemyStateNonAction>());
 
-	if (pattern_ == 0) {
-		isInvMove_ = false;
-				   
-	}			   
-	else {		   
-		isInvMove_ = true;
-	}
+
 }
 
 void BeamEnemy::Update()
@@ -50,10 +44,10 @@ void BeamEnemy::Update()
 		}
 
 		//移動処理
-		if (isInvMove_ == false) {
+		if (pattern_ == 0) {
 			moveVec_ = kMoveSpeed_;
 		}
-		else {
+		else if(pattern_ == 1) {
 			moveVec_ = kMoveSpeed_;
 			moveVec_.x *= -1;
 		}
@@ -118,7 +112,7 @@ void BeamEnemy::Draw()
 {
 	IBulletEnemy::Draw();
 	
-	const int shakeRange = 2;
+	const int shakeRange = 2; 
 	if (isHit_ == true)
 	{
 		drawPos_.x += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ランダムに震える

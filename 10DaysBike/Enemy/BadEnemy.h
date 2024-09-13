@@ -22,8 +22,8 @@ private:
 	//目的地
 	Vec2 targetPos_;     
 	//移動速度
-	const float moveSpeedY_ = 3.0f;  
-	const float moveSpeedX_ = 3.5f;
+	const float moveSpeedY_ = 5.0f;  
+	const float moveSpeedX_ = 4.f;
 
 	//動きパターンのローカル変数
 	int32_t pattern_ = 0;

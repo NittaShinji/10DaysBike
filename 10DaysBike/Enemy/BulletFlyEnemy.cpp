@@ -3,7 +3,7 @@
 #include "BulletManager.h"
 #include "CollisionAttribute.h"
 
-const double BulletFlyEnemy::kBulletFlyEnemyImageScale_ = 1.0f;
+const double BulletFlyEnemy::kBulletFlyEnemyImageScale_ = 0.3f;
 
 BulletFlyEnemy::~BulletFlyEnemy()
 {
@@ -58,6 +58,18 @@ void BulletFlyEnemy::Update()
 		{
 			imageNum_ = 3;
 		}
+	}
+
+	if (pattern_ == 0) {
+		pos_.x += 3.f;
+		pos_.y += 4.f;
+	}
+	else if (pattern_ == 1) {
+		pos_.x -= 3.f;
+		pos_.y += 4.f;
+	}
+	else if (pattern_ == 2) {
+		pos_.y += 4.f;
 	}
 }
 

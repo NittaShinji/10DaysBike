@@ -11,7 +11,7 @@ class IEnemy : public IObject2D
 public:
 	static const float AUTO_MOVING_SPEED;
 	static const float SIDE_MOVING_SPEED;
-	static const uint16_t PROT_ENEMY_DRAWING_SIZE = 40;
+	static const uint16_t PROT_ENEMY_DRAWING_SIZE = 50;
 	static const ColorDxLib PROT_ENEMY_COLOR;
 	static const int TURN_KEY = KEY_INPUT_SPACE;
 
@@ -34,6 +34,7 @@ protected:
 	double angle_ = 0.0;
 	//ï`âÊópç¿ïW
 	Vec2 drawPos_;
+	Vec2 size_ = { 1,1 };
 
 public:
 	~IEnemy();

@@ -173,6 +173,9 @@ void EnemyStateFireBullet::Update()
 		//発射タイマーを初期化
 		bulletCoolTimer_ = kBulletCoolTime_;
 	}
+
+	Vec2 nowPos = enemy_->GetPos();
+
 }
 
 void EnemyStateFireBullet::Draw(){}
