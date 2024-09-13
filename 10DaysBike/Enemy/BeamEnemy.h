@@ -43,7 +43,7 @@ private:
 	bool isInvMove_ = false;
 
 	Vec2 moveVec_;
-	const Vec2 kMoveSpeed_ = { 3.f, 0.5f};
+	const Vec2 kMoveSpeed_ = { 3.f, 5.f};
 
 
 

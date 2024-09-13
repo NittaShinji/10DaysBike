@@ -16,7 +16,7 @@ public:
 
 private:
 
-	int graphHandle_;
+	int graphHandle_[8];
 
 	//–Ú“I’n
 	Vec2 targetPos_;

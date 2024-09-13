@@ -5,7 +5,11 @@
 
 WanderEnemy::~WanderEnemy()
 {
-	DeleteGraph(graphHandle_);
+	// 読み込んだ画像のグラフィックハンドルを削除
+	for (int i = 0; i < 8; i++)
+	{
+		DeleteGraph(graphHandle_[i]);
+	}
 }
 
 void WanderEnemy::Init(const Vec2& pos, Vec2* targetPos)
@@ -14,7 +18,8 @@ void WanderEnemy::Init(const Vec2& pos, Vec2* targetPos)
 	IEnemy::Init(pos, "WanderEnemy");
 
 	//画像読み込み
-	graphHandle_ = LoadGraph((RESOUCE_PATH + "batEnemy.png").c_str());
+	LoadDivGraph((RESOUCE_PATH + "BombEnemy.png").c_str(), 8, 8,
+		1,  64, 64, graphHandle_);
 
 	IEnemy::AddCollider();
 
@@ -99,10 +104,11 @@ void WanderEnemy::Draw()
 	{
 		drawPos_.x += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ランダムに震える
 		drawPos_.y += (rand() % (shakeRange * 2 + 1)) - shakeRange;  // ランダムに震える
-		DrawGraph(drawPos_.x - radius_, drawPos_.y - radius_, graphHandle_, FALSE);
+		
+		DrawRotaGraph(drawPos_.x, drawPos_.y, 0.7f, angle_, graphHandle_[1], TRUE, FALSE);
 	}
 	else {
-		DrawGraph(pos_.x - radius_, pos_.y - radius_, graphHandle_, FALSE);
+		DrawRotaGraph(drawPos_.x, drawPos_.y, 0.7f, angle_, graphHandle_[1], TRUE, FALSE);
 	}
 	
 }
