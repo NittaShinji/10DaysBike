@@ -1,13 +1,22 @@
 #include "IEnemy.h"
 #include "CollisionAttribute.h"
+#include "Inform.h" 
 
 const float IEnemy::AUTO_MOVING_SPEED = 3.0f;
 const float IEnemy::SIDE_MOVING_SPEED = 3.0f;
 const ColorDxLib IEnemy::PROT_ENEMY_COLOR = { 255,128,128 };
+int IEnemy::explosionSoundHandle_;
+int IEnemy::deadSoundHandle_;
 
 IEnemy::~IEnemy()
 {
 
+}
+
+void IEnemy::LoadSound()
+{
+	explosionSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "enemyDamege.wav").c_str());
+	deadSoundHandle_ = LoadSoundMem((RESOUCE_PATH + "enemyDead.wav").c_str());
 }
 
 void IEnemy::Init(){}
@@ -96,6 +105,23 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 
 		color_ = { 255,0,0 };
 	}
+
+	if (hp_ <= 0)
+	{
+		//‰¹‚ª–Â‚Á‚Ä‚¢‚È‚©‚Á‚½‚çÄ¶‚·‚é
+		if (CheckSoundMem(deadSoundHandle_) == 0)
+		{
+			PlaySoundMem(deadSoundHandle_, DX_PLAYTYPE_BACK);
+		}
+	}
+	else {
+		//‰¹‚ª–Â‚Á‚Ä‚¢‚È‚©‚Á‚½‚çÄ¶‚·‚é
+		if (CheckSoundMem(explosionSoundHandle_) == 0)
+		{
+			PlaySoundMem(explosionSoundHandle_, DX_PLAYTYPE_BACK);
+		}
+	}
+	
 
 	ExplosionStaging_->Init(pos_,1000);
 }

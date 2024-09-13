@@ -18,6 +18,9 @@ public:
 	//静的初期化
 	static void StaticInitialize();
 
+	//リソース削除
+	static void DeleteResource();
+
 	//初期化
 	void Initialize() override;
 

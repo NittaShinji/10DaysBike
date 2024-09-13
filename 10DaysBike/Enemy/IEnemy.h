@@ -35,10 +35,19 @@ protected:
 	//•`‰æ—pÀ•W
 	Vec2 drawPos_;
 
+	//”š”­‰¹
+	static int explosionSoundHandle_;
+	//€–S‰¹
+	static int deadSoundHandle_;
+
 public:
 	~IEnemy();
 
 public:
+
+	static void LoadSound();
+	static void UnloadSound(){DeleteSoundMem(explosionSoundHandle_);}
+
 	void Init()override;
 	virtual void Init(const Vec2& pos, std::string name);
 	void Update()override;

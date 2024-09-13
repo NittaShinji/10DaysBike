@@ -90,6 +90,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 	}
+
+	GameScene::DeleteResource();
+
 	// Dxƒ‰ƒCƒuƒ‰ƒŠI—¹ˆ—
 	DxLib_End();
 

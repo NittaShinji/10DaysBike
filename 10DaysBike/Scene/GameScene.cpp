@@ -14,6 +14,12 @@ CollisionManager* GameScene::collisionManager_ = nullptr;
 void GameScene::StaticInitialize()
 {
 	collisionManager_ = CollisionManager::GetInstance();
+	IEnemy::LoadSound();
+}
+
+void GameScene::DeleteResource()
+{
+	IEnemy::UnloadSound();
 }
 
 void GameScene::Initialize()
