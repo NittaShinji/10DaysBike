@@ -18,7 +18,7 @@ public:
 
 private:
 	//1.0f==100%
-	const float DAMAGED_CHARGE_GAUGE_RATIO = 0.1f / 60.0f;
+	const float DAMAGED_CHARGE_GAUGE_RATIO = 0.07f / 60.0f;
 
 protected:
 

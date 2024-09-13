@@ -2,10 +2,10 @@
 #include "KeyboardInput.h"
 
 const float TrajectoriesManager::TRAJ_SPEED = 30.0f;
-const std::string TrajectoriesManager::UP_TRAJ_NAME;
-const std::string TrajectoriesManager::DOWN_TRAJ_NAME;
-const std::string TrajectoriesManager::BURST_UP_NAME;
-const std::string TrajectoriesManager::BURST_DOWN_NAME;
+const std::string TrajectoriesManager::UP_TRAJ_NAME = "UpTraj";
+const std::string TrajectoriesManager::DOWN_TRAJ_NAME = "DownTraj";
+const std::string TrajectoriesManager::BURST_UP_NAME = "burstUp";
+const std::string TrajectoriesManager::BURST_DOWN_NAME = "burstDown";
 
 void TrajectoriesManager::Init()
 {
