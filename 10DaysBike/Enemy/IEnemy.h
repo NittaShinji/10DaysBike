@@ -30,8 +30,6 @@ protected:
 	uint16_t damageNum_ = 1;
 	//敵のコライダー
 	std::unique_ptr<CircleCollider> enemyCollider_ = nullptr;
-	//爆発演出
-	std::unique_ptr<ExplosionStaging> ExplosionStaging_ = nullptr;
 	//HP
 	const int32_t kDefaultEnemyHP_ = 30;
 	int32_t hp_ = kDefaultEnemyHP_;
@@ -48,6 +46,8 @@ protected:
 
 	//ゲージをチャージするための関数
 	std::function<void(float chargeRatio)> chargeFunc_ = nullptr;
+	//ダメージ演出するための関数
+	std::function<void(const Vec2& pos, float radius)> damagedEffectFunc_ = nullptr;
 
 public:
 	~IEnemy();
@@ -75,5 +75,6 @@ public:
 	bool GetIsDead() const { return isDead_; }
 
 	void SetChargeGaugeFunc(const std::function<void(float chargeRatio)>& func) { chargeFunc_ = func; }
+	void SetDamagedEffectFunc(const std::function<void(const Vec2& pos, float radius)>& func) { damagedEffectFunc_ = func; }
 };
 

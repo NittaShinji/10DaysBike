@@ -7,6 +7,7 @@
 #include "BulletManager.h"
 #include <vector>
 #include <sstream>
+#include "EnemyDamageEffect.h"
 
 class EnemyManager
 {
@@ -28,7 +29,10 @@ private:
 	std::vector<std::unique_ptr<IEnemy>> enemies_;
 	std::unique_ptr<BulletManager> bulletManager_;
 
+	std::unique_ptr<EnemyDamageEffect> enemyDamageEffect_ = nullptr;
+
 	std::function<void(float chargeRatio)>damagedChargeGaugeFunc_ = nullptr;
+	std::function<void(const Vec2& pos ,float radius)>damagedEffectFunc_ = nullptr;
 
 public:
 	~EnemyManager() { enemies_.clear(); }
@@ -41,12 +45,12 @@ private:
 	//敵発生関数
 	void GenerateBadEnemy(const Vec2& GeneratePos);
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos);
-	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos );
+	void GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos);
 	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos);
 	void GenerateBeamEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, int32_t pattern);
 	void GenerateBadEnemy(const Vec2& GeneratePos, const int32_t pattern);
 	void GenerateBulletFlyEnemy(const Vec2& GeneratePos, const int32_t pattern);
-	void GenerateWanderEnemy(Vec2* PlayerPos ,const Vec2& GeneratePos, const int32_t pattern);
+	void GenerateWanderEnemy(Vec2* PlayerPos, const Vec2& GeneratePos, const int32_t pattern);
 
 public:
 	void Init(const std::function<void(float chargeRatio)>& damagedChargeGaugeFunc);
@@ -56,6 +60,14 @@ public:
 	void SetPlayerPosPtr(Vec2* pPosPtr);
 	bool GetIsGameEnd() { return isGameEnd_; };
 	std::vector<std::string>& GetDeadEnemyNames() { return deadEnemyNames_; }
+
+public:
+	void GenerateDamageEffect(const Vec2& pos, float radius) {
+		//パーティクル
+		enemyDamageEffect_->SetPos(pos);
+		enemyDamageEffect_->SetRadius(radius);
+		enemyDamageEffect_->Generate();
+	}
 
 private:
 

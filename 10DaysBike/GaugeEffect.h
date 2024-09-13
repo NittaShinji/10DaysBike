@@ -20,10 +20,6 @@ public:
 private:
 	Vec2 widthHeight_;
 
-public:
-
-
-
 private:
 
 public:

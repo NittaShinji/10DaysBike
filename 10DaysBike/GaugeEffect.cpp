@@ -3,9 +3,7 @@
 
 void GaugeEffect::Generate()
 {
-	timer++;
-
-	if (timer % interval_ == 0)
+	if(TimerUpdate())
 	{
 		for (int i = 0; i < generateNum_; i++)
 		{
@@ -13,10 +11,7 @@ void GaugeEffect::Generate()
 			genePos.x = pos_.x - widthHeight_.x / 2.0f + GetRand(widthHeight_.x);
 			genePos.y = pos_.y - widthHeight_.y / 2.0f + GetRand(widthHeight_.y);
 
-			Vec2 sVec;
-			sVec.x = (float)(GetRand(dirXMax_ * 10.0f) - (dirXMax_ - dirXMin_) * 10.0f / 4.0f) / 10.0f;
-			sVec.y = (float)(GetRand(dirYMax_ * 10.0f) - (dirYMax_ - dirYMin_) * 10.0f / 4.0f) / 10.0f;
-
+			Vec2 sVec = GetRandomVecFromDirMinMax();
 
 			Particle::ParticleInform info = {
 				ACCLEL_Y,

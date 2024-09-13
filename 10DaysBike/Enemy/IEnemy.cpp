@@ -30,8 +30,6 @@ void IEnemy::Init(const Vec2& pos, std::string name)
 	color_ = PROT_ENEMY_COLOR;
 
 	radius_ = PROT_ENEMY_DRAWING_SIZE;
-
-	ExplosionStaging_ = std::make_unique<ExplosionStaging>();
 }
 
 void IEnemy::Update()
@@ -49,8 +47,6 @@ void IEnemy::Update()
 		isDead_ = true;
 		isDeleteCollider_ = true;
 	}
-
-	ExplosionStaging_->Update(pos_);
 	
 	//現在位置をコライダー用の変数に渡す
 	coliderPos_ = pos_;
@@ -59,10 +55,14 @@ void IEnemy::Update()
 
 void IEnemy::Draw()
 {
-	if (isHit_ == true)
+	if (hp_ > 0)
 	{
-		ExplosionStaging_->Draw();
-	}	
+		unsigned int Cr;
+		// 白の色コードを保存
+		Cr = GetColor(255, 255, 255);
+		DrawFormatString(100, 300, Cr, "敵HP : %d", hp_);
+	}
+	
 }
 
 void IEnemy::AddCollider()
@@ -98,6 +98,8 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 
 		//ダメージ時にゲージ回復させる
 		chargeFunc_(DAMAGED_CHARGE_GAUGE_RATIO);
+		//ダメージ演出
+		damagedEffectFunc_(pos_, radius_);
 	}
 
 	if (hp_ <= 0)
@@ -115,7 +117,4 @@ void IEnemy::OnCollision(const CollisionInfo& info)
 			PlaySoundMem(explosionSoundHandle_, DX_PLAYTYPE_BACK);
 		}
 	}
-	
-
-	ExplosionStaging_->Init(pos_,1000);
 }
