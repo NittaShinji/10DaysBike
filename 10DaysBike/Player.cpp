@@ -188,16 +188,19 @@ void Player::IncrementImageIndex(const std::string& imageName)
 
 void Player::PlayUpBurstSound()
 {
+	ChangeVolumeSoundMem(255 * 80 / 100, upBurstSound_);
 	PlaySoundMem(upBurstSound_, DX_PLAYTYPE_BACK);
 }
 
 void Player::StopUpBurstSound()
 {
+	ChangeVolumeSoundMem(255 * 80 / 100, upBurstSound_);
 	StopSoundMem(upBurstSound_);
 }
 
 void Player::PlayDownBurstSound()
 {
+	ChangeVolumeSoundMem(255 * 60 / 100, downBurstSound_);
 	PlaySoundMem(downBurstSound_, DX_PLAYTYPE_BACK);
 }
 

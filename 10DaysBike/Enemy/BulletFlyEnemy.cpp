@@ -22,7 +22,7 @@ void BulletFlyEnemy::Init(const Vec2& pos,float bulletSpeed)
 	//初期化
 	IBulletEnemy::Init(pos,bulletSpeed,"BulletFlyEnemy");
 	imageNum_ = 0;
-	hp_ = 1000;
+	hp_ = 100;
 
 	//ステート
 	ChangeState(std::make_unique<EnemyStateFireBullet>());
