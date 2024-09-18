@@ -74,7 +74,7 @@ private:
 	const float kEasingTime_ = 60.0f;
 	EasingInfo resultOutEasing_ = { 0.0f, 300.0f, 0.0f, kEasingTime_ };
 
-	const float kWaitTime_ = 150.0f;
+	const float kWaitTime_ = 90.0f;
 	float waitTime_ = kWaitTime_;
 
 	const float kExplainTime_ = 165.0f;

@@ -7,7 +7,7 @@ static const Vec2 UI_SIZE = { 420,940 };
 static const float FIELD_CENTER = 320;
 static const Vec2 WINDOW_SIZE = { 640 + UI_SIZE.x/*420*/,940};
 static const Vec2 GAME_WINDOW_SIZE = { WINDOW_SIZE.x - UI_SIZE.x,WINDOW_SIZE.y };
-static const std::string TITLE = "エレクトロン";
+static const std::string TITLE = "エレクトロン_ver1.1";
 
 static const std::string RESOUCE_PATH = "Resources/";
 
