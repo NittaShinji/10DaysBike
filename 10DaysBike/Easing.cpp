@@ -44,3 +44,26 @@ float EaseInOut(float t)
 		: t < 0.5f ? powf(2, 20.0f * t - 10.0f) / 2.0f
 		: (2.0f - powf(2.0f, -20 * t + 10.0f)) / 2.0f;
 }
+
+float EaseOutQuint(float x)
+{
+	return static_cast <float> (1 - pow(1 - x, 5));
+}
+
+float PlayEaseOutQuint(EasingInfo easingInfo)
+{
+	float x = easingInfo.time / easingInfo.totalTime;
+	float v = EaseOutQuint(x);
+	float ret = easingInfo.endDistance * v + easingInfo.startPos;
+
+	return ret;
+}
+
+float PlayEaseOutQuint(float startPos, float endDistance, float time, float totalTime)
+{
+	float x = time / totalTime;
+	float v = EaseOutQuint(x);
+	float ret = endDistance * v + startPos;
+
+	return ret;
+}

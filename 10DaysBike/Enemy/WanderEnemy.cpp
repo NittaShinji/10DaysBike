@@ -26,7 +26,7 @@ void WanderEnemy::Init(const Vec2& pos, Vec2* targetPos)
 	targetPos_ = *(targetPos);
 	targetPosPtr_ = targetPos;
 
-
+	hp_ = 24;
 }
 
 void WanderEnemy::Update()

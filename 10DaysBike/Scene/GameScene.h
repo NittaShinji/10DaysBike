@@ -7,6 +7,7 @@
 #include "EnergyGauge.h"
 #include "BackGround.h"
 #include "Score.h"
+#include "Easing.h"
 
 /// <summary>
 /// ƒQ[ƒ€ƒV[ƒ“
@@ -58,6 +59,23 @@ private:
 	static int startHandle_;
 	//UI‰æ‘œ
 	static int uiHandle_;
+	//Finish‰æ‘œ
+	static int finishHandle_;
+
+	const Vec2 kDefaultPos_ = { 14 + UI_SIZE.x,-150};
+	const Vec2 kDropPos_ = { 0,300 };
+
+	Vec2 finishPos_;
+
+	bool isStartFinishAnime_ = false;
+
+	const float kEasingTime_ = 60.0f;
+	EasingInfo resultOutEasing_ = { 0.0f, 300.0f, 0.0f, kEasingTime_ };
+
+	const float kWaitTime_ = 150.0f;
+	float waitTime_ = kWaitTime_;
+
+
 
 	bool isStart_ = false;
 };

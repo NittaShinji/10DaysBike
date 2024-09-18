@@ -14,6 +14,7 @@ CollisionManager* GameScene::collisionManager_ = nullptr;
 int GameScene::bgmHandle_;
 int GameScene::startHandle_;
 int GameScene::uiHandle_;
+int GameScene::finishHandle_;
 
 void GameScene::StaticInitialize()
 {
@@ -21,6 +22,7 @@ void GameScene::StaticInitialize()
 	bgmHandle_ = LoadSoundMem((RESOUCE_PATH + "gameBGM.wav").c_str());
 	startHandle_ = LoadSoundMem((RESOUCE_PATH + "gameStart.wav").c_str());
 	uiHandle_ = LoadGraph((RESOUCE_PATH + "UI.png").c_str());
+	finishHandle_ = LoadGraph((RESOUCE_PATH + "finish.png").c_str());
 
 	IEnemy::LoadSound();
 }
@@ -53,6 +55,9 @@ void GameScene::Initialize()
 	gauge = std::make_unique<EnergyGauge>();
 	enemyManager = std::make_unique<EnemyManager>();
 	backGround = std::make_unique<BackGround>();
+	finishPos_ = kDefaultPos_;
+	isStartFinishAnime_ = false;
+	waitTime_ = kWaitTime_;
 
 	player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 	player->SetDamagedFunc([&](float decreGaugeRatio) { return gauge->DamageDecreGauge(decreGaugeRatio); });
@@ -104,12 +109,25 @@ void GameScene::Update()
 		StopSoundMem(bgmHandle_);
 		gameState_->SetIsClear(false);
 	}
-	else if (/*gameState_->scoreManager_->GetTotalScore()->GetScore() > ScoreManager::kGameClearScore ||*/ enemyManager->GetIsGameEnd() == true)
+
+	if (enemyManager->GetIsGameEnd() == true)
 	{
-		//クリアシーンに移動
-		SceneManager::GetInstance()->ChangeScene("RESULT");
-		StopSoundMem(bgmHandle_);
-		gameState_->SetIsClear(true);
+		resultOutEasing_.time++;
+		if (resultOutEasing_.time > 0 && resultOutEasing_.time <= resultOutEasing_.totalTime)
+		{
+			finishPos_.y = PlayEaseOutQuint(resultOutEasing_);
+		}
+	}
+
+	if (finishPos_.y >= kDropPos_.y)
+	{
+		waitTime_--;
+		if (waitTime_ < 0)
+		{
+			SceneManager::GetInstance()->ChangeScene("RESULT");
+			StopSoundMem(bgmHandle_);
+			gameState_->SetIsClear(true);
+		}
 	}
 }
 
@@ -173,6 +191,7 @@ void GameScene::Draw()
 	//UI描画処理(ブルームなし)
 	DrawGraph(0, 0, uiHandle_, true);
 	gameState_->scoreManager_->Draw();
+	DrawGraph(finishPos_.x, finishPos_.y, finishHandle_, true);
 	gauge->Draw();
 
 	ParticleEffectManager::GetInstance().Draw();
