@@ -15,6 +15,7 @@ int GameScene::bgmHandle_;
 int GameScene::startHandle_;
 int GameScene::uiHandle_;
 int GameScene::finishHandle_;
+int GameScene::explainHandle_;
 
 void GameScene::StaticInitialize()
 {
@@ -23,6 +24,7 @@ void GameScene::StaticInitialize()
 	startHandle_ = LoadSoundMem((RESOUCE_PATH + "gameStart.wav").c_str());
 	uiHandle_ = LoadGraph((RESOUCE_PATH + "UI.png").c_str());
 	finishHandle_ = LoadGraph((RESOUCE_PATH + "finish.png").c_str());
+	explainHandle_ = LoadGraph((RESOUCE_PATH + "explain.png").c_str());
 
 	IEnemy::LoadSound();
 }
@@ -32,7 +34,9 @@ void GameScene::DeleteResource()
 	IEnemy::UnloadSound();
 	DeleteSoundMem(bgmHandle_);
 	DeleteSoundMem(startHandle_);
-	DeleteSoundMem(uiHandle_);
+	DeleteGraph(uiHandle_);
+	DeleteGraph(finishHandle_);
+	DeleteGraph(explainHandle_);
 }
 
 void GameScene::Initialize()
@@ -58,6 +62,7 @@ void GameScene::Initialize()
 	finishPos_ = kDefaultPos_;
 	isStartFinishAnime_ = false;
 	waitTime_ = kWaitTime_;
+	explainTime_ = kExplainTime_;
 
 	player->Init({ UI_SIZE.x + WINDOW_SIZE.x / 2,WINDOW_SIZE.y / 2 });
 	player->SetDamagedFunc([&](float decreGaugeRatio) { return gauge->DamageDecreGauge(decreGaugeRatio); });
@@ -129,6 +134,11 @@ void GameScene::Update()
 			gameState_->SetIsClear(true);
 		}
 	}
+
+	if (explainTime_ > 0)
+	{
+		explainTime_--;
+	}
 }
 
 void GameScene::Draw()
@@ -193,6 +203,11 @@ void GameScene::Draw()
 	gameState_->scoreManager_->Draw();
 	DrawGraph(finishPos_.x, finishPos_.y, finishHandle_, true);
 	gauge->Draw();
+
+	if (explainTime_ > 0)
+	{
+		DrawGraph(30 + UI_SIZE.x, 350, explainHandle_, true);
+	}
 
 	ParticleEffectManager::GetInstance().Draw();
 }

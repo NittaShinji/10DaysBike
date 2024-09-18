@@ -61,6 +61,8 @@ private:
 	static int uiHandle_;
 	//Finish‰æ‘œ
 	static int finishHandle_;
+	//à–¾‰æ‘œ
+	static int explainHandle_;
 
 	const Vec2 kDefaultPos_ = { 14 + UI_SIZE.x,-150};
 	const Vec2 kDropPos_ = { 0,300 };
@@ -75,7 +77,8 @@ private:
 	const float kWaitTime_ = 150.0f;
 	float waitTime_ = kWaitTime_;
 
-
+	const float kExplainTime_ = 165.0f;
+	float explainTime_ = kWaitTime_;
 
 	bool isStart_ = false;
 };
