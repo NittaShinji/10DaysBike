@@ -26,7 +26,7 @@ void Trajectory::Init(const TwoPoses& twoPoses, const Vec2& vec, bool isHead)
 	color_ = PROT_TRAJ_COLOR;
 
 	//コライダーの追加
-	SetRadius(32.5f);
+	SetRadius(30.5f);
 	trajectoryCollider_ = std::make_unique<CircleCollider>(twoPoses.sPos, radius_);
 	SetCollider(trajectoryCollider_.get());
 
